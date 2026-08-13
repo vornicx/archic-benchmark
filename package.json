@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Archic's internal website quality benchmark and daily improvement command center.",
   "scripts": {
-    "dev": "node server.mjs",
+    "dev": "node scripts/dev-server.mjs",
     "benchmark": "node scripts/run-daily.mjs",
     "benchmark:demo": "node scripts/seed-demo.mjs",
     "validate": "node scripts/validate.mjs",
