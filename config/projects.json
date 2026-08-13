@@ -1,0 +1,52 @@
+{
+  "projects": [
+    {
+      "id": "la-bocana",
+      "name": "La Bocana",
+      "url": "https://labocana.vercel.app",
+      "profile": "premium-restaurant",
+      "positioning": "Premium waterfront restaurant",
+      "market": "Puerto Banús / Marbella",
+      "primaryGoal": "Reservation",
+      "secondaryGoal": "Trust and discovery",
+      "criticalPaths": ["/"],
+      "enabled": true
+    },
+    {
+      "id": "mfinity",
+      "name": "Mfinity",
+      "url": "https://mfinity-premium.vercel.app",
+      "profile": "luxury-car-rental",
+      "positioning": "Luxury car rental",
+      "market": "Marbella / Puerto Banús",
+      "primaryGoal": "Reservation / enquiry",
+      "secondaryGoal": "Vehicle discovery",
+      "criticalPaths": ["/"],
+      "enabled": true
+    },
+    {
+      "id": "noguera",
+      "name": "Inmobiliaria Noguera",
+      "url": "https://inmobiliaria-noguera.vercel.app",
+      "profile": "premium-real-estate",
+      "positioning": "Premium real estate",
+      "market": "Écija / Sevilla",
+      "primaryGoal": "Property enquiry",
+      "secondaryGoal": "Property discovery",
+      "criticalPaths": ["/"],
+      "enabled": true
+    },
+    {
+      "id": "trenes-y-tranvias",
+      "name": "Trenes y Tranvías",
+      "url": null,
+      "profile": "professional-services",
+      "positioning": "Specialist transport experiences and services",
+      "market": "Spain",
+      "primaryGoal": "Lead generation",
+      "secondaryGoal": "Portfolio discovery",
+      "criticalPaths": ["/"],
+      "enabled": false
+    }
+  ]
+}
