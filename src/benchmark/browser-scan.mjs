@@ -10,8 +10,10 @@ export async function scanViewport(url,{width,height,mobile=false,screenshotPath
   return withBrowser(async client=>{
     const errors=[];
     const failures=[];
-    client.on('Runtime.exceptionThrown',()=>errors.push('Runtime exception'));
-    client.on('Network.loadingFailed',p=>failures.push(p.errorText||'Network failure'));
+    const requests=new Map();
+    client.on('Runtime.exceptionThrown',p=>errors.push(p?.exceptionDetails?.exception?.description||p?.exceptionDetails?.text||'Runtime exception'));
+    client.on('Network.requestWillBeSent',p=>{if(p?.requestId&&p?.request?.url)requests.set(p.requestId,p.request.url)});
+    client.on('Network.loadingFailed',p=>failures.push(`${requests.get(p.requestId)||p.requestId||'request'} — ${p.errorText||'Network failure'}`));
     await Promise.all([client.send('Page.enable'),client.send('Runtime.enable'),client.send('Network.enable'),client.send('Performance.enable')]);
     await client.send('Emulation.setDeviceMetricsOverride',{width,height,deviceScaleFactor:mobile?2:1,mobile,screenWidth:width,screenHeight:height});
     await client.send('Page.addScriptToEvaluateOnNewDocument',{source:VITALS_SCRIPT});
@@ -24,10 +26,12 @@ export async function scanViewport(url,{width,height,mobile=false,screenshotPath
       lang:document.documentElement.lang||null,
       viewportMeta:Boolean(document.querySelector('meta[name="viewport"]')),
       h1Count:document.querySelectorAll('h1').length,
+      headingSamples:[...document.querySelectorAll('h1,h2,h3,h4,h5,h6')].slice(0,6).map(h=>h.tagName+' “'+(h.innerText||'').trim().replace(/\\s+/g,' ').slice(0,70)+'”'),
       jsonLdCount:document.querySelectorAll('script[type="application/ld+json"]').length,
       wordCount:(document.body?.innerText||'').trim().split(/\\s+/).filter(Boolean).length,
       imageCount:document.images.length,
-      imagesMissingAltRatio:document.images.length?[...document.images].filter(i=>!i.alt).length/document.images.length:0,
+      imagesMissingAltRatio:document.images.length?[...document.images].filter(i=>!i.hasAttribute('alt')||!i.alt.trim()).length/document.images.length:0,
+      imagesMissingAltSamples:[...document.images].filter(i=>!i.hasAttribute('alt')||!i.alt.trim()).slice(0,5).map(i=>(i.currentSrc||i.src||'<img>').split('?')[0]),
       navLinkCount:document.querySelectorAll('nav a[href],header a[href]').length,
       formCount:document.forms.length,
       primaryCtaCount:[...document.querySelectorAll('a,button')].filter(el=>/(book|reserve|reservar|contact|enquire|consulta|buy|comprar)/i.test(el.textContent||'')).length,
@@ -44,6 +48,6 @@ export async function scanViewport(url,{width,height,mobile=false,screenshotPath
     const dom={...(result.result?.value||{}),...(mobileProbe.result?.value||{})};
     const metrics=perf.result?.value||{};
     if(screenshotPath){const shot=await client.send('Page.captureScreenshot',{format:'jpeg',quality:72,captureBeyondViewport:true,fromSurface:true});await fs.mkdir(path.dirname(screenshotPath),{recursive:true});await fs.writeFile(screenshotPath,Buffer.from(shot.data,'base64'));}
-    return {dom,metrics,console:{errorCount:errors.length,errors},network:{failedRequestCount:failures.length,failures}};
+    return {dom,metrics,console:{errorCount:errors.length,errors:errors.slice(0,12)},network:{failedRequestCount:failures.length,failures:failures.slice(0,12)}};
   });
 }
