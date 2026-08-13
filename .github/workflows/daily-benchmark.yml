@@ -8,13 +8,30 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: archic-benchmark-daily
+  cancel-in-progress: false
+
 jobs:
   benchmark:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm run validate
-      - run: npm run benchmark
+      - name: Validate configuration
+        run: npm run validate
+      - name: Run benchmark
+        shell: bash
+        run: |
+          echo "CHROME_PATH=$(command -v google-chrome || command -v chromium || command -v chromium-browser)" >> "$GITHUB_ENV"
+          npm run benchmark
+      - name: Persist benchmark report
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: benchmark daily report
+          file_pattern: data public/screenshots public/api/latest.json
