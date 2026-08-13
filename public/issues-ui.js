@@ -1,0 +1,1 @@
+// Detailed issue panel extension.
