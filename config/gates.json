@@ -1,0 +1,12 @@
+{
+  "gates": [
+    {"id":"site-unreachable","when":"siteUnreachable","cap":30,"severity":"critical","label":"Site is unreachable"},
+    {"id":"no-https","when":"noHttps","cap":49,"severity":"critical","label":"HTTPS is not enforced"},
+    {"id":"critical-journey-failure","when":"criticalJourneyFailure","cap":69,"severity":"critical","label":"Critical business journey fails"},
+    {"id":"horizontal-overflow","when":"mobileHorizontalOverflow","cap":79,"severity":"high","label":"Mobile layout has horizontal overflow"},
+    {"id":"tiny-mobile-targets","when":"severeTinyTargets","cap":84,"severity":"high","label":"Too many mobile tap targets are undersized"},
+    {"id":"very-slow-lcp","when":"verySlowLcp","cap":84,"severity":"high","label":"LCP is above 6 seconds"},
+    {"id":"severe-cls","when":"severeCls","cap":84,"severity":"high","label":"Layout instability is severe"},
+    {"id":"missing-primary-meta","when":"missingPrimaryMeta","cap":89,"severity":"medium","label":"Primary SEO metadata is incomplete"}
+  ]
+}
