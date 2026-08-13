@@ -1,0 +1,55 @@
+{
+  "version": "1.0",
+  "minimumSampleForPercentile": 10,
+  "profiles": {
+    "premium-restaurant": {
+      "label": "Premium Restaurant",
+      "weights": {"businessFit":14,"visualDesign":12,"ux":10,"conversion":13,"mobile":12,"performance":9,"seoGeo":10,"content":5,"accessibility":4,"securityTrust":5,"robustness":6},
+      "visualIntent": ["premium","warm","editorial","appetite","effortless"],
+      "businessRequirements": ["reservation prominence","menu discoverability","location clarity","opening hours","mobile-first reservation","trust signals"],
+      "criticalJourney": "reservation"
+    },
+    "luxury-car-rental": {
+      "label": "Luxury Car Rental",
+      "weights": {"businessFit":13,"visualDesign":15,"ux":9,"conversion":13,"mobile":11,"performance":8,"seoGeo":8,"content":5,"accessibility":3,"securityTrust":7,"robustness":8},
+      "visualIntent": ["luxury","confident","minimal","cinematic","precise"],
+      "businessRequirements": ["vehicle photography","availability clarity","pricing clarity","booking or enquiry flow","trust","mobile vehicle discovery"],
+      "criticalJourney": "booking"
+    },
+    "premium-real-estate": {
+      "label": "Premium Real Estate",
+      "weights": {"businessFit":13,"visualDesign":16,"ux":11,"conversion":10,"mobile":9,"performance":8,"seoGeo":10,"content":5,"accessibility":4,"securityTrust":5,"robustness":9},
+      "visualIntent": ["editorial","aspirational","spacious","credible","luxury"],
+      "businessRequirements": ["property discovery","high quality imagery","filters","property detail quality","lead capture","local expertise","mobile browsing"],
+      "criticalJourney": "property enquiry"
+    },
+    "yacht-charter": {
+      "label": "Luxury Yacht Charter",
+      "weights": {"businessFit":13,"visualDesign":16,"ux":9,"conversion":12,"mobile":10,"performance":8,"seoGeo":8,"content":6,"accessibility":3,"securityTrust":7,"robustness":8},
+      "visualIntent": ["luxury","escapist","cinematic","clean","exclusive"],
+      "businessRequirements": ["fleet discovery","availability or enquiry","destinations","pricing context","trust","mobile conversion"],
+      "criticalJourney": "charter enquiry"
+    },
+    "luxury-ecommerce": {
+      "label": "Luxury E-commerce",
+      "weights": {"businessFit":11,"visualDesign":14,"ux":11,"conversion":14,"mobile":11,"performance":9,"seoGeo":8,"content":5,"accessibility":4,"securityTrust":7,"robustness":6},
+      "visualIntent": ["editorial","premium","distinctive","product-led","precise"],
+      "businessRequirements": ["product discovery","product detail","cart","checkout trust","shipping and returns","mobile commerce"],
+      "criticalJourney": "purchase"
+    },
+    "saas": {
+      "label": "SaaS",
+      "weights": {"businessFit":14,"visualDesign":8,"ux":12,"conversion":13,"mobile":7,"performance":10,"seoGeo":8,"content":8,"accessibility":6,"securityTrust":8,"robustness":6},
+      "visualIntent": ["clear","credible","product-led","efficient","distinctive"],
+      "businessRequirements": ["clear value proposition","product proof","pricing or CTA clarity","onboarding path","documentation","trust"],
+      "criticalJourney": "signup"
+    },
+    "professional-services": {
+      "label": "Professional Services",
+      "weights": {"businessFit":15,"visualDesign":10,"ux":10,"conversion":13,"mobile":9,"performance":9,"seoGeo":11,"content":8,"accessibility":4,"securityTrust":6,"robustness":5},
+      "visualIntent": ["credible","clear","distinctive","human","professional"],
+      "businessRequirements": ["service clarity","proof","lead capture","contact clarity","local relevance","mobile usability"],
+      "criticalJourney": "lead enquiry"
+    }
+  }
+}
