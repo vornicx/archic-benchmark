@@ -3,7 +3,9 @@ name: Daily Archic Benchmark
 on:
   workflow_dispatch:
   schedule:
-    - cron: '17 * * * *'
+    # 05:17 UTC hits 07:17 in CEST; 06:17 UTC hits 07:17 in CET.
+    # The runner's Madrid-time/idempotency guard executes only the correct window.
+    - cron: '17 5,6 * * *'
 
 permissions:
   contents: write
