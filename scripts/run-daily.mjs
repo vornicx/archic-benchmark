@@ -9,6 +9,13 @@ const config=await readJson(path.join(root,'config/projects.json'),{projects:[]}
 const benchmarks=await readJson(path.join(root,'config/benchmarks.json'));
 const gates=await readJson(path.join(root,'config/gates.json'),{gates:[]});
 const previous=await readJson(path.join(root,'data/latest.json'),{projects:[]});
+
+if(process.env.GITHUB_ACTIONS==='true'&&process.env.GITHUB_EVENT_NAME!=='workflow_dispatch'){
+  const hour=Number(new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Madrid',hour:'2-digit',hour12:false}).format(new Date()));
+  const today=madridDate();
+  if(previous.date===today||hour<7||hour>=10){console.log(`Skipping scheduled scan · Madrid ${String(hour).padStart(2,'0')}:xx`);process.exit(0);}
+}
+
 const reports=[];
 for(const project of config.projects){
   const profile=benchmarks.profiles[project.profile];
