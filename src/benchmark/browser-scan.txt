@@ -1,1 +1,0 @@
-Browser scanner source is part of the V1 package.
