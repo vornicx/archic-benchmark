@@ -1,3 +1,5 @@
+import { issueDetailText } from './issue-format.js';
+
 const categoryLabels = {
   businessFit:'Business fit', visualDesign:'Visual', ux:'UX', conversion:'Conversion', mobile:'Mobile', performance:'Performance', seoGeo:'SEO + GEO', content:'Content', accessibility:'A11y', securityTrust:'Trust', robustness:'Robustness'
 };
@@ -68,12 +70,12 @@ function renderProfiles(){
 }
 function openProject(id){
   const p=report.projects.find(x=>x.id===id); if(!p||!Number.isFinite(p.score)) return;
-  const metrics=p.metrics||{}; const cats=Object.entries(p.categoryScores||{}); const issues=(p.issues||[]).slice(0,6);
+  const metrics=p.metrics||{}; const cats=Object.entries(p.categoryScores||{}); const issues=p.issues||[];
   $('#projectDetail').innerHTML=`
     <div class="detail-head"><div><p class="eyebrow">${esc(p.profileLabel||p.profile)}</p><h2>${esc(p.name)}</h2><p>${esc(p.positioning||'')} ${p.market?`· ${esc(p.market)}`:''} ${p.primaryGoal?`· Goal: ${esc(p.primaryGoal)}`:''}</p></div><div class="detail-big-score">${p.score}<small>${esc(p.tier)} · raw ${p.rawScore ?? p.score}${p.cap<100?` · cap ${p.cap}`:''}${p.percentile!=null?` · ${p.percentile}th percentile`:''}</small></div></div>
     <div class="detail-grid">
       <section class="detail-panel"><div class="detail-title">Category score</div><div class="category-list">${cats.map(([k,n])=>`<div class="category-row"><span>${esc(categoryShort(k))}</span><div class="cat-track"><i style="width:${n}%"></i></div><strong>${Math.round(n)}</strong></div>`).join('')}</div></section>
-      <section class="detail-panel"><div class="detail-title">Highest-impact issues</div><div class="issue-stack">${issues.length?issues.map(i=>`<div class="detail-issue"><strong><i class="severity-dot ${esc(i.severity)}"></i> ${esc(i.title)}</strong><p>${esc(i.detail||'')}</p></div>`).join(''):'<div class="empty">No material issues.</div>'}</div></section>
+      <section class="detail-panel"><div class="detail-title">Detected issues · ${issues.length}</div><div class="issue-stack">${issues.length?issues.map(i=>`<div class="detail-issue"><strong><i class="severity-dot ${esc(i.severity)}"></i> ${esc(i.title)}</strong><p style="white-space:pre-line">${esc(issueDetailText(i))}</p></div>`).join(''):'<div class="empty">No issues detected in the latest scan.</div>'}</div></section>
       <section class="detail-panel"><div class="detail-title">Measured performance</div><div class="metrics-row"><div class="metric-box"><span>Desktop LCP</span><strong>${metricMs(metrics.lcpMs)}</strong></div><div class="metric-box"><span>Mobile LCP</span><strong>${metricMs(metrics.mobileLcpMs)}</strong></div><div class="metric-box"><span>CLS</span><strong>${metrics.cls??'—'}</strong></div><div class="metric-box"><span>Transfer</span><strong>${metrics.transferKb?`${metrics.transferKb} KB`:'—'}</strong></div></div></section>
       <section class="detail-panel"><div class="detail-title">Visual capture</div>${p.screenshots?`<div class="screens"><div class="screen"><img src="${esc(p.screenshots.desktop)}?v=${Date.now()}" alt="Desktop benchmark capture"></div><div class="screen mobile"><img src="${esc(p.screenshots.mobile)}?v=${Date.now()}" alt="Mobile benchmark capture"></div></div>`:'<div class="empty">Screenshots appear after a live benchmark run.</div>'}</section>
     </div>`;
