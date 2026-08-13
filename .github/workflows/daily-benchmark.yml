@@ -25,6 +25,8 @@ jobs:
           node-version: 22
       - name: Validate configuration
         run: npm run validate
+      - name: Test benchmark engine
+        run: npm test
       - name: Run benchmark
         shell: bash
         run: |
