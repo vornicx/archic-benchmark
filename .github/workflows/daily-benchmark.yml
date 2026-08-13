@@ -28,6 +28,9 @@ jobs:
       - name: Test benchmark engine
         run: npm test
       - name: Run benchmark
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ARCHIC_REVIEW_MODEL: ${{ vars.ARCHIC_REVIEW_MODEL }}
         shell: bash
         run: |
           echo "CHROME_PATH=$(command -v google-chrome || command -v chromium || command -v chromium-browser)" >> "$GITHUB_ENV"
