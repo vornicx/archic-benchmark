@@ -1,1 +1,0 @@
-Archic Benchmark documentation.
