@@ -1,18 +1,6 @@
 {
   "projects": [
     {
-      "id": "la-bocana",
-      "name": "La Bocana",
-      "url": "https://labocana.vercel.app",
-      "profile": "premium-restaurant",
-      "positioning": "Premium waterfront restaurant",
-      "market": "Puerto Banús / Marbella",
-      "primaryGoal": "Reservation",
-      "secondaryGoal": "Trust and discovery",
-      "criticalPaths": ["/"],
-      "enabled": true
-    },
-    {
       "id": "mfinity",
       "name": "Mfinity",
       "url": "https://mfinity-premium.vercel.app",
@@ -21,6 +9,54 @@
       "market": "Marbella / Puerto Banús",
       "primaryGoal": "Reservation / enquiry",
       "secondaryGoal": "Vehicle discovery",
+      "criticalPaths": ["/"],
+      "enabled": true
+    },
+    {
+      "id": "trenes-y-tranvias",
+      "name": "Trenes y Tranvías",
+      "url": "https://trenesytranvias.vercel.app",
+      "profile": "professional-services",
+      "positioning": "Specialist transport experiences and services",
+      "market": "Spain",
+      "primaryGoal": "Lead generation",
+      "secondaryGoal": "Portfolio discovery",
+      "criticalPaths": ["/"],
+      "enabled": true
+    },
+    {
+      "id": "marbella-boat-charter",
+      "name": "Marbella Boat Charter",
+      "url": "https://marbellaboatcharter.vercel.app",
+      "profile": "yacht-charter",
+      "positioning": "Luxury yacht and boat charter",
+      "market": "Marbella / Puerto Banús",
+      "primaryGoal": "Charter enquiry / booking",
+      "secondaryGoal": "Fleet and experience discovery",
+      "criticalPaths": ["/"],
+      "enabled": true
+    },
+    {
+      "id": "marbella-for-sale",
+      "name": "Marbella For Sale",
+      "url": "https://marbellaforsale.vercel.app",
+      "profile": "premium-real-estate",
+      "positioning": "Premium real estate platform",
+      "market": "Marbella / Costa del Sol",
+      "primaryGoal": "Property enquiry",
+      "secondaryGoal": "Property discovery",
+      "criticalPaths": ["/"],
+      "enabled": true
+    },
+    {
+      "id": "la-bocana",
+      "name": "La Bocana",
+      "url": "https://labocana.vercel.app",
+      "profile": "premium-restaurant",
+      "positioning": "Premium waterfront restaurant",
+      "market": "Puerto Banús / Marbella",
+      "primaryGoal": "Reservation",
+      "secondaryGoal": "Trust and discovery",
       "criticalPaths": ["/"],
       "enabled": true
     },
@@ -35,18 +71,6 @@
       "secondaryGoal": "Property discovery",
       "criticalPaths": ["/"],
       "enabled": true
-    },
-    {
-      "id": "trenes-y-tranvias",
-      "name": "Trenes y Tranvías",
-      "url": null,
-      "profile": "professional-services",
-      "positioning": "Specialist transport experiences and services",
-      "market": "Spain",
-      "primaryGoal": "Lead generation",
-      "secondaryGoal": "Portfolio discovery",
-      "criticalPaths": ["/"],
-      "enabled": false
     }
   ]
 }
