@@ -1,1 +1,1 @@
-// Detailed issue panel extension.
+console.log('Detailed issues enabled');
