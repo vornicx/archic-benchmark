@@ -31,7 +31,7 @@ jobs:
           echo "CHROME_PATH=$(command -v google-chrome || command -v chromium || command -v chromium-browser)" >> "$GITHUB_ENV"
           npm run benchmark
       - name: Persist benchmark report
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@b863ae1933cb653a53c021fe36dbb774e1fb9403
         with:
           commit_message: benchmark daily report
           file_pattern: data public/screenshots public/api/latest.json
