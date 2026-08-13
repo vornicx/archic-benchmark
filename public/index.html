@@ -1,1 +1,121 @@
-<!doctype html><html><body>Archic Benchmark</body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0a0a0b" />
+  <title>Archic Benchmark</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <aside class="sidebar">
+    <a class="brand" href="#overview" aria-label="Archic Benchmark home">
+      <span class="brand-mark">A</span>
+      <span><strong>ARCHIC</strong><small>BENCHMARK</small></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a class="nav-link active" href="#overview" data-view="overview"><span class="nav-icon">⌁</span> Command center</a>
+      <a class="nav-link" href="#projects" data-view="projects"><span class="nav-icon">◫</span> Projects</a>
+      <a class="nav-link" href="#queue" data-view="queue"><span class="nav-icon">↗</span> Daily queue</a>
+      <a class="nav-link" href="#standards" data-view="standards"><span class="nav-icon">◎</span> Standards</a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="scan-state"><i></i><span>Daily scan</span><strong>07:00</strong></div>
+      <p>Europe / Madrid</p>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="mobile-brand"><span class="brand-mark">A</span><strong>Benchmark</strong></div>
+      <div class="crumb"><span>Quality OS</span><b>/</b><strong id="viewLabel">Command center</strong></div>
+      <div class="top-actions">
+        <span class="mode-pill" id="modePill">Loading</span>
+        <button class="icon-button" id="refreshButton" type="button" aria-label="Refresh benchmark">↻</button>
+      </div>
+    </header>
+
+    <section class="view active" id="view-overview">
+      <div class="hero-row">
+        <div>
+          <p class="eyebrow">DAILY QUALITY BRIEF</p>
+          <h1>What deserves attention <em>today.</em></h1>
+          <p class="lede" id="generatedText">Loading the latest benchmark report…</p>
+        </div>
+        <div class="hero-status" id="heroStatus"></div>
+      </div>
+
+      <div class="kpi-grid" id="kpiGrid"></div>
+
+      <div class="dashboard-grid">
+        <section class="panel priorities-panel">
+          <div class="panel-head">
+            <div><p class="eyebrow">FOCUS</p><h2>Today's priority queue</h2></div>
+            <span class="count-badge" id="queueCount">0 items</span>
+          </div>
+          <div class="priority-list" id="priorityList"></div>
+        </section>
+
+        <section class="panel ranking-panel">
+          <div class="panel-head">
+            <div><p class="eyebrow">PORTFOLIO</p><h2>Quality ranking</h2></div>
+            <button class="text-button" data-jump="projects">View all</button>
+          </div>
+          <div class="ranking-list" id="rankingList"></div>
+        </section>
+      </div>
+
+      <section class="panel heatmap-panel">
+        <div class="panel-head">
+          <div><p class="eyebrow">BENCHMARK MATRIX</p><h2>Where quality is leaking</h2></div>
+          <span class="muted">Weighted by each project's niche</span>
+        </div>
+        <div class="heatmap-wrap" id="heatmap"></div>
+      </section>
+    </section>
+
+    <section class="view" id="view-projects">
+      <div class="section-head">
+        <div><p class="eyebrow">PORTFOLIO</p><h1>Project benchmarks</h1><p>Each project is judged against the business it is meant to win for.</p></div>
+        <div class="segmented" role="group" aria-label="Project filters">
+          <button class="active" data-filter="all">All</button><button data-filter="attention">Needs attention</button><button data-filter="gated">Gated</button>
+        </div>
+      </div>
+      <div class="project-grid" id="projectGrid"></div>
+    </section>
+
+    <section class="view" id="view-queue">
+      <div class="section-head">
+        <div><p class="eyebrow">EXECUTION</p><h1>Daily queue</h1><p>Ranked by business impact, severity, category weight and estimated effort.</p></div>
+      </div>
+      <div class="queue-table panel" id="queueTable"></div>
+    </section>
+
+    <section class="view" id="view-standards">
+      <div class="section-head">
+        <div><p class="eyebrow">QUALITY SYSTEM</p><h1>Benchmark standards</h1><p>The rules that keep a high score difficult to earn.</p></div>
+      </div>
+      <div class="standards-grid">
+        <section class="panel standard-card"><span class="standard-number">01</span><h2>Relative to purpose</h2><p>A restaurant, luxury rental company and SaaS product cannot share the same definition of excellence. Category weights and expectations change by niche.</p></section>
+        <section class="panel standard-card"><span class="standard-number">02</span><h2>Gates before polish</h2><p>Critical functional, mobile or trust failures cap the final score. A visually beautiful site cannot hide a broken commercial journey.</p></section>
+        <section class="panel standard-card"><span class="standard-number">03</span><h2>Objective + visual</h2><p>Browser measurements, markup checks and runtime failures are combined with a strict visual/business review. Neither layer is allowed to dominate blindly.</p></section>
+        <section class="panel standard-card"><span class="standard-number">04</span><h2>95 is exceptional</h2><p>Reference Quality begins at 95. The system is intentionally calibrated so the portfolio does not drift toward meaningless 98/100 scores.</p></section>
+      </div>
+      <section class="panel profile-panel">
+        <div class="panel-head"><div><p class="eyebrow">NICHE PROFILES</p><h2>Scoring weights</h2></div></div>
+        <div id="profileList"></div>
+      </section>
+    </section>
+  </main>
+
+  <dialog class="project-dialog" id="projectDialog">
+    <div class="dialog-shell">
+      <button class="dialog-close" id="dialogClose" type="button" aria-label="Close">×</button>
+      <div id="projectDetail"></div>
+    </div>
+  </dialog>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
