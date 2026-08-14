@@ -1,14 +1,22 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "mode": "live",
   "date": "2026-08-14",
-  "generatedAt": "2026-08-14T05:37:11.692Z",
+  "generatedAt": "2026-08-14T06:33:10.906Z",
   "portfolio": {
     "score": 71.1,
-    "delta": -17.7,
+    "delta": 0,
     "projectsScored": 6,
     "criticalProjects": 0,
-    "activeGates": 6
+    "activeGates": 6,
+    "aiUsage": {
+      "provider": "openai",
+      "completed": 0,
+      "errors": 0,
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "totalTokens": 0
+    }
   },
   "dailyQueue": [
     {
@@ -162,6 +170,7 @@
       "name": "Mfinity",
       "url": "https://mfinity-premium.vercel.app",
       "finalUrl": "https://mfinity-premium.vercel.app/",
+      "repository": "vornicx/mfinity-premium",
       "profile": "luxury-car-rental",
       "profileLabel": "Luxury Car Rental",
       "positioning": "Luxury car rental",
@@ -172,7 +181,7 @@
       "rawScore": 70.9,
       "cap": 89,
       "tier": "Good",
-      "delta": -15.5,
+      "delta": 0,
       "categoryScores": {
         "businessFit": 62.1,
         "visualDesign": 97.5,
@@ -454,14 +463,15 @@
         "failedRequests": 0
       },
       "screenshots": null,
-      "reviewedAt": "2026-08-14T05:35:37.327Z",
-      "durationMs": 18644
+      "reviewedAt": "2026-08-14T06:31:37.897Z",
+      "durationMs": 18553
     },
     {
       "id": "trenes-y-tranvias",
       "name": "Trenes y Tranvías",
       "url": "https://trenesytranvias.vercel.app",
       "finalUrl": "https://trenesytranvias.vercel.app/",
+      "repository": "vornicx/trenesytranvias",
       "profile": "professional-services",
       "profileLabel": "Professional Services",
       "positioning": "Specialist transport experiences and services",
@@ -472,7 +482,7 @@
       "rawScore": 68.6,
       "cap": 89,
       "tier": "Acceptable",
-      "delta": null,
+      "delta": 0,
       "categoryScores": {
         "businessFit": 62.1,
         "visualDesign": 97.5,
@@ -724,14 +734,15 @@
         "failedRequests": 0
       },
       "screenshots": null,
-      "reviewedAt": "2026-08-14T05:35:56.061Z",
-      "durationMs": 18734
+      "reviewedAt": "2026-08-14T06:31:56.363Z",
+      "durationMs": 18466
     },
     {
       "id": "marbella-boat-charter",
       "name": "Marbella Boat Charter",
       "url": "https://marbellaboatcharter.vercel.app",
       "finalUrl": "https://marbellaboatcharter.vercel.app/",
+      "repository": "vornicx/marbellaboatcharter",
       "profile": "yacht-charter",
       "profileLabel": "Luxury Yacht Charter",
       "positioning": "Luxury yacht and boat charter",
@@ -742,7 +753,7 @@
       "rawScore": 72.7,
       "cap": 89,
       "tier": "Good",
-      "delta": null,
+      "delta": 0,
       "categoryScores": {
         "businessFit": 62.1,
         "visualDesign": 97.5,
@@ -979,14 +990,15 @@
         "failedRequests": 0
       },
       "screenshots": null,
-      "reviewedAt": "2026-08-14T05:36:14.380Z",
-      "durationMs": 18319
+      "reviewedAt": "2026-08-14T06:32:14.600Z",
+      "durationMs": 18237
     },
     {
       "id": "marbella-for-sale",
       "name": "Marbella For Sale",
       "url": "https://marbellaforsale.vercel.app",
       "finalUrl": "https://marbellaforsale.vercel.app/",
+      "repository": "vornicx/marbellaforsale",
       "profile": "premium-real-estate",
       "profileLabel": "Premium Real Estate",
       "positioning": "Premium real estate platform",
@@ -997,7 +1009,7 @@
       "rawScore": 71.5,
       "cap": 89,
       "tier": "Good",
-      "delta": null,
+      "delta": 0,
       "categoryScores": {
         "businessFit": 62.1,
         "visualDesign": 97.5,
@@ -1279,14 +1291,15 @@
         "failedRequests": 0
       },
       "screenshots": null,
-      "reviewedAt": "2026-08-14T05:36:32.791Z",
-      "durationMs": 18411
+      "reviewedAt": "2026-08-14T06:32:33.170Z",
+      "durationMs": 18570
     },
     {
       "id": "la-bocana",
       "name": "La Bocana",
       "url": "https://labocana.vercel.app",
       "finalUrl": "https://labocana.vercel.app/",
+      "repository": "vornicx/la-bocana-web-v8-mobile",
       "profile": "premium-restaurant",
       "profileLabel": "Premium Restaurant",
       "positioning": "Premium waterfront restaurant",
@@ -1297,7 +1310,7 @@
       "rawScore": 70.4,
       "cap": 89,
       "tier": "Good",
-      "delta": -20.8,
+      "delta": 0,
       "categoryScores": {
         "businessFit": 62.1,
         "visualDesign": 97.5,
@@ -1534,14 +1547,15 @@
         "failedRequests": 0
       },
       "screenshots": null,
-      "reviewedAt": "2026-08-14T05:36:51.845Z",
-      "durationMs": 19054
+      "reviewedAt": "2026-08-14T06:32:52.643Z",
+      "durationMs": 19473
     },
     {
       "id": "noguera",
       "name": "Inmobiliaria Noguera",
       "url": "https://inmobiliaria-noguera.vercel.app",
       "finalUrl": "https://inmobiliaria-noguera.vercel.app/",
+      "repository": "vornicx/Inmobiliaria-Noguera",
       "profile": "premium-real-estate",
       "profileLabel": "Premium Real Estate",
       "positioning": "Premium real estate",
@@ -1552,7 +1566,7 @@
       "rawScore": 72.7,
       "cap": 89,
       "tier": "Good",
-      "delta": -16,
+      "delta": 0,
       "categoryScores": {
         "businessFit": 62.1,
         "visualDesign": 97.5,
@@ -1804,8 +1818,8 @@
         "failedRequests": 0
       },
       "screenshots": null,
-      "reviewedAt": "2026-08-14T05:37:11.317Z",
-      "durationMs": 19472
+      "reviewedAt": "2026-08-14T06:33:10.894Z",
+      "durationMs": 18251
     }
   ]
 }
