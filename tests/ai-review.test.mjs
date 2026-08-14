@@ -2,16 +2,20 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { mergeAIReview, parseReviewJson, selectReviewProvider } from '../src/benchmark/ai-review.mjs';
 
-test('Cursor is preferred in auto mode when configured',()=>{
-  assert.equal(selectReviewProvider({ARCHIC_AI_PROVIDER:'auto',CURSOR_API_KEY:'cursor'}),'cursor');
+test('OpenAI review is enabled when an API key exists',()=>{
+  assert.equal(selectReviewProvider({OPENAI_API_KEY:'openai'}),'openai');
 });
 
-test('OpenAI is the fallback provider in auto mode',()=>{
-  assert.equal(selectReviewProvider({ARCHIC_AI_PROVIDER:'auto',OPENAI_API_KEY:'openai',ARCHIC_OPENAI_MODEL:'model'}),'openai');
+test('AI review is disabled without an OpenAI API key',()=>{
+  assert.equal(selectReviewProvider({}),null);
 });
 
 test('AI review can be disabled explicitly',()=>{
-  assert.equal(selectReviewProvider({ARCHIC_AI_PROVIDER:'off',CURSOR_API_KEY:'cursor'}),null);
+  assert.equal(selectReviewProvider({ARCHIC_AI_PROVIDER:'off',OPENAI_API_KEY:'openai'}),null);
+});
+
+test('legacy provider settings migrate safely to OpenAI when configured',()=>{
+  assert.equal(selectReviewProvider({ARCHIC_AI_PROVIDER:'cursor',OPENAI_API_KEY:'openai'}),'openai');
 });
 
 test('review JSON parser tolerates fenced output',()=>{

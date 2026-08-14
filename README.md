@@ -6,23 +6,22 @@ The goal is not to produce another generic website score. Archic Benchmark answe
 
 > How good is this website for the specific business it is supposed to win for, what regressed, and what should we improve today?
 
-## V2
+## V3 · OpenAI-first
 
-Archic Benchmark V2 closes the loop from measurement to controlled implementation:
+The benchmark is now designed around a simple rule: **measurement must remain trustworthy even when AI is unavailable**.
 
 - niche-specific scoring for every enabled project;
 - real Chromium desktop and mobile scans;
 - performance, SEO/GEO, accessibility, security, runtime and conversion checks;
 - hard quality gates for commercially broken experiences;
 - desktop and mobile screenshots;
-- an AI layer that is optional rather than required;
-- Cursor as the preferred qualitative reviewer, with optional OpenAI fallback;
+- OpenAI as the optional qualitative reviewer;
 - AI blending only into qualitative categories, never directly into technical categories;
+- strict structured JSON output for more reliable reviews;
+- retry/timeout protection around API calls;
 - portfolio-wide prioritisation and daily history;
-- project-to-GitHub repository mapping;
-- manual Cursor Cloud Agent autofix that opens a separate PR in the target project.
-
-The core rule is simple: **measurement must remain trustworthy even when AI is unavailable**.
+- per-project and portfolio token usage recorded in the report so API spend can be monitored;
+- no Cursor, Grok or other paid agent subscription required.
 
 ## Score model
 
@@ -70,7 +69,7 @@ Chromium scanner ── HTTP/security ── link/runtime checks
         ▼
 Deterministic category scores
         │
-        ├──── optional Cursor/OpenAI qualitative review
+        ├──── optional OpenAI qualitative review
         │                  │
         │                  └── design / business fit / UX / conversion / copy
         ▼
@@ -84,14 +83,10 @@ Quality gates
         └── ranked issues
         │
         ▼
-Portfolio daily queue
+Portfolio daily queue + API usage
         │
-        ├── 07:00 report + history
-        │
-        └── manual Cursor Cloud Agent
-                    │
-                    ▼
-              target-repo PR
+        ▼
+07:00 report + history
 ```
 
 ## Quick start
@@ -128,48 +123,63 @@ Each project can include:
 - `criticalPaths`
 - `enabled`
 
-`repository` and `startingRef` are used for the optional Cursor autofix path. They do not affect deterministic website scoring.
+Repository metadata is retained for future implementation tooling, but it does not affect benchmark scoring.
 
-## AI qualitative review
+## OpenAI qualitative review
 
-AI review is optional. A missing key, provider error or low-confidence review does not invalidate the deterministic benchmark.
+OpenAI review is optional. A missing API key, API failure or low-confidence review does not invalidate the deterministic benchmark.
 
-Provider selection:
+Minimum configuration:
 
 ```env
-ARCHIC_AI_PROVIDER=auto
+OPENAI_API_KEY=...
 ```
 
-Supported modes:
-
-- `auto`: prefer Cursor and fall back to OpenAI when configured;
-- `cursor`: Cursor only;
-- `openai`: OpenAI only;
-- `off`: deterministic benchmark only.
-
-### Cursor
+Cost-aware defaults are built in:
 
 ```env
-CURSOR_API_KEY=...
-ARCHIC_CURSOR_MODEL=composer-2.5
+ARCHIC_OPENAI_MODEL=gpt-5-mini
+ARCHIC_OPENAI_IMAGE_DETAIL=high
+ARCHIC_OPENAI_MAX_OUTPUT_TOKENS=3500
+```
+
+`ARCHIC_REVIEW_MODEL` is still accepted for backwards compatibility. `ARCHIC_OPENAI_MODEL` takes precedence.
+
+To run fully deterministic with no AI calls:
+
+```env
+ARCHIC_AI_PROVIDER=off
 ```
 
 The reviewer receives the objective scan plus desktop/mobile screenshots and is instructed to perform a read-only design/business critique relative to the actual niche and positioning.
 
-### Optional OpenAI fallback
+AI can influence only visual design, business fit, UX, conversion and content/copy. Performance, mobile, SEO/GEO, accessibility, security and robustness remain driven by deterministic checks and gates. Reviews below the confidence threshold are ignored.
 
-```env
-OPENAI_API_KEY=...
-ARCHIC_OPENAI_MODEL=...
+The Responses API request uses structured JSON output, a bounded output-token budget, a two-minute request timeout and retries for transient/rate-limit/server errors.
+
+## API usage tracking
+
+Every successful OpenAI review stores its token usage under the project's `aiReview.usage` object.
+
+The daily report also aggregates usage at:
+
+```text
+portfolio.aiUsage
 ```
 
-`ARCHIC_REVIEW_MODEL` is still accepted for backwards compatibility.
+with:
 
-AI can influence only visual design, business fit, UX, conversion and content/copy. Performance, mobile, SEO/GEO, accessibility, security and robustness remain driven by deterministic checks and gates. Reviews below the confidence threshold are ignored.
+- completed reviews;
+- review errors;
+- input tokens;
+- output tokens;
+- total tokens.
+
+This makes it possible to measure real benchmark consumption before increasing API credit or model quality.
 
 ## Daily 07:00 run
 
-`.github/workflows/daily-benchmark.yml` contains two UTC cron entries plus a Madrid-time/idempotency guard. This avoids the CET/CEST one-hour drift and still runs the benchmark once each morning.
+`.github/workflows/daily-benchmark.yml` contains two UTC cron entries plus a Madrid-time/idempotency guard. This avoids CET/CEST drift and still runs the benchmark once each morning.
 
 The workflow:
 
@@ -179,65 +189,24 @@ The workflow:
 4. validates configuration;
 5. runs tests;
 6. scans enabled projects;
-7. optionally adds a Cursor/OpenAI qualitative review;
-8. writes latest/history/screenshots;
-9. commits only benchmark artifacts back to this repository.
+7. optionally adds an OpenAI qualitative review;
+8. records OpenAI token usage;
+9. writes latest/history/screenshots;
+10. commits only benchmark artifacts back to this repository.
 
 ### GitHub configuration
 
-For Cursor review and autofix add:
+Add one repository secret:
 
-- secret `CURSOR_API_KEY`;
-- variable `ARCHIC_AI_PROVIDER=auto` (optional; `auto` is the code default);
-- variable `ARCHIC_CURSOR_MODEL=composer-2.5` (optional; this is the code default);
-- variable `ARCHIC_CURSOR_FIX_MODEL` if the implementation agent should use a different model.
+- `OPENAI_API_KEY`
 
-For optional OpenAI fallback add:
+Optional repository variables:
 
-- secret `OPENAI_API_KEY`;
-- variable `ARCHIC_OPENAI_MODEL`.
+- `ARCHIC_OPENAI_MODEL` — defaults in code to `gpt-5-mini`;
+- `ARCHIC_OPENAI_IMAGE_DETAIL` — defaults to `high`;
+- `ARCHIC_OPENAI_MAX_OUTPUT_TOKENS` — defaults to `3500`.
 
-## Cursor Benchmark Autofix
-
-Autofix is deliberately **not scheduled** and never auto-merges.
-
-Run the GitHub Actions workflow **Cursor Benchmark Autofix**, choose the project and choose how many top issues to address.
-
-Local equivalent:
-
-```bash
-CURSOR_API_KEY=... npm run benchmark:autofix -- marbella-for-sale 3
-```
-
-The script reads the latest measured report, takes the selected high-priority issues, supplies the evidence and business context to a Cursor Cloud Agent, and works against the mapped source repository.
-
-The implementation prompt explicitly requires the agent to:
-
-- verify issues in the real repository instead of guessing;
-- preserve the existing visual identity;
-- avoid placeholder content, fake imagery, invented listings and invented business facts;
-- protect desktop and mobile quality;
-- reuse existing design tokens/components;
-- run the repository's available tests/lint/build checks;
-- leave an issue unresolved rather than invent missing business input;
-- review its own diff for regressions.
-
-With `autoCreatePR` enabled, the Cursor Cloud Agent performs the work on its own branch and opens a PR in the target project.
-
-The operating loop becomes:
-
-```text
-Measure → diagnose → rank → select → implement in PR → review → merge → measure again
-```
-
-## Current project mappings
-
-- `mfinity` → `vornicx/mfinity-premium`
-- `trenes-y-tranvias` → `vornicx/trenesytranvias`
-- `marbella-boat-charter` → `vornicx/marbellaboatcharter`
-- `marbella-for-sale` → `vornicx/marbellaforsale`
-- `la-bocana` → `vornicx/la-bocana-web-v8-mobile`
-- `noguera` → `vornicx/Inmobiliaria-Noguera`
+No Cursor API key or Cursor subscription is required.
 
 ## Reference benchmark dataset
 
@@ -251,7 +220,7 @@ A project does not receive a niche percentile until the reference set has at lea
 
 ## Next meaningful layer
 
-V2 now connects measurement to a controlled implementation PR. The next major upgrade is project-specific browser journeys with real assertions, for example:
+The next major upgrade is project-specific browser journeys with real assertions, for example:
 
 ```text
 Reservation CTA
@@ -261,7 +230,7 @@ Reservation CTA
 → successful inquiry confirmation
 ```
 
-Journey failures should activate hard quality gates and provide reproducible evidence to the implementation agent.
+Journey failures should activate hard quality gates and provide reproducible evidence for the implementation work.
 
 ## Commands
 
@@ -269,7 +238,6 @@ Journey failures should activate hard quality gates and provide reproducible evi
 npm run dev
 npm run benchmark:demo
 npm run benchmark
-npm run benchmark:autofix -- <project-id> [max-issues]
 npm run benchmark:add-reference -- <url> <profile> [name]
 npm run build
 npm run validate

@@ -43,11 +43,11 @@ jobs:
         run: npm test
       - name: Run benchmark
         env:
-          CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          ARCHIC_AI_PROVIDER: ${{ vars.ARCHIC_AI_PROVIDER }}
-          ARCHIC_CURSOR_MODEL: ${{ vars.ARCHIC_CURSOR_MODEL }}
+          ARCHIC_AI_PROVIDER: openai
           ARCHIC_OPENAI_MODEL: ${{ vars.ARCHIC_OPENAI_MODEL }}
+          ARCHIC_OPENAI_IMAGE_DETAIL: ${{ vars.ARCHIC_OPENAI_IMAGE_DETAIL }}
+          ARCHIC_OPENAI_MAX_OUTPUT_TOKENS: ${{ vars.ARCHIC_OPENAI_MAX_OUTPUT_TOKENS }}
           ARCHIC_REVIEW_MODEL: ${{ vars.ARCHIC_REVIEW_MODEL }}
         run: npm run benchmark
       - name: Persist benchmark report
