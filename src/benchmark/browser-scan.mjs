@@ -6,6 +6,63 @@ import { MOBILE_PROBE } from './mobile-probe.mjs';
 
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
+function waitForPageLoad(client, timeoutMs = 10000) {
+  return new Promise(resolve => {
+    let settled = false;
+    let off = null;
+    const finish = reason => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      off?.();
+      resolve(reason);
+    };
+    off = client.on('Page.loadEventFired', () => finish('load'));
+    const timer = setTimeout(() => finish('timeout'), timeoutMs);
+    timer.unref?.();
+  });
+}
+
+async function captureScreenshotSafe(client, screenshotPath, { width, height }) {
+  if (!screenshotPath) return { captured: false, error: null };
+  let firstError = null;
+  try {
+    const layout = await client.send('Page.getLayoutMetrics');
+    const content = layout.cssContentSize || layout.contentSize || {};
+    const clipWidth = Math.max(1, Math.min(Math.ceil(content.width || width), width));
+    const clipHeight = Math.max(1, Math.min(Math.ceil(content.height || height), 12000));
+    const shot = await client.send('Page.captureScreenshot', {
+      format: 'jpeg',
+      quality: 72,
+      fromSurface: true,
+      captureBeyondViewport: true,
+      clip: { x: 0, y: 0, width: clipWidth, height: clipHeight, scale: 1 }
+    });
+    await fs.mkdir(path.dirname(screenshotPath), { recursive: true });
+    await fs.writeFile(screenshotPath, Buffer.from(shot.data, 'base64'));
+    return { captured: true, error: null };
+  } catch (error) {
+    firstError = error;
+  }
+
+  try {
+    const shot = await client.send('Page.captureScreenshot', {
+      format: 'jpeg',
+      quality: 72,
+      fromSurface: true,
+      captureBeyondViewport: false
+    });
+    await fs.mkdir(path.dirname(screenshotPath), { recursive: true });
+    await fs.writeFile(screenshotPath, Buffer.from(shot.data, 'base64'));
+    return { captured: true, error: `Full-page capture failed; viewport fallback used: ${firstError?.message || firstError}` };
+  } catch (fallbackError) {
+    return {
+      captured: false,
+      error: `Screenshot failed: ${firstError?.message || firstError}; fallback failed: ${fallbackError?.message || fallbackError}`
+    };
+  }
+}
+
 export async function scanViewport(url,{width,height,mobile=false,screenshotPath=null}){
   return withBrowser(async client=>{
     const errors=[];
@@ -17,8 +74,10 @@ export async function scanViewport(url,{width,height,mobile=false,screenshotPath
     await Promise.all([client.send('Page.enable'),client.send('Runtime.enable'),client.send('Network.enable'),client.send('Performance.enable')]);
     await client.send('Emulation.setDeviceMetricsOverride',{width,height,deviceScaleFactor:mobile?2:1,mobile,screenWidth:width,screenHeight:height});
     await client.send('Page.addScriptToEvaluateOnNewDocument',{source:VITALS_SCRIPT});
+    const loaded=waitForPageLoad(client);
     await client.send('Page.navigate',{url});
-    await wait(2600);
+    await loaded;
+    await wait(700);
     const result=await client.send('Runtime.evaluate',{expression:`(() => ({
       titleLength:(document.title||'').trim().length,
       metaDescriptionLength:(document.querySelector('meta[name="description"]')?.content||'').trim().length,
@@ -47,7 +106,7 @@ export async function scanViewport(url,{width,height,mobile=false,screenshotPath
     const perf=await client.send('Runtime.evaluate',{expression:METRICS_SCRIPT,returnByValue:true});
     const dom={...(result.result?.value||{}),...(mobileProbe.result?.value||{})};
     const metrics=perf.result?.value||{};
-    if(screenshotPath){const shot=await client.send('Page.captureScreenshot',{format:'jpeg',quality:72,captureBeyondViewport:true,fromSurface:true});await fs.mkdir(path.dirname(screenshotPath),{recursive:true});await fs.writeFile(screenshotPath,Buffer.from(shot.data,'base64'));}
-    return {dom,metrics,console:{errorCount:errors.length,errors:errors.slice(0,12)},network:{failedRequestCount:failures.length,failures:failures.slice(0,12)}};
+    const screenshot=await captureScreenshotSafe(client,screenshotPath,{width,height});
+    return {dom,metrics,console:{errorCount:errors.length,errors:errors.slice(0,12)},network:{failedRequestCount:failures.length,failures:failures.slice(0,12)},screenshotCaptured:screenshot.captured,screenshotError:screenshot.error};
   });
 }
