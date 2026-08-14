@@ -25,6 +25,7 @@ concurrency:
 
 jobs:
   benchmark:
+    if: github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip benchmark]')
     runs-on: ubuntu-latest
     timeout-minutes: 35
     steps:
