@@ -1,14 +1,27 @@
 export const MOBILE_PROBE = `(() => {
   const visible=el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el);return r.width>0&&r.height>0&&s.display!=='none'&&s.visibility!=='hidden'&&s.opacity!=='0'};
   const describe=el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el);return {tag:el.tagName.toLowerCase(),id:el.id||null,className:typeof el.className==='string'?el.className.slice(0,120):null,text:(el.innerText||el.textContent||'').trim().replace(/\s+/g,' ').slice(0,90),width:Number(r.width.toFixed(1)),height:Number(r.height.toFixed(1)),fontSize:Number((parseFloat(s.fontSize||'0')).toFixed(1))}};
+  const textOf=el=>(el?.innerText||el?.textContent||'').trim().replace(/\s+/g,' ');
+  const accessibleName=el=>{
+    const aria=(el.getAttribute('aria-label')||'').trim();
+    if(aria)return aria;
+    const labelledBy=(el.getAttribute('aria-labelledby')||'').trim();
+    if(labelledBy){const value=labelledBy.split(/\s+/).map(id=>textOf(document.getElementById(id))).filter(Boolean).join(' ').trim();if(value)return value;}
+    const text=textOf(el);if(text)return text;
+    const title=(el.getAttribute('title')||'').trim();if(title)return title;
+    const imageAlt=[...el.querySelectorAll('img[alt]')].map(img=>(img.getAttribute('alt')||'').trim()).filter(Boolean).join(' ').trim();if(imageAlt)return imageAlt;
+    const svgTitle=[...el.querySelectorAll('svg title')].map(textOf).filter(Boolean).join(' ').trim();if(svgTitle)return svgTitle;
+    if(el instanceof HTMLInputElement){const inputAlt=(el.getAttribute('alt')||'').trim();if(inputAlt)return inputAlt;const value=(el.value||'').trim();if(value)return value;}
+    return '';
+  };
   const all=[...document.querySelectorAll('*')].filter(visible);
-  const buttons=[...document.querySelectorAll('button,[role="button"],a[href],input[type="submit"]')].filter(visible);
+  const buttons=[...document.querySelectorAll('button,[role="button"],a[href],input[type="submit"]')].filter(el=>visible(el)&&el.getAttribute('aria-hidden')!=='true');
   const fields=[...document.querySelectorAll('input:not([type="hidden"]),select,textarea')].filter(visible);
   const headings=[...document.querySelectorAll('h1,h2,h3,h4,h5,h6')];
   const styles=all.slice(0,500).map(el=>getComputedStyle(el));
   const smallTargets=buttons.filter(el=>{const r=el.getBoundingClientRect();return r.width<44||r.height<44});
   const smallText=all.filter(el=>parseFloat(getComputedStyle(el).fontSize||'16')<12);
-  const unnamed=buttons.filter(el=>!((el.innerText||'').trim()||el.getAttribute('aria-label')||el.getAttribute('title')));
+  const unnamed=buttons.filter(el=>!accessibleName(el));
   const unlabelled=fields.filter(el=>!(el.closest('label')||el.getAttribute('aria-label')||el.getAttribute('placeholder')||(el.id&&document.querySelector('label[for="'+CSS.escape(el.id)+'"]'))));
   const fonts=[...new Set(styles.map(s=>s.fontFamily).filter(Boolean))];
   const colors=[...new Set(styles.flatMap(s=>[s.color,s.backgroundColor]).filter(Boolean))];
@@ -25,6 +38,8 @@ export const MOBILE_PROBE = `(() => {
     visibleElementCount:all.length,
     tinyTextSamples:smallText.slice(0,16).map(describe),
     unnamedButtonRatio:buttons.length?unnamed.length/buttons.length:0,
+    unnamedButtonCount:unnamed.length,
+    unnamedButtonSamples:unnamed.slice(0,12).map(describe),
     unlabelledFormControlRatio:fields.length?unlabelled.length/fields.length:0,
     formsHaveAction:[...document.forms].every(f=>Boolean(f.action)||Boolean(f.querySelector('button[type="submit"],input[type="submit"]'))),
     fontFamilyCount:fonts.length,
