@@ -6,22 +6,20 @@ import { MOBILE_PROBE } from './mobile-probe.mjs';
 
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-function waitForPageLoad(client, timeoutMs = 10000) {
-  return new Promise(resolve => {
-    let settled = false;
-    let off = null;
-    let timer = null;
-    const finish = reason => {
-      if (settled) return;
-      settled = true;
-      if (timer) clearTimeout(timer);
-      off?.();
-      resolve(reason);
-    };
-    off = client.on('Page.loadEventFired', () => finish('load'));
-    timer = setTimeout(() => finish('timeout'), timeoutMs);
-    timer.unref?.();
-  });
+async function waitForDocumentReady(client, timeoutMs = 10000) {
+  const deadline = Date.now() + timeoutMs;
+  let last = { href: 'about:blank', readyState: 'loading' };
+  while (Date.now() < deadline) {
+    const result = await client.send('Runtime.evaluate', {
+      expression: '({href: location.href, readyState: document.readyState})',
+      returnByValue: true
+    });
+    last = result.result?.value || last;
+    if (/^chrome-error:/i.test(last.href || '')) throw new Error(`Chrome rendered an error page for ${last.href}`);
+    if (last.href && last.href !== 'about:blank' && (last.readyState === 'interactive' || last.readyState === 'complete')) return last;
+    await wait(100);
+  }
+  throw new Error(`Navigation did not become ready within ${timeoutMs} ms (href=${last.href}, readyState=${last.readyState})`);
 }
 
 async function captureScreenshotSafe(client, screenshotPath) {
@@ -52,11 +50,12 @@ export async function scanViewport(url,{width,height,mobile=false,screenshotPath
     await Promise.all([client.send('Page.enable'),client.send('Runtime.enable'),client.send('Network.enable'),client.send('Performance.enable')]);
     await client.send('Emulation.setDeviceMetricsOverride',{width,height,deviceScaleFactor:mobile?2:1,mobile,screenWidth:width,screenHeight:height});
     await client.send('Page.addScriptToEvaluateOnNewDocument',{source:VITALS_SCRIPT});
-    const loaded=waitForPageLoad(client);
-    await client.send('Page.navigate',{url});
-    await loaded;
-    await wait(700);
+    const navigation=await client.send('Page.navigate',{url});
+    if(navigation?.errorText) throw new Error(`Navigation failed for ${url}: ${navigation.errorText}`);
+    await waitForDocumentReady(client);
+    await wait(500);
     const result=await client.send('Runtime.evaluate',{expression:`(() => ({
+      documentUrl:location.href,
       titleLength:(document.title||'').trim().length,
       metaDescriptionLength:(document.querySelector('meta[name="description"]')?.content||'').trim().length,
       canonical:document.querySelector('link[rel="canonical"]')?.href||null,
