@@ -59,8 +59,36 @@ jobs:
           ARCHIC_OPENAI_MAX_OUTPUT_TOKENS: ${{ vars.ARCHIC_OPENAI_MAX_OUTPUT_TOKENS }}
           ARCHIC_REVIEW_MODEL: ${{ vars.ARCHIC_REVIEW_MODEL }}
         run: npm run benchmark
-      - name: Persist benchmark report
-        uses: stefanzweifel/git-auto-commit-action@b863ae1933cb653a53c021fe36dbb774e1fb9403
-        with:
-          commit_message: benchmark daily report
-          file_pattern: data public/screenshots public/api/latest.json
+      - name: Persist benchmark report safely
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t changed < <(git status --porcelain=v1 -- data public/screenshots public/api/latest.json | sed -E 's/^.. //')
+          if [ "${#changed[@]}" -eq 0 ]; then
+            echo "No benchmark output changed."
+            exit 0
+          fi
+
+          snapshot="$RUNNER_TEMP/benchmark-output.tar"
+          tar -cf "$snapshot" "${changed[@]}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          for attempt in 1 2 3; do
+            echo "Persist attempt $attempt"
+            git fetch origin main
+            git reset --hard origin/main
+            tar -xf "$snapshot"
+            git add -- "${changed[@]}"
+            if git diff --cached --quiet; then
+              echo "Remote already contains this benchmark output."
+              exit 0
+            fi
+            git commit -m "benchmark daily report"
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+          done
+
+          echo "Could not persist benchmark output after 3 attempts." >&2
+          exit 1
