@@ -43,10 +43,15 @@ export async function scanViewport(url,{width,height,mobile=false,screenshotPath
   return withBrowser(async client=>{
     const errors=[];
     const failures=[];
+    const canceledRequests=[];
     const requests=new Map();
     client.on('Runtime.exceptionThrown',p=>errors.push(p?.exceptionDetails?.exception?.description||p?.exceptionDetails?.text||'Runtime exception'));
     client.on('Network.requestWillBeSent',p=>{if(p?.requestId&&p?.request?.url)requests.set(p.requestId,p.request.url)});
-    client.on('Network.loadingFailed',p=>failures.push(`${requests.get(p.requestId)||p.requestId||'request'} — ${p.errorText||'Network failure'}`));
+    client.on('Network.loadingFailed',p=>{
+      const message=`${requests.get(p.requestId)||p.requestId||'request'} — ${p.errorText||'Network failure'}`;
+      if(p?.canceled){canceledRequests.push(message);return;}
+      failures.push(message);
+    });
     await Promise.all([client.send('Page.enable'),client.send('Runtime.enable'),client.send('Network.enable'),client.send('Performance.enable')]);
     await client.send('Emulation.setDeviceMetricsOverride',{width,height,deviceScaleFactor:mobile?2:1,mobile,screenWidth:width,screenHeight:height});
     await client.send('Page.addScriptToEvaluateOnNewDocument',{source:VITALS_SCRIPT});
@@ -85,6 +90,6 @@ export async function scanViewport(url,{width,height,mobile=false,screenshotPath
     const dom={...(result.result?.value||{}),...(mobileProbe.result?.value||{})};
     const metrics=perf.result?.value||{};
     const screenshot=await captureScreenshotSafe(client,screenshotPath);
-    return {dom,metrics,navigation:{errorText:navigationError,recovered:Boolean(navigationError),finalUrl:ready.href},console:{errorCount:errors.length,errors:errors.slice(0,12)},network:{failedRequestCount:failures.length,failures:failures.slice(0,12)},screenshotCaptured:screenshot.captured,screenshotError:screenshot.error};
+    return {dom,metrics,navigation:{errorText:navigationError,recovered:Boolean(navigationError),finalUrl:ready.href},console:{errorCount:errors.length,errors:errors.slice(0,12)},network:{failedRequestCount:failures.length,failures:failures.slice(0,12),canceledRequestCount:canceledRequests.length,canceledRequests:canceledRequests.slice(0,12)},screenshotCaptured:screenshot.captured,screenshotError:screenshot.error};
   });
 }

@@ -34,11 +34,19 @@ export async function analyzeProject({project,profile,gates,rootDir,previous=nul
     return{id:project.id,name:project.name,url:project.url,finalUrl:response.finalUrl||project.url,repository:project.repository||null,profile:project.profile,profileLabel:profile.label,positioning:project.positioning,market:project.market,primaryGoal:project.primaryGoal,status:response.httpOk?'scan-failed':'critical',score:null,rawScore:null,cap:null,tier:response.httpOk?'Scan incomplete':'Unavailable',delta:null,categoryScores:{},gates:[],issues:[],topPriority:null,aiReview:null,metrics:{lcpMs:null,mobileLcpMs:null,cls:null,ttfbMs:null,totalBlockingMs:null,transferKb:null,resourceCount:null},checks:{httpOk:response.httpOk,status:response.status,horizontalOverflow:null,robots,sitemap,brokenInternalLinks:null,consoleErrors:null,failedRequests:null},screenshots:null,scanDiagnostics,reviewedAt:new Date().toISOString(),durationMs:Date.now()-startedAt.getTime()};
   }
 
-  const dom=desktop.dom||mobile.dom||{};const linkCheck=await brokenLinkRatio(dom.internalLinks);
+  const dom=desktop.dom||{};const mobileDom=mobile.dom||{};const linkCheck=await brokenLinkRatio(dom.internalLinks);
   const metrics={...(desktop.metrics||{}),mobileLcpMs:mobile.metrics?.lcpMs??null,mobileCls:mobile.metrics?.cls??null,mobileTotalBlockingMs:mobile.metrics?.totalBlockingMs??null};
-  const combinedDom={...dom,brokenInternalLinkRatio:linkCheck.ratio,brokenInternalLinks:linkCheck.broken};
-  const checks={httpOk:response.httpOk,status:response.status,viewportMeta:Boolean(dom.viewportMeta),horizontalOverflow:Boolean(mobile.dom?.horizontalOverflow),formsHaveAction:dom.formsHaveAction!==false,robots,sitemap,criticalJourneyFailure:false};
-  const scan={url:response.finalUrl||project.url,metrics,dom:combinedDom,headers:headerSignals(response.headers),checks,console:{errorCount:(desktop.console?.errorCount||0)+(mobile.console?.errorCount||0),errors:[...(desktop.console?.errors||[]),...(mobile.console?.errors||[])].slice(0,12)},network:{failedRequestCount:(desktop.network?.failedRequestCount||0)+(mobile.network?.failedRequestCount||0),failures:[...(desktop.network?.failures||[]),...(mobile.network?.failures||[])].slice(0,12)}};
+  const combinedDom={
+    ...dom,
+    tinyTapTargetRatio:mobileDom.tinyTapTargetRatio??dom.tinyTapTargetRatio,
+    tinyTextRatio:mobileDom.tinyTextRatio??dom.tinyTextRatio,
+    unnamedButtonRatio:mobileDom.unnamedButtonRatio??dom.unnamedButtonRatio,
+    unlabelledFormControlRatio:mobileDom.unlabelledFormControlRatio??dom.unlabelledFormControlRatio,
+    brokenInternalLinkRatio:linkCheck.ratio,
+    brokenInternalLinks:linkCheck.broken
+  };
+  const checks={httpOk:response.httpOk,status:response.status,viewportMeta:Boolean(dom.viewportMeta),horizontalOverflow:Boolean(mobileDom.horizontalOverflow),formsHaveAction:mobileDom.formsHaveAction!==false,robots,sitemap,criticalJourneyFailure:false};
+  const scan={url:response.finalUrl||project.url,metrics,dom:combinedDom,headers:headerSignals(response.headers),checks,console:{errorCount:(desktop.console?.errorCount||0)+(mobile.console?.errorCount||0),errors:[...(desktop.console?.errors||[]),...(mobile.console?.errors||[])].slice(0,12)},network:{failedRequestCount:(desktop.network?.failedRequestCount||0)+(mobile.network?.failedRequestCount||0),failures:[...(desktop.network?.failures||[]),...(mobile.network?.failures||[])].slice(0,12),canceledRequestCount:(desktop.network?.canceledRequestCount||0)+(mobile.network?.canceledRequestCount||0)}};
   const automatedScores=deriveAutomatedScores(scan,profile);
   let aiReview=null;
   try{
