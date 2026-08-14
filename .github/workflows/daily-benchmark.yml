@@ -17,7 +17,7 @@ concurrency:
 jobs:
   benchmark:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
         with:
@@ -25,6 +25,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
       - name: Detect Chrome
         shell: bash
         run: |
@@ -41,7 +43,11 @@ jobs:
         run: npm test
       - name: Run benchmark
         env:
+          CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ARCHIC_AI_PROVIDER: ${{ vars.ARCHIC_AI_PROVIDER }}
+          ARCHIC_CURSOR_MODEL: ${{ vars.ARCHIC_CURSOR_MODEL }}
+          ARCHIC_OPENAI_MODEL: ${{ vars.ARCHIC_OPENAI_MODEL }}
           ARCHIC_REVIEW_MODEL: ${{ vars.ARCHIC_REVIEW_MODEL }}
         run: npm run benchmark
       - name: Persist benchmark report
