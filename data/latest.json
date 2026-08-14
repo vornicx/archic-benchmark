@@ -2,10 +2,10 @@
   "schemaVersion": 2,
   "mode": "live",
   "date": "2026-08-14",
-  "generatedAt": "2026-08-14T07:29:34.574Z",
+  "generatedAt": "2026-08-14T07:35:21.277Z",
   "portfolio": {
-    "score": 86.2,
-    "delta": -0.2,
+    "score": 86.6,
+    "delta": 0.4,
     "projectsScored": 6,
     "criticalProjects": 0,
     "scanFailures": 0,
@@ -174,7 +174,7 @@
       "rawScore": 85.1,
       "cap": 100,
       "tier": "Premium",
-      "delta": -0.8,
+      "delta": 0,
       "categoryScores": {
         "businessFit": 92.8,
         "visualDesign": 57.5,
@@ -210,12 +210,12 @@
           "category": "visualDesign",
           "severity": "high",
           "title": "Text is too small to read comfortably",
-          "detail": "32% of visible sampled elements render below 12 px.",
+          "detail": "31% of visible sampled elements render below 12 px.",
           "impact": 62,
           "effort": "s",
-          "evidence": "Affected ratio: 32%. Examples: [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object].",
+          "evidence": "Affected ratio: 31%. Examples: [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object].",
           "recommendation": "Raise the smallest typography tokens and verify metadata/helper text on mobile and desktop.",
-          "observed": "32%",
+          "observed": "31%",
           "expected": "≤ 2% of visible text below 12 px",
           "location": "https://mfinity-premium.vercel.app/",
           "priority": 92
@@ -366,11 +366,11 @@
         "usage": null
       },
       "metrics": {
-        "lcpMs": 536,
-        "mobileLcpMs": 600,
-        "cls": 0.0001,
-        "ttfbMs": 2,
-        "totalBlockingMs": 105,
+        "lcpMs": 912,
+        "mobileLcpMs": 892,
+        "cls": 0,
+        "ttfbMs": 25,
+        "totalBlockingMs": 212,
         "transferKb": 303,
         "resourceCount": 21
       },
@@ -505,7 +505,7 @@
             }
           ],
           "tinyTextCount": 121,
-          "visibleElementCount": 377,
+          "visibleElementCount": 391,
           "tinyTextSamples": [
             {
               "tag": "button",
@@ -654,8 +654,8 @@
           ]
         }
       },
-      "reviewedAt": "2026-08-14T07:29:09.360Z",
-      "durationMs": 4367
+      "reviewedAt": "2026-08-14T07:34:56.032Z",
+      "durationMs": 5350
     },
     {
       "id": "trenes-y-tranvias",
@@ -839,11 +839,11 @@
         "usage": null
       },
       "metrics": {
-        "lcpMs": 632,
-        "mobileLcpMs": 352,
-        "cls": 0.0004,
-        "ttfbMs": 4,
-        "totalBlockingMs": 35,
+        "lcpMs": 744,
+        "mobileLcpMs": 336,
+        "cls": 0.0006,
+        "ttfbMs": 26,
+        "totalBlockingMs": 130,
         "transferKb": 163,
         "resourceCount": 6
       },
@@ -1127,8 +1127,8 @@
           ]
         }
       },
-      "reviewedAt": "2026-08-14T07:29:14.267Z",
-      "durationMs": 4906
+      "reviewedAt": "2026-08-14T07:35:01.030Z",
+      "durationMs": 4998
     },
     {
       "id": "marbella-boat-charter",
@@ -1278,11 +1278,11 @@
         "usage": null
       },
       "metrics": {
-        "lcpMs": 880,
-        "mobileLcpMs": 848,
+        "lcpMs": 512,
+        "mobileLcpMs": 540,
         "cls": 0.0166,
-        "ttfbMs": 4,
-        "totalBlockingMs": 72,
+        "ttfbMs": 25,
+        "totalBlockingMs": 71,
         "transferKb": 2139,
         "resourceCount": 15
       },
@@ -1566,8 +1566,8 @@
           ]
         }
       },
-      "reviewedAt": "2026-08-14T07:29:19.420Z",
-      "durationMs": 5153
+      "reviewedAt": "2026-08-14T07:35:06.644Z",
+      "durationMs": 5614
     },
     {
       "id": "marbella-for-sale",
@@ -1732,13 +1732,13 @@
         "usage": null
       },
       "metrics": {
-        "lcpMs": 556,
+        "lcpMs": 684,
         "mobileLcpMs": 0,
         "cls": 0,
-        "ttfbMs": 4,
-        "totalBlockingMs": 102,
-        "transferKb": 1908,
-        "resourceCount": 43
+        "ttfbMs": 29,
+        "totalBlockingMs": 146,
+        "transferKb": 1905,
+        "resourceCount": 40
       },
       "checks": {
         "httpOk": true,
@@ -1870,8 +1870,8 @@
               "fontSize": 11
             }
           ],
-          "tinyTextCount": 115,
-          "visibleElementCount": 259,
+          "tinyTextCount": 116,
+          "visibleElementCount": 261,
           "tinyTextSamples": [
             {
               "tag": "span",
@@ -1881,6 +1881,15 @@
               "width": 149.2,
               "height": 16.7,
               "fontSize": 7
+            },
+            {
+              "tag": "p",
+              "id": null,
+              "className": "eyebrow light",
+              "text": "MARBELLA · COSTA DEL SOL",
+              "width": 354,
+              "height": 11,
+              "fontSize": 11
             },
             {
               "tag": "span",
@@ -2007,21 +2016,12 @@
               "width": 22,
               "height": 22,
               "fontSize": 11
-            },
-            {
-              "tag": "path",
-              "id": null,
-              "className": null,
-              "text": "",
-              "width": 12.8,
-              "height": 11,
-              "fontSize": 11
             }
           ]
         }
       },
-      "reviewedAt": "2026-08-14T07:29:24.015Z",
-      "durationMs": 4595
+      "reviewedAt": "2026-08-14T07:35:11.554Z",
+      "durationMs": 4910
     },
     {
       "id": "la-bocana",
@@ -2035,17 +2035,17 @@
       "market": "Puerto Banús / Marbella",
       "primaryGoal": "Reservation",
       "status": "ok",
-      "score": 94.8,
-      "rawScore": 94.8,
+      "score": 97.1,
+      "rawScore": 97.1,
       "cap": 100,
-      "tier": "Exceptional",
-      "delta": -0.4,
+      "tier": "Reference Quality",
+      "delta": 2.3,
       "categoryScores": {
-        "businessFit": 93.3,
-        "visualDesign": 89.7,
+        "businessFit": 94,
+        "visualDesign": 97.5,
         "ux": 95,
-        "conversion": 93.2,
-        "mobile": 91.7,
+        "conversion": 95.3,
+        "mobile": 100,
         "performance": 100,
         "seoGeo": 97.5,
         "content": 91.7,
@@ -2054,53 +2054,8 @@
         "robustness": 100
       },
       "gates": [],
-      "issues": [
-        {
-          "id": "tiny-targets",
-          "category": "mobile",
-          "severity": "medium",
-          "title": "Interactive targets are too small on mobile",
-          "detail": "17% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
-          "impact": 76,
-          "effort": "s",
-          "evidence": "Affected ratio: 17%. Examples: [object Object] · [object Object] · [object Object] · [object Object].",
-          "recommendation": "Increase the hit area of the listed controls using padding/min-size without necessarily making the visual icon itself larger.",
-          "observed": "17%",
-          "expected": "≤ 5% below 44×44 px",
-          "location": "https://labocana.vercel.app/",
-          "priority": 79
-        },
-        {
-          "id": "tiny-text",
-          "category": "visualDesign",
-          "severity": "medium",
-          "title": "Text is too small to read comfortably",
-          "detail": "6% of visible sampled elements render below 12 px.",
-          "impact": 62,
-          "effort": "s",
-          "evidence": "Affected ratio: 6%. Examples: [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object].",
-          "recommendation": "Raise the smallest typography tokens and verify metadata/helper text on mobile and desktop.",
-          "observed": "6%",
-          "expected": "≤ 2% of visible text below 12 px",
-          "location": "https://labocana.vercel.app/",
-          "priority": 64
-        }
-      ],
-      "topPriority": {
-        "id": "tiny-targets",
-        "category": "mobile",
-        "severity": "medium",
-        "title": "Interactive targets are too small on mobile",
-        "detail": "17% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
-        "impact": 76,
-        "effort": "s",
-        "evidence": "Affected ratio: 17%. Examples: [object Object] · [object Object] · [object Object] · [object Object].",
-        "recommendation": "Increase the hit area of the listed controls using padding/min-size without necessarily making the visual icon itself larger.",
-        "observed": "17%",
-        "expected": "≤ 5% below 44×44 px",
-        "location": "https://labocana.vercel.app/",
-        "priority": 79
-      },
+      "issues": [],
+      "topPriority": null,
       "aiReview": {
         "provider": "openai",
         "model": null,
@@ -2111,13 +2066,13 @@
         "usage": null
       },
       "metrics": {
-        "lcpMs": 308,
-        "mobileLcpMs": 344,
+        "lcpMs": 564,
+        "mobileLcpMs": 500,
         "cls": 0,
-        "ttfbMs": 5,
-        "totalBlockingMs": 10,
-        "transferKb": 433,
-        "resourceCount": 36
+        "ttfbMs": 27,
+        "totalBlockingMs": 44,
+        "transferKb": 432,
+        "resourceCount": 35
       },
       "checks": {
         "httpOk": true,
@@ -2137,135 +2092,16 @@
         "browserErrors": [],
         "screenshotErrors": [],
         "mobileProbe": {
-          "tinyTapTargetCount": 4,
+          "tinyTapTargetCount": 0,
           "interactiveTargetCount": 23,
-          "tinyTapTargetSamples": [
-            {
-              "tag": "a",
-              "id": null,
-              "className": "skip-link",
-              "text": "Saltar al contenido principal",
-              "width": 196.7,
-              "height": 42,
-              "fontSize": 12
-            },
-            {
-              "tag": "button",
-              "id": null,
-              "className": "cookie-primary",
-              "text": "ENTENDIDO",
-              "width": 161.5,
-              "height": 42,
-              "fontSize": 9
-            },
-            {
-              "tag": "button",
-              "id": null,
-              "className": "cookie-secondary",
-              "text": "VER DETALLE",
-              "width": 161.5,
-              "height": 42,
-              "fontSize": 9
-            },
-            {
-              "tag": "a",
-              "id": null,
-              "className": "",
-              "text": "POLÍTICA DE COOKIES",
-              "width": 112.7,
-              "height": 26,
-              "fontSize": 9
-            }
-          ],
-          "tinyTextCount": 9,
+          "tinyTapTargetSamples": [],
+          "tinyTextCount": 0,
           "visibleElementCount": 152,
-          "tinyTextSamples": [
-            {
-              "tag": "strong",
-              "id": null,
-              "className": "",
-              "text": "BEST OF THE BEST 2025",
-              "width": 120.7,
-              "height": 8,
-              "fontSize": 8
-            },
-            {
-              "tag": "a",
-              "id": null,
-              "className": "reserve-main",
-              "text": "RESERVAR MESA",
-              "width": 350,
-              "height": 52,
-              "fontSize": 10
-            },
-            {
-              "tag": "a",
-              "id": null,
-              "className": "reserve-secondary",
-              "text": "CÓMO LLEGAR",
-              "width": 350,
-              "height": 52,
-              "fontSize": 10
-            },
-            {
-              "tag": "span",
-              "id": null,
-              "className": "",
-              "text": "PRIVACIDAD",
-              "width": 72.4,
-              "height": 10,
-              "fontSize": 9
-            },
-            {
-              "tag": "button",
-              "id": null,
-              "className": "",
-              "text": "CERRAR",
-              "width": 56.2,
-              "height": 44,
-              "fontSize": 10
-            },
-            {
-              "tag": "p",
-              "id": null,
-              "className": "",
-              "text": "U amo  cookie  técnica  para la  re erva , el acce o privado y recordar e te avi o. Sin an",
-              "width": 332,
-              "height": 34.1,
-              "fontSize": 11
-            },
-            {
-              "tag": "button",
-              "id": null,
-              "className": "cookie-primary",
-              "text": "ENTENDIDO",
-              "width": 161.5,
-              "height": 42,
-              "fontSize": 9
-            },
-            {
-              "tag": "button",
-              "id": null,
-              "className": "cookie-secondary",
-              "text": "VER DETALLE",
-              "width": 161.5,
-              "height": 42,
-              "fontSize": 9
-            },
-            {
-              "tag": "a",
-              "id": null,
-              "className": "",
-              "text": "POLÍTICA DE COOKIES",
-              "width": 112.7,
-              "height": 26,
-              "fontSize": 9
-            }
-          ]
+          "tinyTextSamples": []
         }
       },
-      "reviewedAt": "2026-08-14T07:29:29.020Z",
-      "durationMs": 5005
+      "reviewedAt": "2026-08-14T07:35:16.990Z",
+      "durationMs": 5436
     },
     {
       "id": "noguera",
@@ -2415,10 +2251,10 @@
         "usage": null
       },
       "metrics": {
-        "lcpMs": 0,
-        "mobileLcpMs": 232,
+        "lcpMs": 332,
+        "mobileLcpMs": 264,
         "cls": 0.0012,
-        "ttfbMs": 5,
+        "ttfbMs": 25,
         "totalBlockingMs": 0,
         "transferKb": 115,
         "resourceCount": 16
@@ -2449,8 +2285,8 @@
           "tinyTextSamples": []
         }
       },
-      "reviewedAt": "2026-08-14T07:29:34.541Z",
-      "durationMs": 5521
+      "reviewedAt": "2026-08-14T07:35:21.248Z",
+      "durationMs": 4258
     }
   ]
 }
