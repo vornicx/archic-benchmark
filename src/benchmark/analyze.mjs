@@ -26,7 +26,7 @@ export async function analyzeProject({project,profile,gates,rootDir,previous=nul
   const desktop=desktopResult.scan,mobile=mobileResult.scan;
   const browserErrors=[desktopResult.error&&`desktop: ${desktopResult.error}`,mobileResult.error&&`mobile: ${mobileResult.error}`].filter(Boolean);
   const screenshotErrors=[desktop?.screenshotError&&`desktop: ${desktop.screenshotError}`,mobile?.screenshotError&&`mobile: ${mobile.screenshotError}`].filter(Boolean);
-  const scanDiagnostics={browserErrors,screenshotErrors};
+  const scanDiagnostics={browserErrors,screenshotErrors,mobileProbe:mobile?.dom?{tinyTapTargetCount:mobile.dom.tinyTapTargetCount??null,interactiveTargetCount:mobile.dom.interactiveTargetCount??null,tinyTapTargetSamples:mobile.dom.tinyTapTargetSamples||[],tinyTextCount:mobile.dom.tinyTextCount??null,visibleElementCount:mobile.dom.visibleElementCount??null,tinyTextSamples:mobile.dom.tinyTextSamples||[]}:null};
   const origin=(()=>{try{return new URL(project.url).origin}catch{return project.url}})();
   const [robots,sitemap]=await Promise.all([checkEndpoint(origin,'/robots.txt'),checkEndpoint(origin,'/sitemap.xml')]);
 
@@ -36,24 +36,12 @@ export async function analyzeProject({project,profile,gates,rootDir,previous=nul
 
   const dom=desktop.dom||{};const mobileDom=mobile.dom||{};const linkCheck=await brokenLinkRatio(dom.internalLinks);
   const metrics={...(desktop.metrics||{}),mobileLcpMs:mobile.metrics?.lcpMs??null,mobileCls:mobile.metrics?.cls??null,mobileTotalBlockingMs:mobile.metrics?.totalBlockingMs??null};
-  const combinedDom={
-    ...dom,
-    tinyTapTargetRatio:mobileDom.tinyTapTargetRatio??dom.tinyTapTargetRatio,
-    tinyTextRatio:mobileDom.tinyTextRatio??dom.tinyTextRatio,
-    unnamedButtonRatio:mobileDom.unnamedButtonRatio??dom.unnamedButtonRatio,
-    unlabelledFormControlRatio:mobileDom.unlabelledFormControlRatio??dom.unlabelledFormControlRatio,
-    brokenInternalLinkRatio:linkCheck.ratio,
-    brokenInternalLinks:linkCheck.broken
-  };
+  const combinedDom={...dom,tinyTapTargetRatio:mobileDom.tinyTapTargetRatio??dom.tinyTapTargetRatio,tinyTextRatio:mobileDom.tinyTextRatio??dom.tinyTextRatio,unnamedButtonRatio:mobileDom.unnamedButtonRatio??dom.unnamedButtonRatio,unlabelledFormControlRatio:mobileDom.unlabelledFormControlRatio??dom.unlabelledFormControlRatio,brokenInternalLinkRatio:linkCheck.ratio,brokenInternalLinks:linkCheck.broken};
   const checks={httpOk:response.httpOk,status:response.status,viewportMeta:Boolean(dom.viewportMeta),horizontalOverflow:Boolean(mobileDom.horizontalOverflow),formsHaveAction:mobileDom.formsHaveAction!==false,robots,sitemap,criticalJourneyFailure:false};
   const scan={url:response.finalUrl||project.url,metrics,dom:combinedDom,headers:headerSignals(response.headers),checks,console:{errorCount:(desktop.console?.errorCount||0)+(mobile.console?.errorCount||0),errors:[...(desktop.console?.errors||[]),...(mobile.console?.errors||[])].slice(0,12)},network:{failedRequestCount:(desktop.network?.failedRequestCount||0)+(mobile.network?.failedRequestCount||0),failures:[...(desktop.network?.failures||[]),...(mobile.network?.failures||[])].slice(0,12),canceledRequestCount:(desktop.network?.canceledRequestCount||0)+(mobile.network?.canceledRequestCount||0)}};
   const automatedScores=deriveAutomatedScores(scan,profile);
   let aiReview=null;
-  try{
-    aiReview=await reviewWithAI({project,profile,desktopScreenshot:desktop.screenshotCaptured?desktopPath:null,mobileScreenshot:mobile.screenshotCaptured?mobilePath:null,automatedScores,scan});
-  }catch(e){
-    aiReview={error:e.message,provider:'openai'};
-  }
+  try{aiReview=await reviewWithAI({project,profile,desktopScreenshot:desktop.screenshotCaptured?desktopPath:null,mobileScreenshot:mobile.screenshotCaptured?mobilePath:null,automatedScores,scan});}catch(e){aiReview={error:e.message,provider:'openai'};}
   const categoryScores=mergeAIReview(automatedScores,aiReview);const rawScore=weightedScore(categoryScores,profile.weights);const gated=applyGates(rawScore,deriveSignals(scan),gates);const automatedIssues=deriveIssues(scan);const aiIssues=Array.isArray(aiReview?.issues)?aiReview.issues.map((x,i)=>({id:`ai-${i}`,...x})):[];const gateIssues=gated.active.map(g=>({id:`gate-${g.id}`,category:'robustness',severity:g.severity,title:g.label,detail:`Quality gate caps the project at ${g.cap}/100 until resolved.`,impact:95,effort:'m',gate:true}));const issues=rankIssues([...gateIssues,...aiIssues,...automatedIssues],profile.weights);const score=Number(gated.score.toFixed(1));
   const status=response.httpOk?(screenshotErrors.length?'partial':'ok'):'critical';
   return{id:project.id,name:project.name,url:project.url,finalUrl:scan.url,repository:project.repository||null,profile:project.profile,profileLabel:profile.label,positioning:project.positioning,market:project.market,primaryGoal:project.primaryGoal,status,score,rawScore:Number(rawScore.toFixed(1)),cap:gated.cap,tier:qualityTier(score),delta:scoreDelta(score,previous?.score),categoryScores:Object.fromEntries(Object.entries(categoryScores).map(([k,v])=>[k,Number(v.toFixed(1))])),gates:gated.active,issues,topPriority:issues[0]||null,aiReview:aiReview?{provider:aiReview.provider||null,model:aiReview.model||null,summary:aiReview.summary||null,strengths:aiReview.strengths||[],confidence:aiReview.confidence??null,error:aiReview.error||null,usage:aiReview.usage||null}:null,metrics:{lcpMs:metrics.lcpMs??null,mobileLcpMs:metrics.mobileLcpMs??null,cls:metrics.cls??null,ttfbMs:metrics.ttfbMs??null,totalBlockingMs:metrics.totalBlockingMs??null,transferKb:metrics.transferKb??null,resourceCount:metrics.resourceCount??null},checks:{httpOk:checks.httpOk,status:checks.status,horizontalOverflow:checks.horizontalOverflow,robots:checks.robots,sitemap:checks.sitemap,brokenInternalLinks:linkCheck.broken.length,consoleErrors:scan.console.errorCount,failedRequests:scan.network.failedRequestCount},screenshots:desktop.screenshotCaptured&&mobile.screenshotCaptured?{desktop:`/screenshots/${project.id}/desktop.jpg`,mobile:`/screenshots/${project.id}/mobile.jpg`}:null,scanDiagnostics,reviewedAt:new Date().toISOString(),durationMs:Date.now()-startedAt.getTime()};

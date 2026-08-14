@@ -1,5 +1,6 @@
 export const MOBILE_PROBE = `(() => {
-  const visible=el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el);return r.width>0&&r.height>0&&s.display!=='none'&&s.visibility!=='hidden'};
+  const visible=el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el);return r.width>0&&r.height>0&&s.display!=='none'&&s.visibility!=='hidden'&&s.opacity!=='0'};
+  const describe=el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el);return {tag:el.tagName.toLowerCase(),id:el.id||null,className:typeof el.className==='string'?el.className.slice(0,120):null,text:(el.innerText||el.textContent||'').trim().replace(/\s+/g,' ').slice(0,90),width:Number(r.width.toFixed(1)),height:Number(r.height.toFixed(1)),fontSize:Number((parseFloat(s.fontSize||'0')).toFixed(1))}};
   const all=[...document.querySelectorAll('*')].filter(visible);
   const buttons=[...document.querySelectorAll('button,[role="button"],a[href],input[type="submit"]')].filter(visible);
   const fields=[...document.querySelectorAll('input:not([type="hidden"]),select,textarea')].filter(visible);
@@ -16,7 +17,13 @@ export const MOBILE_PROBE = `(() => {
   const headingText=headings.map(h=>(h.innerText||'').trim()).filter(Boolean);
   return {
     tinyTapTargetRatio:buttons.length?smallTargets.length/buttons.length:0,
+    tinyTapTargetCount:smallTargets.length,
+    interactiveTargetCount:buttons.length,
+    tinyTapTargetSamples:smallTargets.slice(0,12).map(describe),
     tinyTextRatio:all.length?smallText.length/all.length:0,
+    tinyTextCount:smallText.length,
+    visibleElementCount:all.length,
+    tinyTextSamples:smallText.slice(0,16).map(describe),
     unnamedButtonRatio:buttons.length?unnamed.length/buttons.length:0,
     unlabelledFormControlRatio:fields.length?unlabelled.length/fields.length:0,
     formsHaveAction:[...document.forms].every(f=>Boolean(f.action)||Boolean(f.querySelector('button[type="submit"],input[type="submit"]'))),
