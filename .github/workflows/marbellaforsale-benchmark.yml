@@ -1,5 +1,6 @@
 name: Marbella For Sale Terra Review
 
+# Dedicated high-quality review of the latest Marbella For Sale main branch.
 on:
   push:
     branches: [main]
@@ -78,7 +79,7 @@ jobs:
           const report=await analyzeProject({project,profile,gates:gates.gates,rootDir:root,previous:previous.projects?.find(item=>item.id===configured.id)||null});
           report.publicUrl=configured.url;
           await fs.writeFile('marbellaforsale-terra.json',JSON.stringify(report,null,2));
-          console.log(`Marbella For Sale latest main · ${report.score}/100 · ${report.tier} · ${report.aiReview?.model||'no AI'} · ${report.aiReview?.error||'AI ok'}`);
+          console.log(`Marbella For Sale latest main · ${report.score}/100 · raw ${report.rawScore}/100 · ${report.tier} · ${report.aiReview?.model||'no AI'} · ${report.aiReview?.error||'AI ok'}`);
           NODE
       - uses: actions/upload-artifact@v4
         with:
