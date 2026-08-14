@@ -122,26 +122,35 @@ export async function withBrowser(fn) {
 
   let client;
   try {
-    let pages = null;
+    let ready = false;
     for (let i = 0; i < 100; i++) {
       if (exited) {
         throw new Error(`Chromium exited before DevTools became ready (code ${exitCode}).${stderr ? `\n${stderr.trim()}` : ''}`);
       }
       try {
-        const res = await fetch(`http://127.0.0.1:${port}/json/list`);
+        const res = await fetch(`http://127.0.0.1:${port}/json/version`);
         if (res.ok) {
-          pages = await res.json();
-          if (pages?.[0]?.webSocketDebuggerUrl) break;
+          const version = await res.json();
+          if (version?.webSocketDebuggerUrl) { ready = true; break; }
         }
       } catch {}
       await sleep(100);
     }
 
-    if (!pages?.[0]?.webSocketDebuggerUrl) {
+    if (!ready) {
       throw new Error(`Could not connect to Chromium DevTools at 127.0.0.1:${port}.${stderr ? `\n${stderr.trim()}` : ''}`);
     }
 
-    client = new CDPClient(pages[0].webSocketDebuggerUrl);
+    const targetResponse = await fetch(`http://127.0.0.1:${port}/json/new?${encodeURIComponent('about:blank')}`, { method: 'PUT' });
+    if (!targetResponse.ok) {
+      throw new Error(`Could not create dedicated Chromium page target (${targetResponse.status}).${stderr ? `\n${stderr.trim()}` : ''}`);
+    }
+    const target = await targetResponse.json();
+    if (!target?.webSocketDebuggerUrl) {
+      throw new Error(`Dedicated Chromium page target did not expose a websocket.${stderr ? `\n${stderr.trim()}` : ''}`);
+    }
+
+    client = new CDPClient(target.webSocketDebuggerUrl);
     await client.connect();
     return await fn(client);
   } finally {
