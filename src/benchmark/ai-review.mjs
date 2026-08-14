@@ -1,6 +1,8 @@
 import fs from 'node:fs/promises';
 
+const DEFAULT_OPENAI_BASE_URL='https://api.openai.com/v1';
 const DEFAULT_OPENAI_MODEL='gpt-5-mini';
+const SYNTEROLINK_DEFAULT_MODEL='gpt-5.4';
 const DEFAULT_MAX_OUTPUT_TOKENS=3500;
 const RETRYABLE_STATUS=new Set([408,409,429,500,502,503,504]);
 
@@ -81,6 +83,18 @@ export function selectReviewProvider(env=process.env){
   return env.OPENAI_API_KEY?'openai':null;
 }
 
+export function resolveOpenAIBaseUrl(env=process.env){
+  const configured=String(env.ARCHIC_OPENAI_BASE_URL||env.OPENAI_BASE_URL||DEFAULT_OPENAI_BASE_URL).trim().replace(/\/+$/,'');
+  if(!configured)return DEFAULT_OPENAI_BASE_URL;
+  return /\/v1$/i.test(configured)?configured:`${configured}/v1`;
+}
+
+export function resolveOpenAIModel(env=process.env){
+  const configured=String(env.ARCHIC_OPENAI_MODEL||env.ARCHIC_REVIEW_MODEL||'').trim();
+  if(configured)return configured;
+  return resolveOpenAIBaseUrl(env).includes('api.synterolink.com')?SYNTEROLINK_DEFAULT_MODEL:DEFAULT_OPENAI_MODEL;
+}
+
 export function createReviewPrompt({project,profile,automatedScores,scan}){
   return `You are Archic Benchmark, a strict senior design director, CRO specialist and product reviewer. This is a read-only review: do not edit files or run implementation work. Evaluate this website relative to its real business and niche. Scores above 90 must be rare; 95+ means reference quality. Penalize template feel, weak hierarchy, low perceived value, default-looking components, poor mobile craft, weak conversion paths, inconsistent typography/spacing, weak imagery/crops and anything below the positioning.
 
@@ -106,11 +120,11 @@ function imageDetail(env=process.env){
   return ['low','high','auto'].includes(detail)?detail:'high';
 }
 
-async function createOpenAIResponse(body,apiKey){
+async function createOpenAIResponse(body,apiKey,baseUrl){
   let lastError=null;
   for(let attempt=0;attempt<3;attempt+=1){
     try{
-      const response=await fetch('https://api.openai.com/v1/responses',{
+      const response=await fetch(`${baseUrl}/responses`,{
         method:'POST',
         headers:{authorization:`Bearer ${apiKey}`,'content-type':'application/json'},
         body:JSON.stringify(body),
@@ -118,7 +132,7 @@ async function createOpenAIResponse(body,apiKey){
       });
       if(response.ok)return response.json();
       const errorText=(await response.text()).slice(0,500);
-      lastError=new Error(`OpenAI visual review failed: ${response.status}${errorText?` · ${errorText}`:''}`);
+      lastError=new Error(`OpenAI-compatible visual review failed: ${response.status}${errorText?` · ${errorText}`:''}`);
       if(!RETRYABLE_STATUS.has(response.status)||attempt===2)throw lastError;
     }catch(error){
       lastError=error;
@@ -126,13 +140,14 @@ async function createOpenAIResponse(body,apiKey){
     }
     await sleep(750*(attempt+1));
   }
-  throw lastError||new Error('OpenAI visual review failed.');
+  throw lastError||new Error('OpenAI-compatible visual review failed.');
 }
 
 async function reviewWithOpenAI({prompt,desktopScreenshot,mobileScreenshot}){
   const apiKey=process.env.OPENAI_API_KEY;
   if(!apiKey)return null;
-  const model=process.env.ARCHIC_OPENAI_MODEL||process.env.ARCHIC_REVIEW_MODEL||DEFAULT_OPENAI_MODEL;
+  const baseUrl=resolveOpenAIBaseUrl();
+  const model=resolveOpenAIModel();
   const [desktop,mobile]=await Promise.all([imageDataUrl(desktopScreenshot),imageDataUrl(mobileScreenshot)]);
   const detail=imageDetail();
   const response=await createOpenAIResponse({
@@ -151,14 +166,14 @@ async function reviewWithOpenAI({prompt,desktopScreenshot,mobileScreenshot}){
       {type:'input_image',image_url:desktop,detail},
       {type:'input_image',image_url:mobile,detail}
     ]}]
-  },apiKey);
+  },apiKey,baseUrl);
   const review=parseReviewJson(extractOpenAIText(response));
   const usage=response?.usage?{
     inputTokens:response.usage.input_tokens??null,
     outputTokens:response.usage.output_tokens??null,
     totalTokens:response.usage.total_tokens??null
   }:null;
-  return {...review,provider:'openai',model,usage};
+  return {...review,provider:'openai-compatible',model,baseUrl,usage};
 }
 
 export async function reviewWithAI({project,profile,desktopScreenshot,mobileScreenshot,automatedScores,scan}){
