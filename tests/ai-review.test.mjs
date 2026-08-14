@@ -26,8 +26,8 @@ test('OpenAI-compatible base URL does not duplicate /v1',()=>{
   assert.equal(resolveOpenAIBaseUrl({ARCHIC_OPENAI_BASE_URL:'https://api.synterolink.com/v1/'}),'https://api.synterolink.com/v1');
 });
 
-test('SynteroLink defaults to its current OpenAI-group model when no model override exists',()=>{
-  assert.equal(resolveOpenAIModel({ARCHIC_OPENAI_BASE_URL:'https://api.synterolink.com'}),'gpt-5.4');
+test('SynteroLink defaults to Terra when no model override exists',()=>{
+  assert.equal(resolveOpenAIModel({ARCHIC_OPENAI_BASE_URL:'https://api.synterolink.com'}),'gpt-5.6-terra');
 });
 
 test('explicit model configuration always wins',()=>{
