@@ -97,6 +97,9 @@ try{
   console.log(`Cursor autofix · ${project.name} · ${issues.length} issues · ${model}`);
   const run=await agent.send({text:prompt});
   const result=await run.wait();
+  if(String(result?.status||'').toLowerCase()==='error')throw new Error('Cursor autofix failed.');
+  const prUrl=result?.git?.branches?.find(branch=>branch?.prUrl)?.prUrl;
+  if(prUrl)console.log(`PR: ${prUrl}`);
   console.log(result?.result||result?.text||'Cursor agent completed.');
 }finally{
   if(agent?.[Symbol.asyncDispose])await agent[Symbol.asyncDispose]();
