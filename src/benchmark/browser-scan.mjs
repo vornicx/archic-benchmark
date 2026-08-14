@@ -51,8 +51,9 @@ export async function scanViewport(url,{width,height,mobile=false,screenshotPath
     await client.send('Emulation.setDeviceMetricsOverride',{width,height,deviceScaleFactor:mobile?2:1,mobile,screenWidth:width,screenHeight:height});
     await client.send('Page.addScriptToEvaluateOnNewDocument',{source:VITALS_SCRIPT});
     const navigation=await client.send('Page.navigate',{url});
-    if(navigation?.errorText) throw new Error(`Navigation failed for ${url}: ${navigation.errorText}`);
-    await waitForDocumentReady(client);
+    const navigationError=navigation?.errorText||null;
+    if(navigationError&&navigationError!=='net::ERR_ABORTED') throw new Error(`Navigation failed for ${url}: ${navigationError}`);
+    const ready=await waitForDocumentReady(client);
     await wait(500);
     const result=await client.send('Runtime.evaluate',{expression:`(() => ({
       documentUrl:location.href,
@@ -84,6 +85,6 @@ export async function scanViewport(url,{width,height,mobile=false,screenshotPath
     const dom={...(result.result?.value||{}),...(mobileProbe.result?.value||{})};
     const metrics=perf.result?.value||{};
     const screenshot=await captureScreenshotSafe(client,screenshotPath);
-    return {dom,metrics,console:{errorCount:errors.length,errors:errors.slice(0,12)},network:{failedRequestCount:failures.length,failures:failures.slice(0,12)},screenshotCaptured:screenshot.captured,screenshotError:screenshot.error};
+    return {dom,metrics,navigation:{errorText:navigationError,recovered:Boolean(navigationError),finalUrl:ready.href},console:{errorCount:errors.length,errors:errors.slice(0,12)},network:{failedRequestCount:failures.length,failures:failures.slice(0,12)},screenshotCaptured:screenshot.captured,screenshotError:screenshot.error};
   });
 }
