@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
+import http from 'node:http';
 import os from 'node:os';
 import path from 'node:path';
 import { withBrowser } from '../src/benchmark/cdp.mjs';
@@ -24,12 +25,21 @@ test('Chromium CDP boots and evaluates a document', { timeout: 30000 }, async ()
   assert.equal(value, 'Benchmark');
 });
 
-test('scanViewport keeps DOM signals and screenshots stable on extremely tall pages', { timeout: 30000 }, async () => {
+test('scanViewport keeps DOM signals and screenshots stable on extremely tall HTTP pages', { timeout: 30000 }, async () => {
   const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'archic-scan-test-'));
   const screenshotPath = path.join(dir, 'tall.jpg');
   const html = '<!doctype html><html lang="es"><head><title>La Bocana test</title><meta name="viewport" content="width=device-width, initial-scale=1"></head><body style="margin:0;height:50000px"><h1>Benchmark</h1><a href="/reservar">Reservar mesa</a></body></html>';
+  const server = http.createServer((req,res) => {
+    res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });
+    res.end(html);
+  });
+  await new Promise((resolve,reject) => {
+    server.once('error', reject);
+    server.listen(0, '127.0.0.1', resolve);
+  });
+  const address = server.address();
   try {
-    const scan = await scanViewport(`data:text/html;charset=utf-8,${encodeURIComponent(html)}`, { width: 390, height: 844, mobile: true, screenshotPath });
+    const scan = await scanViewport(`http://127.0.0.1:${address.port}/`, { width: 390, height: 844, mobile: true, screenshotPath });
     assert.equal(scan.dom.titleLength, 'La Bocana test'.length);
     assert.equal(scan.dom.viewportMeta, true);
     assert.equal(scan.dom.h1Count, 1);
@@ -38,6 +48,7 @@ test('scanViewport keeps DOM signals and screenshots stable on extremely tall pa
     const stat = await fs.stat(screenshotPath);
     assert.ok(stat.size > 0);
   } finally {
+    await new Promise(resolve => server.close(resolve));
     await fs.rm(dir, { recursive: true, force: true });
   }
 });
