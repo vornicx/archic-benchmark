@@ -1,1 +1,1 @@
-Manual benchmark trigger for Mfinity 90+ pass — 2026-08-14T13:42:00+02:00
+Manual benchmark trigger for stable Mfinity 90+ build — 2026-08-14T13:53:00+02:00
