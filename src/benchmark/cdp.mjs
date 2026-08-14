@@ -20,7 +20,7 @@ async function getFreePort() {
 async function findChrome() {
   const candidates = [
     process.env.CHROME_PATH,
-    '/usr/bin/chromium', '/usr/bin/chromium-browser', '/usr/bin/google-chrome', '/usr/bin/google-chrome-stable',
+    '/usr/bin/google-chrome', '/usr/bin/google-chrome-stable', '/usr/bin/chromium', '/usr/bin/chromium-browser',
     '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
   ].filter(Boolean);
   for (const candidate of candidates) {
@@ -85,33 +85,68 @@ export class CDPClient {
 export async function withBrowser(fn) {
   const chrome = await findChrome();
   if (!chrome) throw new Error('Chromium/Chrome not found. Set CHROME_PATH.');
+
   const port = await getFreePort();
   const userDataDir = await fs.mkdtemp(path.join(os.tmpdir(), 'archic-benchmark-'));
+  let stderr = '';
+
   const child = spawn(chrome, [
-    '--headless=new', '--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage',
-    '--disable-background-networking', '--disable-default-apps', '--disable-extensions',
-    '--hide-scrollbars', `--remote-debugging-port=${port}`, `--user-data-dir=${userDataDir}`,
+    '--headless',
+    '--no-sandbox',
+    '--disable-gpu',
+    '--disable-dev-shm-usage',
+    '--disable-background-networking',
+    '--disable-default-apps',
+    '--disable-extensions',
+    '--hide-scrollbars',
+    '--no-first-run',
+    '--no-default-browser-check',
+    '--remote-debugging-address=127.0.0.1',
+    `--remote-debugging-port=${port}`,
+    `--user-data-dir=${userDataDir}`,
     'about:blank'
-  ], { stdio: 'ignore' });
+  ], { stdio: ['ignore', 'ignore', 'pipe'] });
+
+  child.stderr?.setEncoding('utf8');
+  child.stderr?.on('data', chunk => {
+    stderr += chunk;
+    if (stderr.length > 12000) stderr = stderr.slice(-12000);
+  });
+
+  let exited = false;
+  let exitCode = null;
+  child.once('exit', code => {
+    exited = true;
+    exitCode = code;
+  });
 
   let client;
   try {
     let pages = null;
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 100; i++) {
+      if (exited) {
+        throw new Error(`Chromium exited before DevTools became ready (code ${exitCode}).${stderr ? `\n${stderr.trim()}` : ''}`);
+      }
       try {
         const res = await fetch(`http://127.0.0.1:${port}/json/list`);
-        pages = await res.json();
-        if (pages?.[0]?.webSocketDebuggerUrl) break;
+        if (res.ok) {
+          pages = await res.json();
+          if (pages?.[0]?.webSocketDebuggerUrl) break;
+        }
       } catch {}
       await sleep(100);
     }
-    if (!pages?.[0]?.webSocketDebuggerUrl) throw new Error('Could not connect to Chromium DevTools.');
+
+    if (!pages?.[0]?.webSocketDebuggerUrl) {
+      throw new Error(`Could not connect to Chromium DevTools at 127.0.0.1:${port}.${stderr ? `\n${stderr.trim()}` : ''}`);
+    }
+
     client = new CDPClient(pages[0].webSocketDebuggerUrl);
     await client.connect();
     return await fn(client);
   } finally {
     client?.close();
-    child.kill('SIGKILL');
+    if (!child.killed) child.kill('SIGKILL');
     await fs.rm(userDataDir, { recursive: true, force: true }).catch(() => {});
   }
 }
