@@ -73,7 +73,7 @@ async function reviewWithCursor({prompt,desktopScreenshot,mobileScreenshot,rootD
     const [desktop,mobile]=await Promise.all([imagePayload(desktopScreenshot),imagePayload(mobileScreenshot)]);
     const run=await agent.send({text:prompt,images:[desktop,mobile]});
     const result=await run.wait();
-    if(result?.status&&result.status!=='finished')throw new Error(`Cursor review ended with status ${result.status}`);
+    if(String(result?.status||'').toLowerCase()==='error')throw new Error('Cursor review failed.');
     const review=parseReviewJson(result?.result||result?.text||'');
     return {...review,provider:'cursor',model};
   }finally{
