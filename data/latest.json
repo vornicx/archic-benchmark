@@ -2,14 +2,14 @@
   "schemaVersion": 2,
   "mode": "live",
   "date": "2026-08-14",
-  "generatedAt": "2026-08-14T07:18:46.375Z",
+  "generatedAt": "2026-08-14T07:26:12.722Z",
   "portfolio": {
-    "score": 84.1,
-    "delta": 13,
+    "score": 86.4,
+    "delta": 2.3,
     "projectsScored": 6,
     "criticalProjects": 0,
     "scanFailures": 0,
-    "activeGates": 5,
+    "activeGates": 3,
     "aiUsage": {
       "provider": "openai",
       "completed": 0,
@@ -57,12 +57,12 @@
       "category": "mobile",
       "severity": "high",
       "title": "Interactive targets are too small on mobile",
-      "detail": "58% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
+      "detail": "50% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
       "impact": 76,
       "effort": "s",
-      "evidence": "Affected ratio: 58%.",
+      "evidence": "Affected ratio: 50%.",
       "recommendation": "Increase the hit area of the listed controls using padding/min-size without necessarily making the visual icon itself larger.",
-      "observed": "58%",
+      "observed": "50%",
       "expected": "≤ 5% below 44×44 px",
       "location": "https://marbellaboatcharter.vercel.app/",
       "priority": 100,
@@ -85,50 +85,22 @@
       "projectScore": 84
     },
     {
-      "id": "gate-tiny-mobile-targets",
-      "category": "robustness",
+      "id": "primary-cta",
+      "category": "conversion",
       "severity": "high",
-      "title": "Too many mobile tap targets are undersized",
-      "detail": "Quality gate caps the project at 84/100 until resolved.",
-      "impact": 95,
+      "title": "No clear primary CTA was detected",
+      "detail": "The page does not expose a visible action matching common booking, reservation, enquiry, contact or purchase intent.",
+      "impact": 86,
       "effort": "m",
-      "gate": true,
-      "priority": 100,
-      "projectId": "la-bocana",
-      "projectName": "La Bocana",
-      "projectScore": 84
-    },
-    {
-      "id": "tiny-targets",
-      "category": "mobile",
-      "severity": "high",
-      "title": "Interactive targets are too small on mobile",
-      "detail": "53% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
-      "impact": 76,
-      "effort": "s",
-      "evidence": "Affected ratio: 53%.",
-      "recommendation": "Increase the hit area of the listed controls using padding/min-size without necessarily making the visual icon itself larger.",
-      "observed": "53%",
-      "expected": "≤ 5% below 44×44 px",
-      "location": "https://labocana.vercel.app/",
-      "priority": 100,
-      "projectId": "la-bocana",
-      "projectName": "La Bocana",
-      "projectScore": 84
-    },
-    {
-      "id": "gate-tiny-mobile-targets",
-      "category": "robustness",
-      "severity": "high",
-      "title": "Too many mobile tap targets are undersized",
-      "detail": "Quality gate caps the project at 84/100 until resolved.",
-      "impact": 95,
-      "effort": "m",
-      "gate": true,
+      "evidence": "Primary CTA detector count: 0.",
+      "recommendation": "Define the page’s single primary conversion action and make it explicit in the hero/navigation with business-specific wording.",
+      "observed": "0 detected primary CTAs",
+      "expected": "At least one obvious primary commercial action",
+      "location": "https://inmobiliaria-noguera.vercel.app/",
       "priority": 100,
       "projectId": "noguera",
       "projectName": "Inmobiliaria Noguera",
-      "projectScore": 84
+      "projectScore": 85.2
     },
     {
       "id": "contact-path",
@@ -146,6 +118,38 @@
       "priority": 100,
       "projectId": "noguera",
       "projectName": "Inmobiliaria Noguera",
+      "projectScore": 85.2
+    },
+    {
+      "id": "unnamed-controls",
+      "category": "accessibility",
+      "severity": "high",
+      "title": "Interactive controls have no accessible name",
+      "detail": "3% of visible links/buttons do not expose readable text, aria-label or title.",
+      "impact": 82,
+      "effort": "xs",
+      "evidence": "Affected ratio: 3%.",
+      "recommendation": "Add visible text or a precise aria-label to icon-only and otherwise unnamed controls.",
+      "observed": "3%",
+      "expected": "Every interactive control has an accessible name",
+      "location": "https://marbellaboatcharter.vercel.app/",
+      "priority": 98,
+      "projectId": "marbella-boat-charter",
+      "projectName": "Marbella Boat Charter",
+      "projectScore": 84
+    },
+    {
+      "id": "gate-tiny-mobile-targets",
+      "category": "robustness",
+      "severity": "high",
+      "title": "Too many mobile tap targets are undersized",
+      "detail": "Quality gate caps the project at 84/100 until resolved.",
+      "impact": 95,
+      "effort": "m",
+      "gate": true,
+      "priority": 97,
+      "projectId": "trenes-y-tranvias",
+      "projectName": "Trenes y Tranvías",
       "projectScore": 84
     }
   ],
@@ -162,23 +166,23 @@
       "market": "Marbella / Puerto Banús",
       "primaryGoal": "Reservation / enquiry",
       "status": "ok",
-      "score": 84.4,
-      "rawScore": 84.4,
+      "score": 85.9,
+      "rawScore": 85.9,
       "cap": 100,
       "tier": "Premium",
-      "delta": 13.5,
+      "delta": 1.5,
       "categoryScores": {
-        "businessFit": 92.6,
+        "businessFit": 93.1,
         "visualDesign": 57.5,
         "ux": 95,
-        "conversion": 91.1,
-        "mobile": 83.3,
+        "conversion": 92.8,
+        "mobile": 90,
         "performance": 100,
         "seoGeo": 72.3,
         "content": 91.7,
         "accessibility": 100,
         "securityTrust": 75.4,
-        "robustness": 94.7
+        "robustness": 100
       },
       "gates": [],
       "issues": [
@@ -187,42 +191,27 @@
           "category": "visualDesign",
           "severity": "high",
           "title": "Text is too small to read comfortably",
-          "detail": "34% of visible sampled elements render below 12 px.",
+          "detail": "30% of visible sampled elements render below 12 px.",
           "impact": 62,
           "effort": "s",
-          "evidence": "Affected ratio: 34%.",
+          "evidence": "Affected ratio: 30%.",
           "recommendation": "Raise the smallest typography tokens and verify metadata/helper text on mobile and desktop.",
-          "observed": "34%",
+          "observed": "30%",
           "expected": "≤ 2% of visible text below 12 px",
           "location": "https://mfinity-premium.vercel.app/",
           "priority": 92
-        },
-        {
-          "id": "failed-requests",
-          "category": "robustness",
-          "severity": "high",
-          "title": "Network requests fail during page load",
-          "detail": "The scans recorded 2 failed network request(s), which can leave content, fonts, images or functionality incomplete.",
-          "impact": 80,
-          "effort": "m",
-          "evidence": "https://mfinity.es/wp-content/uploads/2024/04/Ferrari-488-Spyder%E2%80%8B-front.jpg — net::ERR_ABORTED · https://mfinity.es/wp-content/uploads/2024/04/Ferrari-488-Spyder%E2%80%8B-front.jpg — net::ERR_ABORTED",
-          "recommendation": "Fix each listed request URL/error, including incorrect paths, blocked CORS requests, missing assets and aborted critical API calls.",
-          "observed": "2 failed request(s)",
-          "expected": "0 unexplained failed production requests",
-          "location": "https://mfinity-premium.vercel.app/",
-          "priority": 89
         },
         {
           "id": "tiny-targets",
           "category": "mobile",
           "severity": "medium",
           "title": "Interactive targets are too small on mobile",
-          "detail": "30% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
+          "detail": "20% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
           "impact": 76,
           "effort": "s",
-          "evidence": "Affected ratio: 30%.",
+          "evidence": "Affected ratio: 20%.",
           "recommendation": "Increase the hit area of the listed controls using padding/min-size without necessarily making the visual icon itself larger.",
-          "observed": "30%",
+          "observed": "20%",
           "expected": "≤ 5% below 44×44 px",
           "location": "https://mfinity-premium.vercel.app/",
           "priority": 77
@@ -338,12 +327,12 @@
         "category": "visualDesign",
         "severity": "high",
         "title": "Text is too small to read comfortably",
-        "detail": "34% of visible sampled elements render below 12 px.",
+        "detail": "30% of visible sampled elements render below 12 px.",
         "impact": 62,
         "effort": "s",
-        "evidence": "Affected ratio: 34%.",
+        "evidence": "Affected ratio: 30%.",
         "recommendation": "Raise the smallest typography tokens and verify metadata/helper text on mobile and desktop.",
-        "observed": "34%",
+        "observed": "30%",
         "expected": "≤ 2% of visible text below 12 px",
         "location": "https://mfinity-premium.vercel.app/",
         "priority": 92
@@ -358,13 +347,13 @@
         "usage": null
       },
       "metrics": {
-        "lcpMs": 456,
-        "mobileLcpMs": 380,
+        "lcpMs": 592,
+        "mobileLcpMs": 652,
         "cls": 0.0001,
-        "ttfbMs": 21,
-        "totalBlockingMs": 30,
-        "transferKb": 60,
-        "resourceCount": 11
+        "ttfbMs": 24,
+        "totalBlockingMs": 202,
+        "transferKb": 74,
+        "resourceCount": 17
       },
       "checks": {
         "httpOk": true,
@@ -374,7 +363,7 @@
         "sitemap": false,
         "brokenInternalLinks": 0,
         "consoleErrors": 0,
-        "failedRequests": 2
+        "failedRequests": 0
       },
       "screenshots": {
         "desktop": "/screenshots/mfinity/desktop.jpg",
@@ -384,8 +373,8 @@
         "browserErrors": [],
         "screenshotErrors": []
       },
-      "reviewedAt": "2026-08-14T07:18:15.570Z",
-      "durationMs": 4893
+      "reviewedAt": "2026-08-14T07:25:45.928Z",
+      "durationMs": 5516
     },
     {
       "id": "trenes-y-tranvias",
@@ -400,13 +389,13 @@
       "primaryGoal": "Lead generation",
       "status": "ok",
       "score": 84,
-      "rawScore": 85.2,
+      "rawScore": 85.3,
       "cap": 84,
       "tier": "Premium",
-      "delta": 15.4,
+      "delta": 0,
       "categoryScores": {
         "businessFit": 83.1,
-        "visualDesign": 74.1,
+        "visualDesign": 74.6,
         "ux": 95,
         "conversion": 72.8,
         "mobile": 80,
@@ -458,12 +447,12 @@
           "category": "mobile",
           "severity": "high",
           "title": "Interactive targets are too small on mobile",
-          "detail": "56% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
+          "detail": "48% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
           "impact": 76,
           "effort": "s",
-          "evidence": "Affected ratio: 56%.",
+          "evidence": "Affected ratio: 48%.",
           "recommendation": "Increase the hit area of the listed controls using padding/min-size without necessarily making the visual icon itself larger.",
-          "observed": "56%",
+          "observed": "48%",
           "expected": "≤ 5% below 44×44 px",
           "location": "https://trenesytranvias.vercel.app/",
           "priority": 97
@@ -473,12 +462,12 @@
           "category": "visualDesign",
           "severity": "medium",
           "title": "Text is too small to read comfortably",
-          "detail": "14% of visible sampled elements render below 12 px.",
+          "detail": "13% of visible sampled elements render below 12 px.",
           "impact": 62,
           "effort": "s",
-          "evidence": "Affected ratio: 14%.",
+          "evidence": "Affected ratio: 13%.",
           "recommendation": "Raise the smallest typography tokens and verify metadata/helper text on mobile and desktop.",
-          "observed": "14%",
+          "observed": "13%",
           "expected": "≤ 2% of visible text below 12 px",
           "location": "https://trenesytranvias.vercel.app/",
           "priority": 61
@@ -569,11 +558,11 @@
         "usage": null
       },
       "metrics": {
-        "lcpMs": 560,
-        "mobileLcpMs": 512,
+        "lcpMs": 496,
+        "mobileLcpMs": 328,
         "cls": 0.0004,
-        "ttfbMs": 20,
-        "totalBlockingMs": 27,
+        "ttfbMs": 26,
+        "totalBlockingMs": 43,
         "transferKb": 163,
         "resourceCount": 6
       },
@@ -595,8 +584,8 @@
         "browserErrors": [],
         "screenshotErrors": []
       },
-      "reviewedAt": "2026-08-14T07:18:20.683Z",
-      "durationMs": 5113
+      "reviewedAt": "2026-08-14T07:25:50.984Z",
+      "durationMs": 5056
     },
     {
       "id": "marbella-boat-charter",
@@ -611,10 +600,10 @@
       "primaryGoal": "Charter enquiry / booking",
       "status": "ok",
       "score": 84,
-      "rawScore": 87.6,
+      "rawScore": 87.8,
       "cap": 84,
       "tier": "Premium",
-      "delta": 11.3,
+      "delta": 0,
       "categoryScores": {
         "businessFit": 92.3,
         "visualDesign": 57.5,
@@ -624,9 +613,9 @@
         "performance": 100,
         "seoGeo": 97.5,
         "content": 91.7,
-        "accessibility": 98.8,
+        "accessibility": 98.4,
         "securityTrust": 100,
-        "robustness": 97.3
+        "robustness": 100
       },
       "gates": [
         {
@@ -654,12 +643,12 @@
           "category": "mobile",
           "severity": "high",
           "title": "Interactive targets are too small on mobile",
-          "detail": "58% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
+          "detail": "50% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
           "impact": 76,
           "effort": "s",
-          "evidence": "Affected ratio: 58%.",
+          "evidence": "Affected ratio: 50%.",
           "recommendation": "Increase the hit area of the listed controls using padding/min-size without necessarily making the visual icon itself larger.",
-          "observed": "58%",
+          "observed": "50%",
           "expected": "≤ 5% below 44×44 px",
           "location": "https://marbellaboatcharter.vercel.app/",
           "priority": 100
@@ -669,12 +658,12 @@
           "category": "accessibility",
           "severity": "high",
           "title": "Interactive controls have no accessible name",
-          "detail": "2% of visible links/buttons do not expose readable text, aria-label or title.",
+          "detail": "3% of visible links/buttons do not expose readable text, aria-label or title.",
           "impact": 82,
           "effort": "xs",
-          "evidence": "Affected ratio: 2%.",
+          "evidence": "Affected ratio: 3%.",
           "recommendation": "Add visible text or a precise aria-label to icon-only and otherwise unnamed controls.",
-          "observed": "2%",
+          "observed": "3%",
           "expected": "Every interactive control has an accessible name",
           "location": "https://marbellaboatcharter.vercel.app/",
           "priority": 98
@@ -693,21 +682,6 @@
           "expected": "≤ 2% of visible text below 12 px",
           "location": "https://marbellaboatcharter.vercel.app/",
           "priority": 95
-        },
-        {
-          "id": "failed-requests",
-          "category": "robustness",
-          "severity": "high",
-          "title": "Network requests fail during page load",
-          "detail": "The scans recorded 1 failed network request(s), which can leave content, fonts, images or functionality incomplete.",
-          "impact": 80,
-          "effort": "m",
-          "evidence": "https://fonts.gstatic.com/s/bodonimoda/v28/aFT67PxzY382XsXX63LUYL6GYFksw-NIrKp-nvqnJMShrpsGFUt8oZDd8Id4tA.woff2 — net::ERR_ABORTED",
-          "recommendation": "Fix each listed request URL/error, including incorrect paths, blocked CORS requests, missing assets and aborted critical API calls.",
-          "observed": "1 failed request(s)",
-          "expected": "0 unexplained failed production requests",
-          "location": "https://marbellaboatcharter.vercel.app/",
-          "priority": 89
         },
         {
           "id": "broken-links",
@@ -761,13 +735,13 @@
         "usage": null
       },
       "metrics": {
-        "lcpMs": 672,
-        "mobileLcpMs": 604,
-        "cls": 0.0006,
-        "ttfbMs": 20,
-        "totalBlockingMs": 27,
-        "transferKb": 38,
-        "resourceCount": 12
+        "lcpMs": 496,
+        "mobileLcpMs": 552,
+        "cls": 0.0166,
+        "ttfbMs": 24,
+        "totalBlockingMs": 34,
+        "transferKb": 2139,
+        "resourceCount": 15
       },
       "checks": {
         "httpOk": true,
@@ -777,7 +751,7 @@
         "sitemap": true,
         "brokenInternalLinks": 1,
         "consoleErrors": 0,
-        "failedRequests": 1
+        "failedRequests": 0
       },
       "screenshots": {
         "desktop": "/screenshots/marbella-boat-charter/desktop.jpg",
@@ -787,8 +761,8 @@
         "browserErrors": [],
         "screenshotErrors": []
       },
-      "reviewedAt": "2026-08-14T07:18:26.336Z",
-      "durationMs": 5653
+      "reviewedAt": "2026-08-14T07:25:56.580Z",
+      "durationMs": 5596
     },
     {
       "id": "marbella-for-sale",
@@ -803,10 +777,10 @@
       "primaryGoal": "Property enquiry",
       "status": "ok",
       "score": 84,
-      "rawScore": 85.5,
+      "rawScore": 85.9,
       "cap": 84,
       "tier": "Premium",
-      "delta": 12.5,
+      "delta": 0,
       "categoryScores": {
         "businessFit": 92.3,
         "visualDesign": 57.5,
@@ -818,7 +792,7 @@
         "content": 91.7,
         "accessibility": 100,
         "securityTrust": 92,
-        "robustness": 94.7
+        "robustness": 100
       },
       "gates": [
         {
@@ -846,12 +820,12 @@
           "category": "mobile",
           "severity": "high",
           "title": "Interactive targets are too small on mobile",
-          "detail": "70% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
+          "detail": "51% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
           "impact": 76,
           "effort": "s",
-          "evidence": "Affected ratio: 70%.",
+          "evidence": "Affected ratio: 51%.",
           "recommendation": "Increase the hit area of the listed controls using padding/min-size without necessarily making the visual icon itself larger.",
-          "observed": "70%",
+          "observed": "51%",
           "expected": "≤ 5% below 44×44 px",
           "location": "https://marbellaforsale.vercel.app/",
           "priority": 97
@@ -861,30 +835,15 @@
           "category": "visualDesign",
           "severity": "high",
           "title": "Text is too small to read comfortably",
-          "detail": "46% of visible sampled elements render below 12 px.",
+          "detail": "44% of visible sampled elements render below 12 px.",
           "impact": 62,
           "effort": "s",
-          "evidence": "Affected ratio: 46%.",
+          "evidence": "Affected ratio: 44%.",
           "recommendation": "Raise the smallest typography tokens and verify metadata/helper text on mobile and desktop.",
-          "observed": "46%",
+          "observed": "44%",
           "expected": "≤ 2% of visible text below 12 px",
           "location": "https://marbellaforsale.vercel.app/",
           "priority": 95
-        },
-        {
-          "id": "failed-requests",
-          "category": "robustness",
-          "severity": "high",
-          "title": "Network requests fail during page load",
-          "detail": "The scans recorded 2 failed network request(s), which can leave content, fonts, images or functionality incomplete.",
-          "impact": 80,
-          "effort": "m",
-          "evidence": "https://marbellaforsale.vercel.app/developments?_rsc=5CB68i4pnAekjehf — net::ERR_ABORTED · https://marbellaforsale.vercel.app/properties?saved=true&_rsc=5CB68i4pnAekjehf — net::ERR_ABORTED",
-          "recommendation": "Fix each listed request URL/error, including incorrect paths, blocked CORS requests, missing assets and aborted critical API calls.",
-          "observed": "2 failed request(s)",
-          "expected": "0 unexplained failed production requests",
-          "location": "https://marbellaforsale.vercel.app/",
-          "priority": 92
         },
         {
           "id": "canonical",
@@ -968,13 +927,13 @@
         "usage": null
       },
       "metrics": {
-        "lcpMs": 928,
+        "lcpMs": 636,
         "mobileLcpMs": 0,
         "cls": 0,
-        "ttfbMs": 21,
-        "totalBlockingMs": 43,
-        "transferKb": 1890,
-        "resourceCount": 25
+        "ttfbMs": 25,
+        "totalBlockingMs": 120,
+        "transferKb": 1900,
+        "resourceCount": 35
       },
       "checks": {
         "httpOk": true,
@@ -984,7 +943,7 @@
         "sitemap": false,
         "brokenInternalLinks": 0,
         "consoleErrors": 0,
-        "failedRequests": 2
+        "failedRequests": 0
       },
       "screenshots": {
         "desktop": "/screenshots/marbella-for-sale/desktop.jpg",
@@ -994,8 +953,8 @@
         "browserErrors": [],
         "screenshotErrors": []
       },
-      "reviewedAt": "2026-08-14T07:18:32.495Z",
-      "durationMs": 6159
+      "reviewedAt": "2026-08-14T07:26:01.951Z",
+      "durationMs": 5370
     },
     {
       "id": "la-bocana",
@@ -1009,116 +968,71 @@
       "market": "Puerto Banús / Marbella",
       "primaryGoal": "Reservation",
       "status": "ok",
-      "score": 84,
-      "rawScore": 87.4,
-      "cap": 84,
-      "tier": "Premium",
-      "delta": 13.6,
+      "score": 95.2,
+      "rawScore": 95.2,
+      "cap": 100,
+      "tier": "Reference Quality",
+      "delta": 11.2,
       "categoryScores": {
-        "businessFit": 92.3,
-        "visualDesign": 57.5,
+        "businessFit": 93.4,
+        "visualDesign": 91.2,
         "ux": 95,
-        "conversion": 90.3,
-        "mobile": 80,
+        "conversion": 93.5,
+        "mobile": 93.1,
         "performance": 100,
         "seoGeo": 97.5,
         "content": 91.7,
         "accessibility": 100,
         "securityTrust": 100,
-        "robustness": 73.3
+        "robustness": 100
       },
-      "gates": [
-        {
-          "id": "tiny-mobile-targets",
-          "when": "severeTinyTargets",
-          "cap": 84,
-          "severity": "high",
-          "label": "Too many mobile tap targets are undersized"
-        }
-      ],
+      "gates": [],
       "issues": [
-        {
-          "id": "gate-tiny-mobile-targets",
-          "category": "robustness",
-          "severity": "high",
-          "title": "Too many mobile tap targets are undersized",
-          "detail": "Quality gate caps the project at 84/100 until resolved.",
-          "impact": 95,
-          "effort": "m",
-          "gate": true,
-          "priority": 100
-        },
         {
           "id": "tiny-targets",
           "category": "mobile",
-          "severity": "high",
+          "severity": "medium",
           "title": "Interactive targets are too small on mobile",
-          "detail": "53% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
+          "detail": "15% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
           "impact": 76,
           "effort": "s",
-          "evidence": "Affected ratio: 53%.",
+          "evidence": "Affected ratio: 15%.",
           "recommendation": "Increase the hit area of the listed controls using padding/min-size without necessarily making the visual icon itself larger.",
-          "observed": "53%",
+          "observed": "15%",
           "expected": "≤ 5% below 44×44 px",
           "location": "https://labocana.vercel.app/",
-          "priority": 100
+          "priority": 79
         },
         {
           "id": "tiny-text",
           "category": "visualDesign",
-          "severity": "high",
+          "severity": "medium",
           "title": "Text is too small to read comfortably",
-          "detail": "38% of visible sampled elements render below 12 px.",
+          "detail": "5% of visible sampled elements render below 12 px.",
           "impact": 62,
           "effort": "s",
-          "evidence": "Affected ratio: 38%.",
+          "evidence": "Affected ratio: 5%.",
           "recommendation": "Raise the smallest typography tokens and verify metadata/helper text on mobile and desktop.",
-          "observed": "38%",
+          "observed": "5%",
           "expected": "≤ 2% of visible text below 12 px",
           "location": "https://labocana.vercel.app/",
-          "priority": 86
-        },
-        {
-          "id": "failed-requests",
-          "category": "robustness",
-          "severity": "high",
-          "title": "Network requests fail during page load",
-          "detail": "The scans recorded 10 failed network request(s), which can leave content, fonts, images or functionality incomplete.",
-          "impact": 80,
-          "effort": "m",
-          "evidence": "https://labocana.vercel.app/carta?_rsc=5CB68i4pnAekjehf — net::ERR_ABORTED · https://labocana.vercel.app/la-casa?_rsc=5CB68i4pnAekjehf — net::ERR_ABORTED · https://labocana.vercel.app/en?_rsc=5CB68i4pnAekjehf — net::ERR_ABORTED · https://labocana.vercel.app/reservar?_rsc=5CB68i4pnAekjehf — net::ERR_ABORTED · https://labocana.vercel.app/contacto?_rsc=5CB68i4pnAekjehf — net::ERR_ABORTED · https://labocana.vercel.app/la-casa?_rsc=5CB68i4pnAekjehf — net::ERR_ABORTED · https://labocana.vercel.app/reservar?_rsc=5CB68i4pnAekjehf — net::ERR_ABORTED · https://labocana.vercel.app/en?_rsc=5CB68i4pnAekjehf — net::ERR_ABORTED · https://labocana.vercel.app/?_rsc=tXyZJ52UQVBCVsD3 — net::ERR_ABORTED · https://labocana.vercel.app/carta?_rsc=tXyZJ52UQVBCVsD3 — net::ERR_ABORTED",
-          "recommendation": "Fix each listed request URL/error, including incorrect paths, blocked CORS requests, missing assets and aborted critical API calls.",
-          "observed": "10 failed request(s)",
-          "expected": "0 unexplained failed production requests",
-          "location": "https://labocana.vercel.app/",
-          "priority": 84
-        },
-        {
-          "id": "page-title-length",
-          "category": "seoGeo",
-          "severity": "low",
-          "title": "HTML title length is outside the preferred range",
-          "detail": "The title is 24 characters long, which may be too vague or truncate in search results.",
-          "impact": 38,
-          "effort": "xs",
-          "evidence": "Detected title length: 24 characters.",
-          "recommendation": "Rewrite the title so it communicates the page and business clearly within a practical SERP length.",
-          "observed": "24 characters",
-          "expected": "About 25–65 characters",
-          "location": "https://labocana.vercel.app/",
-          "priority": 26
+          "priority": 64
         }
       ],
       "topPriority": {
-        "id": "gate-tiny-mobile-targets",
-        "category": "robustness",
-        "severity": "high",
-        "title": "Too many mobile tap targets are undersized",
-        "detail": "Quality gate caps the project at 84/100 until resolved.",
-        "impact": 95,
-        "effort": "m",
-        "gate": true,
-        "priority": 100
+        "id": "tiny-targets",
+        "category": "mobile",
+        "severity": "medium",
+        "title": "Interactive targets are too small on mobile",
+        "detail": "15% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
+        "impact": 76,
+        "effort": "s",
+        "evidence": "Affected ratio: 15%.",
+        "recommendation": "Increase the hit area of the listed controls using padding/min-size without necessarily making the visual icon itself larger.",
+        "observed": "15%",
+        "expected": "≤ 5% below 44×44 px",
+        "location": "https://labocana.vercel.app/",
+        "priority": 79
       },
       "aiReview": {
         "provider": "openai",
@@ -1130,13 +1044,13 @@
         "usage": null
       },
       "metrics": {
-        "lcpMs": 560,
-        "mobileLcpMs": 504,
+        "lcpMs": 608,
+        "mobileLcpMs": 644,
         "cls": 0,
-        "ttfbMs": 20,
-        "totalBlockingMs": 3,
-        "transferKb": 421,
-        "resourceCount": 24
+        "ttfbMs": 25,
+        "totalBlockingMs": 31,
+        "transferKb": 422,
+        "resourceCount": 27
       },
       "checks": {
         "httpOk": true,
@@ -1146,7 +1060,7 @@
         "sitemap": true,
         "brokenInternalLinks": 0,
         "consoleErrors": 0,
-        "failedRequests": 10
+        "failedRequests": 0
       },
       "screenshots": {
         "desktop": "/screenshots/la-bocana/desktop.jpg",
@@ -1156,8 +1070,8 @@
         "browserErrors": [],
         "screenshotErrors": []
       },
-      "reviewedAt": "2026-08-14T07:18:40.633Z",
-      "durationMs": 8137
+      "reviewedAt": "2026-08-14T07:26:08.231Z",
+      "durationMs": 6280
     },
     {
       "id": "noguera",
@@ -1171,43 +1085,39 @@
       "market": "Écija / Sevilla",
       "primaryGoal": "Property enquiry",
       "status": "ok",
-      "score": 84,
-      "rawScore": 89.6,
-      "cap": 84,
+      "score": 85.2,
+      "rawScore": 85.2,
+      "cap": 100,
       "tier": "Premium",
-      "delta": 11.3,
+      "delta": 1.2,
       "categoryScores": {
-        "businessFit": 82,
+        "businessFit": 68,
         "visualDesign": 97.5,
-        "ux": 95,
-        "conversion": 72.8,
-        "mobile": 80,
+        "ux": 72.3,
+        "conversion": 65,
+        "mobile": 100,
         "performance": 100,
-        "seoGeo": 97.5,
-        "content": 78.3,
+        "seoGeo": 91.9,
+        "content": 66.7,
         "accessibility": 100,
         "securityTrust": 75.4,
         "robustness": 100
       },
-      "gates": [
-        {
-          "id": "tiny-mobile-targets",
-          "when": "severeTinyTargets",
-          "cap": 84,
-          "severity": "high",
-          "label": "Too many mobile tap targets are undersized"
-        }
-      ],
+      "gates": [],
       "issues": [
         {
-          "id": "gate-tiny-mobile-targets",
-          "category": "robustness",
+          "id": "primary-cta",
+          "category": "conversion",
           "severity": "high",
-          "title": "Too many mobile tap targets are undersized",
-          "detail": "Quality gate caps the project at 84/100 until resolved.",
-          "impact": 95,
+          "title": "No clear primary CTA was detected",
+          "detail": "The page does not expose a visible action matching common booking, reservation, enquiry, contact or purchase intent.",
+          "impact": 86,
           "effort": "m",
-          "gate": true,
+          "evidence": "Primary CTA detector count: 0.",
+          "recommendation": "Define the page’s single primary conversion action and make it explicit in the hero/navigation with business-specific wording.",
+          "observed": "0 detected primary CTAs",
+          "expected": "At least one obvious primary commercial action",
+          "location": "https://inmobiliaria-noguera.vercel.app/",
           "priority": 100
         },
         {
@@ -1226,19 +1136,19 @@
           "priority": 100
         },
         {
-          "id": "tiny-targets",
-          "category": "mobile",
-          "severity": "high",
-          "title": "Interactive targets are too small on mobile",
-          "detail": "90% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
-          "impact": 76,
-          "effort": "s",
-          "evidence": "Affected ratio: 90%.",
-          "recommendation": "Increase the hit area of the listed controls using padding/min-size without necessarily making the visual icon itself larger.",
-          "observed": "90%",
-          "expected": "≤ 5% below 44×44 px",
+          "id": "h1-structure",
+          "category": "content",
+          "severity": "medium",
+          "title": "Primary H1 is missing",
+          "detail": "The page contains 0 H1 elements. The benchmark expects one clear primary heading for the page.",
+          "impact": 55,
+          "effort": "xs",
+          "evidence": "H1 count: 0.",
+          "recommendation": "Keep one page-level H1 and demote secondary section headings to H2/H3 according to hierarchy.",
+          "observed": "0 H1 elements",
+          "expected": "Exactly 1 H1",
           "location": "https://inmobiliaria-noguera.vercel.app/",
-          "priority": 97
+          "priority": 53
         },
         {
           "id": "csp",
@@ -1287,14 +1197,18 @@
         }
       ],
       "topPriority": {
-        "id": "gate-tiny-mobile-targets",
-        "category": "robustness",
+        "id": "primary-cta",
+        "category": "conversion",
         "severity": "high",
-        "title": "Too many mobile tap targets are undersized",
-        "detail": "Quality gate caps the project at 84/100 until resolved.",
-        "impact": 95,
+        "title": "No clear primary CTA was detected",
+        "detail": "The page does not expose a visible action matching common booking, reservation, enquiry, contact or purchase intent.",
+        "impact": 86,
         "effort": "m",
-        "gate": true,
+        "evidence": "Primary CTA detector count: 0.",
+        "recommendation": "Define the page’s single primary conversion action and make it explicit in the hero/navigation with business-specific wording.",
+        "observed": "0 detected primary CTAs",
+        "expected": "At least one obvious primary commercial action",
+        "location": "https://inmobiliaria-noguera.vercel.app/",
         "priority": 100
       },
       "aiReview": {
@@ -1307,13 +1221,13 @@
         "usage": null
       },
       "metrics": {
-        "lcpMs": 464,
-        "mobileLcpMs": 424,
-        "cls": 0.0012,
-        "ttfbMs": 21,
+        "lcpMs": 0,
+        "mobileLcpMs": 0,
+        "cls": 0,
+        "ttfbMs": 25,
         "totalBlockingMs": 0,
-        "transferKb": 102,
-        "resourceCount": 12
+        "transferKb": 115,
+        "resourceCount": 16
       },
       "checks": {
         "httpOk": true,
@@ -1333,8 +1247,8 @@
         "browserErrors": [],
         "screenshotErrors": []
       },
-      "reviewedAt": "2026-08-14T07:18:46.364Z",
-      "durationMs": 5731
+      "reviewedAt": "2026-08-14T07:26:12.468Z",
+      "durationMs": 4237
     }
   ]
 }
