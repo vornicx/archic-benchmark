@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';
 
 const DEFAULT_OPENAI_BASE_URL='https://api.openai.com/v1';
 const DEFAULT_OPENAI_MODEL='gpt-5-mini';
-const SYNTEROLINK_DEFAULT_MODEL='gpt-5.4';
+const SYNTEROLINK_DEFAULT_MODEL='gpt-5.6-terra';
 const DEFAULT_MAX_OUTPUT_TOKENS=3500;
 const RETRYABLE_STATUS=new Set([408,409,429,500,502,503,504]);
 
