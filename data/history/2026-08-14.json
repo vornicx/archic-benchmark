@@ -2,10 +2,10 @@
   "schemaVersion": 2,
   "mode": "live",
   "date": "2026-08-14",
-  "generatedAt": "2026-08-14T07:26:12.722Z",
+  "generatedAt": "2026-08-14T07:29:34.574Z",
   "portfolio": {
-    "score": 86.4,
-    "delta": 2.3,
+    "score": 86.2,
+    "delta": -0.2,
     "projectsScored": 6,
     "criticalProjects": 0,
     "scanFailures": 0,
@@ -60,7 +60,7 @@
       "detail": "50% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
       "impact": 76,
       "effort": "s",
-      "evidence": "Affected ratio: 50%.",
+      "evidence": "Affected ratio: 50%. Examples: [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object].",
       "recommendation": "Increase the hit area of the listed controls using padding/min-size without necessarily making the visual icon itself larger.",
       "observed": "50%",
       "expected": "≤ 5% below 44×44 px",
@@ -125,6 +125,24 @@
       "category": "accessibility",
       "severity": "high",
       "title": "Interactive controls have no accessible name",
+      "detail": "4% of visible links/buttons do not expose readable text, aria-label or title.",
+      "impact": 82,
+      "effort": "xs",
+      "evidence": "Affected ratio: 4%.",
+      "recommendation": "Add visible text or a precise aria-label to icon-only and otherwise unnamed controls.",
+      "observed": "4%",
+      "expected": "Every interactive control has an accessible name",
+      "location": "https://mfinity-premium.vercel.app/",
+      "priority": 98,
+      "projectId": "mfinity",
+      "projectName": "Mfinity",
+      "projectScore": 85.1
+    },
+    {
+      "id": "unnamed-controls",
+      "category": "accessibility",
+      "severity": "high",
+      "title": "Interactive controls have no accessible name",
       "detail": "3% of visible links/buttons do not expose readable text, aria-label or title.",
       "impact": 82,
       "effort": "xs",
@@ -136,20 +154,6 @@
       "priority": 98,
       "projectId": "marbella-boat-charter",
       "projectName": "Marbella Boat Charter",
-      "projectScore": 84
-    },
-    {
-      "id": "gate-tiny-mobile-targets",
-      "category": "robustness",
-      "severity": "high",
-      "title": "Too many mobile tap targets are undersized",
-      "detail": "Quality gate caps the project at 84/100 until resolved.",
-      "impact": 95,
-      "effort": "m",
-      "gate": true,
-      "priority": 97,
-      "projectId": "trenes-y-tranvias",
-      "projectName": "Trenes y Tranvías",
       "projectScore": 84
     }
   ],
@@ -166,37 +170,52 @@
       "market": "Marbella / Puerto Banús",
       "primaryGoal": "Reservation / enquiry",
       "status": "ok",
-      "score": 85.9,
-      "rawScore": 85.9,
+      "score": 85.1,
+      "rawScore": 85.1,
       "cap": 100,
       "tier": "Premium",
-      "delta": 1.5,
+      "delta": -0.8,
       "categoryScores": {
-        "businessFit": 93.1,
+        "businessFit": 92.8,
         "visualDesign": 57.5,
         "ux": 95,
-        "conversion": 92.8,
-        "mobile": 90,
+        "conversion": 91.6,
+        "mobile": 85.6,
         "performance": 100,
         "seoGeo": 72.3,
         "content": 91.7,
-        "accessibility": 100,
+        "accessibility": 96.8,
         "securityTrust": 75.4,
         "robustness": 100
       },
       "gates": [],
       "issues": [
         {
+          "id": "unnamed-controls",
+          "category": "accessibility",
+          "severity": "high",
+          "title": "Interactive controls have no accessible name",
+          "detail": "4% of visible links/buttons do not expose readable text, aria-label or title.",
+          "impact": 82,
+          "effort": "xs",
+          "evidence": "Affected ratio: 4%.",
+          "recommendation": "Add visible text or a precise aria-label to icon-only and otherwise unnamed controls.",
+          "observed": "4%",
+          "expected": "Every interactive control has an accessible name",
+          "location": "https://mfinity-premium.vercel.app/",
+          "priority": 98
+        },
+        {
           "id": "tiny-text",
           "category": "visualDesign",
           "severity": "high",
           "title": "Text is too small to read comfortably",
-          "detail": "30% of visible sampled elements render below 12 px.",
+          "detail": "32% of visible sampled elements render below 12 px.",
           "impact": 62,
           "effort": "s",
-          "evidence": "Affected ratio: 30%.",
+          "evidence": "Affected ratio: 32%. Examples: [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object].",
           "recommendation": "Raise the smallest typography tokens and verify metadata/helper text on mobile and desktop.",
-          "observed": "30%",
+          "observed": "32%",
           "expected": "≤ 2% of visible text below 12 px",
           "location": "https://mfinity-premium.vercel.app/",
           "priority": 92
@@ -206,12 +225,12 @@
           "category": "mobile",
           "severity": "medium",
           "title": "Interactive targets are too small on mobile",
-          "detail": "20% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
+          "detail": "27% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
           "impact": 76,
           "effort": "s",
-          "evidence": "Affected ratio: 20%.",
+          "evidence": "Affected ratio: 27%. Examples: [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object].",
           "recommendation": "Increase the hit area of the listed controls using padding/min-size without necessarily making the visual icon itself larger.",
-          "observed": "20%",
+          "observed": "27%",
           "expected": "≤ 5% below 44×44 px",
           "location": "https://mfinity-premium.vercel.app/",
           "priority": 77
@@ -323,19 +342,19 @@
         }
       ],
       "topPriority": {
-        "id": "tiny-text",
-        "category": "visualDesign",
+        "id": "unnamed-controls",
+        "category": "accessibility",
         "severity": "high",
-        "title": "Text is too small to read comfortably",
-        "detail": "30% of visible sampled elements render below 12 px.",
-        "impact": 62,
-        "effort": "s",
-        "evidence": "Affected ratio: 30%.",
-        "recommendation": "Raise the smallest typography tokens and verify metadata/helper text on mobile and desktop.",
-        "observed": "30%",
-        "expected": "≤ 2% of visible text below 12 px",
+        "title": "Interactive controls have no accessible name",
+        "detail": "4% of visible links/buttons do not expose readable text, aria-label or title.",
+        "impact": 82,
+        "effort": "xs",
+        "evidence": "Affected ratio: 4%.",
+        "recommendation": "Add visible text or a precise aria-label to icon-only and otherwise unnamed controls.",
+        "observed": "4%",
+        "expected": "Every interactive control has an accessible name",
         "location": "https://mfinity-premium.vercel.app/",
-        "priority": 92
+        "priority": 98
       },
       "aiReview": {
         "provider": "openai",
@@ -347,13 +366,13 @@
         "usage": null
       },
       "metrics": {
-        "lcpMs": 592,
-        "mobileLcpMs": 652,
+        "lcpMs": 536,
+        "mobileLcpMs": 600,
         "cls": 0.0001,
-        "ttfbMs": 24,
-        "totalBlockingMs": 202,
-        "transferKb": 74,
-        "resourceCount": 17
+        "ttfbMs": 2,
+        "totalBlockingMs": 105,
+        "transferKb": 303,
+        "resourceCount": 21
       },
       "checks": {
         "httpOk": true,
@@ -371,10 +390,272 @@
       },
       "scanDiagnostics": {
         "browserErrors": [],
-        "screenshotErrors": []
+        "screenshotErrors": [],
+        "mobileProbe": {
+          "tinyTapTargetCount": 12,
+          "interactiveTargetCount": 45,
+          "tinyTapTargetSamples": [
+            {
+              "tag": "a",
+              "id": null,
+              "className": "skip",
+              "text": "Skip to content",
+              "width": 141.7,
+              "height": 40,
+              "fontSize": 16
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "brand",
+              "text": "MFINITY",
+              "width": 107.5,
+              "height": 36,
+              "fontSize": 16
+            },
+            {
+              "tag": "button",
+              "id": null,
+              "className": "lang-toggle",
+              "text": "EN\nES",
+              "width": 46.6,
+              "height": 27,
+              "fontSize": 9
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "brand",
+              "text": "",
+              "width": 107.5,
+              "height": 36,
+              "fontSize": 16
+            },
+            {
+              "tag": "button",
+              "id": null,
+              "className": "mobile-close",
+              "text": "CLOSE",
+              "width": 48.4,
+              "height": 11,
+              "fontSize": 9
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "",
+              "text": "What App · +34 663 55 78 61",
+              "width": 140.3,
+              "height": 12,
+              "fontSize": 10
+            },
+            {
+              "tag": "button",
+              "id": null,
+              "className": "",
+              "text": "Prev",
+              "width": 38,
+              "height": 38,
+              "fontSize": 18
+            },
+            {
+              "tag": "button",
+              "id": null,
+              "className": "",
+              "text": "Next",
+              "width": 38,
+              "height": 38,
+              "fontSize": 18
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "detail-link",
+              "text": "VIEW VEHICLE",
+              "width": 90.5,
+              "height": 15,
+              "fontSize": 10
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "",
+              "text": "EXPLORE THE FULL COLLECTION",
+              "width": 203.3,
+              "height": 15,
+              "fontSize": 10
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "brand footer-brand",
+              "text": "",
+              "width": 107.5,
+              "height": 36,
+              "fontSize": 16
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "",
+              "text": "BACK TO TOP",
+              "width": 66.4,
+              "height": 8,
+              "fontSize": 8
+            }
+          ],
+          "tinyTextCount": 121,
+          "visibleElementCount": 377,
+          "tinyTextSamples": [
+            {
+              "tag": "button",
+              "id": null,
+              "className": "lang-toggle",
+              "text": "EN\nES",
+              "width": 46.6,
+              "height": 27,
+              "fontSize": 9
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "is-active",
+              "text": "EN",
+              "width": 15.1,
+              "height": 9,
+              "fontSize": 9
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "",
+              "text": "ES",
+              "width": 13.5,
+              "height": 9,
+              "fontSize": 9
+            },
+            {
+              "tag": "button",
+              "id": null,
+              "className": "mobile-close",
+              "text": "CLOSE",
+              "width": 48.4,
+              "height": 11,
+              "fontSize": 9
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "",
+              "text": "01",
+              "width": 42,
+              "height": 8,
+              "fontSize": 8
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "",
+              "text": "02",
+              "width": 42,
+              "height": 8,
+              "fontSize": 8
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "",
+              "text": "03",
+              "width": 42,
+              "height": 8,
+              "fontSize": 8
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "",
+              "text": "04",
+              "width": 42,
+              "height": 8,
+              "fontSize": 8
+            },
+            {
+              "tag": "div",
+              "id": null,
+              "className": "mobile-bottom",
+              "text": "What App · +34 663 55 78 61\nMarbella · Co ta del Sol",
+              "width": 342,
+              "height": 32,
+              "fontSize": 10
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "",
+              "text": "What App · +34 663 55 78 61",
+              "width": 140.3,
+              "height": 12,
+              "fontSize": 10
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "",
+              "text": "Marbella · Co ta del Sol",
+              "width": 342,
+              "height": 12,
+              "fontSize": 10
+            },
+            {
+              "tag": "p",
+              "id": null,
+              "className": "eyebrow",
+              "text": "MFINITY · MARBELLA",
+              "width": 360,
+              "height": 10,
+              "fontSize": 10
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "button button-solid",
+              "text": "EXPLORE CARS",
+              "width": 360,
+              "height": 52,
+              "fontSize": 10
+            },
+            {
+              "tag": "button",
+              "id": null,
+              "className": "button button-ghost",
+              "text": "CHECK AVAILABILITY",
+              "width": 360,
+              "height": 52,
+              "fontSize": 10
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "",
+              "text": "01",
+              "width": 10.5,
+              "height": 10,
+              "fontSize": 10
+            },
+            {
+              "tag": "p",
+              "id": null,
+              "className": "",
+              "text": "ABOUT MFINITY",
+              "width": 103.8,
+              "height": 10,
+              "fontSize": 10
+            }
+          ]
+        }
       },
-      "reviewedAt": "2026-08-14T07:25:45.928Z",
-      "durationMs": 5516
+      "reviewedAt": "2026-08-14T07:29:09.360Z",
+      "durationMs": 4367
     },
     {
       "id": "trenes-y-tranvias",
@@ -389,13 +670,13 @@
       "primaryGoal": "Lead generation",
       "status": "ok",
       "score": 84,
-      "rawScore": 85.3,
+      "rawScore": 85.1,
       "cap": 84,
       "tier": "Premium",
       "delta": 0,
       "categoryScores": {
         "businessFit": 83.1,
-        "visualDesign": 74.6,
+        "visualDesign": 73.1,
         "ux": 95,
         "conversion": 72.8,
         "mobile": 80,
@@ -447,12 +728,12 @@
           "category": "mobile",
           "severity": "high",
           "title": "Interactive targets are too small on mobile",
-          "detail": "48% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
+          "detail": "54% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
           "impact": 76,
           "effort": "s",
-          "evidence": "Affected ratio: 48%.",
+          "evidence": "Affected ratio: 54%. Examples: [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object].",
           "recommendation": "Increase the hit area of the listed controls using padding/min-size without necessarily making the visual icon itself larger.",
-          "observed": "48%",
+          "observed": "54%",
           "expected": "≤ 5% below 44×44 px",
           "location": "https://trenesytranvias.vercel.app/",
           "priority": 97
@@ -462,12 +743,12 @@
           "category": "visualDesign",
           "severity": "medium",
           "title": "Text is too small to read comfortably",
-          "detail": "13% of visible sampled elements render below 12 px.",
+          "detail": "14% of visible sampled elements render below 12 px.",
           "impact": 62,
           "effort": "s",
-          "evidence": "Affected ratio: 13%.",
+          "evidence": "Affected ratio: 14%. Examples: [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object].",
           "recommendation": "Raise the smallest typography tokens and verify metadata/helper text on mobile and desktop.",
-          "observed": "13%",
+          "observed": "14%",
           "expected": "≤ 2% of visible text below 12 px",
           "location": "https://trenesytranvias.vercel.app/",
           "priority": 61
@@ -558,11 +839,11 @@
         "usage": null
       },
       "metrics": {
-        "lcpMs": 496,
-        "mobileLcpMs": 328,
+        "lcpMs": 632,
+        "mobileLcpMs": 352,
         "cls": 0.0004,
-        "ttfbMs": 26,
-        "totalBlockingMs": 43,
+        "ttfbMs": 4,
+        "totalBlockingMs": 35,
         "transferKb": 163,
         "resourceCount": 6
       },
@@ -582,10 +863,272 @@
       },
       "scanDiagnostics": {
         "browserErrors": [],
-        "screenshotErrors": []
+        "screenshotErrors": [],
+        "mobileProbe": {
+          "tinyTapTargetCount": 15,
+          "interactiveTargetCount": 28,
+          "tinyTapTargetSamples": [
+            {
+              "tag": "a",
+              "id": null,
+              "className": "skip-link",
+              "text": "Ir al contenido",
+              "width": 124.1,
+              "height": 42,
+              "fontSize": 16
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "brand",
+              "text": "Trene  & Tranvía \nCIUDAD DEL SOL",
+              "width": 148,
+              "height": 34,
+              "fontSize": 16
+            },
+            {
+              "tag": "button",
+              "id": null,
+              "className": "menu-button",
+              "text": "",
+              "width": 40,
+              "height": 40,
+              "fontSize": 16
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "poster-strip-link",
+              "text": "Ca o Écija\n→",
+              "width": 358,
+              "height": 24,
+              "fontSize": 13
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "text-action light-action",
+              "text": "Ver vehículo  y modalidade \n→",
+              "width": 178.5,
+              "height": 20.4,
+              "fontSize": 12
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "text-action light-action",
+              "text": "Ver información\n→",
+              "width": 110.4,
+              "height": 17,
+              "fontSize": 12
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "text-action light-action",
+              "text": "Ver información\n→",
+              "width": 300,
+              "height": 17,
+              "fontSize": 12
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "text-action light-action",
+              "text": "Conocer la empre a\n→",
+              "width": 130.5,
+              "height": 17,
+              "fontSize": 12
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "brand footer-brand",
+              "text": "Trene  & Tranvía \nCIUDAD DEL SOL",
+              "width": 358,
+              "height": 34,
+              "fontSize": 16
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "",
+              "text": "Solucione ",
+              "width": 167,
+              "height": 18,
+              "fontSize": 13
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "",
+              "text": "Vehículo ",
+              "width": 167,
+              "height": 18,
+              "fontSize": 13
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "",
+              "text": "Écija",
+              "width": 167,
+              "height": 18,
+              "fontSize": 13
+            }
+          ],
+          "tinyTextCount": 25,
+          "visibleElementCount": 176,
+          "tinyTextSamples": [
+            {
+              "tag": "small",
+              "id": null,
+              "className": "",
+              "text": "CIUDAD DEL SOL",
+              "width": 101,
+              "height": 8,
+              "fontSize": 8
+            },
+            {
+              "tag": "p",
+              "id": null,
+              "className": "poster-strip-kicker",
+              "text": "DESDE ÉCIJA · SEVILLA",
+              "width": 358,
+              "height": 15,
+              "fontSize": 11
+            },
+            {
+              "tag": "p",
+              "id": null,
+              "className": "overline",
+              "text": "LO QUE HACEMOS",
+              "width": 358,
+              "height": 14,
+              "fontSize": 10
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "platform-tag",
+              "text": "AYUNTAMIENTOS",
+              "width": 350,
+              "height": 15,
+              "fontSize": 11
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "platform-tag",
+              "text": "EVENTOS",
+              "width": 350,
+              "height": 15,
+              "fontSize": 11
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "platform-tag",
+              "text": "RECINTOS",
+              "width": 350,
+              "height": 15,
+              "fontSize": 11
+            },
+            {
+              "tag": "p",
+              "id": null,
+              "className": "overline",
+              "text": "PRESENCIA REAL",
+              "width": 358,
+              "height": 14,
+              "fontSize": 10
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "real-media",
+              "text": "RECORRIDO REAL",
+              "width": 104.9,
+              "height": 31,
+              "fontSize": 9
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "vehicle-type",
+              "text": "TREN TURÍSTICO",
+              "width": 86.2,
+              "height": 13,
+              "fontSize": 9
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "vehicle-type",
+              "text": "TRANVÍA TURÍSTICO",
+              "width": 300,
+              "height": 13,
+              "fontSize": 9
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "vehicle-type",
+              "text": "EQUIPAMIENTO",
+              "width": 300,
+              "height": 13,
+              "fontSize": 9
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "",
+              "text": "SERVICIO LOCAL",
+              "width": 105.6,
+              "height": 14,
+              "fontSize": 10
+            },
+            {
+              "tag": "p",
+              "id": null,
+              "className": "overline",
+              "text": "EN CASA",
+              "width": 358,
+              "height": 14,
+              "fontSize": 10
+            },
+            {
+              "tag": "strong",
+              "id": null,
+              "className": "",
+              "text": "Origen",
+              "width": 96,
+              "height": 18,
+              "fontSize": 11
+            },
+            {
+              "tag": "strong",
+              "id": null,
+              "className": "",
+              "text": "De tino",
+              "width": 96,
+              "height": 18,
+              "fontSize": 11
+            },
+            {
+              "tag": "strong",
+              "id": null,
+              "className": "",
+              "text": "U o",
+              "width": 96,
+              "height": 18,
+              "fontSize": 11
+            }
+          ]
+        }
       },
-      "reviewedAt": "2026-08-14T07:25:50.984Z",
-      "durationMs": 5056
+      "reviewedAt": "2026-08-14T07:29:14.267Z",
+      "durationMs": 4906
     },
     {
       "id": "marbella-boat-charter",
@@ -646,7 +1189,7 @@
           "detail": "50% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
           "impact": 76,
           "effort": "s",
-          "evidence": "Affected ratio: 50%.",
+          "evidence": "Affected ratio: 50%. Examples: [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object].",
           "recommendation": "Increase the hit area of the listed controls using padding/min-size without necessarily making the visual icon itself larger.",
           "observed": "50%",
           "expected": "≤ 5% below 44×44 px",
@@ -676,7 +1219,7 @@
           "detail": "29% of visible sampled elements render below 12 px.",
           "impact": 62,
           "effort": "s",
-          "evidence": "Affected ratio: 29%.",
+          "evidence": "Affected ratio: 29%. Examples: [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object].",
           "recommendation": "Raise the smallest typography tokens and verify metadata/helper text on mobile and desktop.",
           "observed": "29%",
           "expected": "≤ 2% of visible text below 12 px",
@@ -735,11 +1278,11 @@
         "usage": null
       },
       "metrics": {
-        "lcpMs": 496,
-        "mobileLcpMs": 552,
+        "lcpMs": 880,
+        "mobileLcpMs": 848,
         "cls": 0.0166,
-        "ttfbMs": 24,
-        "totalBlockingMs": 34,
+        "ttfbMs": 4,
+        "totalBlockingMs": 72,
         "transferKb": 2139,
         "resourceCount": 15
       },
@@ -759,10 +1302,272 @@
       },
       "scanDiagnostics": {
         "browserErrors": [],
-        "screenshotErrors": []
+        "screenshotErrors": [],
+        "mobileProbe": {
+          "tinyTapTargetCount": 18,
+          "interactiveTargetCount": 36,
+          "tinyTapTargetSamples": [
+            {
+              "tag": "a",
+              "id": null,
+              "className": "brand-logo",
+              "text": "",
+              "width": 280.4,
+              "height": 26.9,
+              "fontSize": 16
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "home5-text-link",
+              "text": "OUR APPROACH",
+              "width": 273.8,
+              "height": 25.8,
+              "fontSize": 10.4
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "home5-text-link",
+              "text": "VIEW THE FULL FLEET",
+              "width": 156.6,
+              "height": 25.8,
+              "fontSize": 10.4
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "home5-text-link",
+              "text": "EXPLORE ALL EXPERIENCES",
+              "width": 193.9,
+              "height": 25.8,
+              "fontSize": 10.4
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "home5-text-link",
+              "text": "EXPLORE DESTINATIONS",
+              "width": 175.2,
+              "height": 25.8,
+              "fontSize": 10.4
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "home5-text-link",
+              "text": "EXPLORE CHARTER GUIDES",
+              "width": 351.6,
+              "height": 25.8,
+              "fontSize": 10.4
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "brand-logo",
+              "text": "",
+              "width": 179.4,
+              "height": 26.9,
+              "fontSize": 16
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "",
+              "text": "Yacht ",
+              "width": 358,
+              "height": 21.8,
+              "fontSize": 13.4
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "",
+              "text": "Experience ",
+              "width": 358,
+              "height": 21.8,
+              "fontSize": 13.4
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "",
+              "text": "De tination ",
+              "width": 358,
+              "height": 21.8,
+              "fontSize": 13.4
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "",
+              "text": "Yacht owner ",
+              "width": 358,
+              "height": 21.8,
+              "fontSize": 13.4
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "",
+              "text": "Contact",
+              "width": 358,
+              "height": 21.8,
+              "fontSize": 13.4
+            }
+          ],
+          "tinyTextCount": 60,
+          "visibleElementCount": 208,
+          "tinyTextSamples": [
+            {
+              "tag": "span",
+              "id": null,
+              "className": "",
+              "text": "GUESTS",
+              "width": 312.2,
+              "height": 15.3,
+              "fontSize": 9.4
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "",
+              "text": "DURATION",
+              "width": 312.2,
+              "height": 15.3,
+              "fontSize": 9.4
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "",
+              "text": "DEPARTURE",
+              "width": 312.2,
+              "height": 15.3,
+              "fontSize": 9.4
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "",
+              "text": "THE DAY",
+              "width": 312.2,
+              "height": 15.3,
+              "fontSize": 9.4
+            },
+            {
+              "tag": "button",
+              "id": null,
+              "className": "",
+              "text": "FIND MY CHARTER",
+              "width": 358,
+              "height": 73.6,
+              "fontSize": 10.9
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "",
+              "text": "PRIVATE CHARTER · MEDITERRANEAN COAST",
+              "width": 244.2,
+              "height": 15,
+              "fontSize": 9.3
+            },
+            {
+              "tag": "p",
+              "id": null,
+              "className": "eyebrow",
+              "text": "A CONSIDERED CHARTER",
+              "width": 303.6,
+              "height": 17.4,
+              "fontSize": 10.7
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "home5-text-link",
+              "text": "OUR APPROACH",
+              "width": 273.8,
+              "height": 25.8,
+              "fontSize": 10.4
+            },
+            {
+              "tag": "p",
+              "id": null,
+              "className": "eyebrow",
+              "text": "OUR PRIVATE SELECTION",
+              "width": 358,
+              "height": 17.4,
+              "fontSize": 10.7
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "",
+              "text": "FROM 30 PUBLISHED VESSELS",
+              "width": 168,
+              "height": 15.5,
+              "fontSize": 9.6
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "home5-text-link",
+              "text": "VIEW THE FULL FLEET",
+              "width": 156.6,
+              "height": 25.8,
+              "fontSize": 10.4
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "",
+              "text": "FLAGSHIP DAY CHARTER",
+              "width": 140.1,
+              "height": 27.7,
+              "fontSize": 8.8
+            },
+            {
+              "tag": "div",
+              "id": null,
+              "className": "home5-yacht-card__meta",
+              "text": "From €4,375\n21.70 m · 12 gue t \nPuerto Banú ",
+              "width": 358,
+              "height": 55.5,
+              "fontSize": 11.2
+            },
+            {
+              "tag": "strong",
+              "id": null,
+              "className": "",
+              "text": "From €4,375",
+              "width": 358,
+              "height": 18.5,
+              "fontSize": 11.2
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "",
+              "text": "OPEN YACHT",
+              "width": 83,
+              "height": 27.7,
+              "fontSize": 8.8
+            },
+            {
+              "tag": "div",
+              "id": null,
+              "className": "home5-yacht-card__meta",
+              "text": "From €3,900\n24.4 m · 12 gue t \nPuerto Banú ",
+              "width": 358,
+              "height": 55.5,
+              "fontSize": 11.2
+            }
+          ]
+        }
       },
-      "reviewedAt": "2026-08-14T07:25:56.580Z",
-      "durationMs": 5596
+      "reviewedAt": "2026-08-14T07:29:19.420Z",
+      "durationMs": 5153
     },
     {
       "id": "marbella-for-sale",
@@ -823,7 +1628,7 @@
           "detail": "51% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
           "impact": 76,
           "effort": "s",
-          "evidence": "Affected ratio: 51%.",
+          "evidence": "Affected ratio: 51%. Examples: [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object].",
           "recommendation": "Increase the hit area of the listed controls using padding/min-size without necessarily making the visual icon itself larger.",
           "observed": "51%",
           "expected": "≤ 5% below 44×44 px",
@@ -838,7 +1643,7 @@
           "detail": "44% of visible sampled elements render below 12 px.",
           "impact": 62,
           "effort": "s",
-          "evidence": "Affected ratio: 44%.",
+          "evidence": "Affected ratio: 44%. Examples: [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object].",
           "recommendation": "Raise the smallest typography tokens and verify metadata/helper text on mobile and desktop.",
           "observed": "44%",
           "expected": "≤ 2% of visible text below 12 px",
@@ -927,13 +1732,13 @@
         "usage": null
       },
       "metrics": {
-        "lcpMs": 636,
+        "lcpMs": 556,
         "mobileLcpMs": 0,
         "cls": 0,
-        "ttfbMs": 25,
-        "totalBlockingMs": 120,
-        "transferKb": 1900,
-        "resourceCount": 35
+        "ttfbMs": 4,
+        "totalBlockingMs": 102,
+        "transferKb": 1908,
+        "resourceCount": 43
       },
       "checks": {
         "httpOk": true,
@@ -951,10 +1756,272 @@
       },
       "scanDiagnostics": {
         "browserErrors": [],
-        "screenshotErrors": []
+        "screenshotErrors": [],
+        "mobileProbe": {
+          "tinyTapTargetCount": 19,
+          "interactiveTargetCount": 37,
+          "tinyTapTargetSamples": [
+            {
+              "tag": "button",
+              "id": null,
+              "className": "menu-button",
+              "text": "",
+              "width": 27,
+              "height": 8,
+              "fontSize": 16
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "saved-link",
+              "text": "",
+              "width": 19,
+              "height": 19,
+              "fontSize": 16
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "text-link",
+              "text": "OUR APPROACH",
+              "width": 144.7,
+              "height": 31,
+              "fontSize": 11
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "",
+              "text": "Villa in Parcela  del Golf",
+              "width": 296.6,
+              "height": 35,
+              "fontSize": 27.3
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "text-link",
+              "text": "EXPLORE OUR BUYER'S GUIDES",
+              "width": 240.8,
+              "height": 31,
+              "fontSize": 11
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "wordmark footer-wordmark",
+              "text": "MARBELLA\nFOR SALE",
+              "width": 152.8,
+              "height": 32.9,
+              "fontSize": 16
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "",
+              "text": "Property  earch",
+              "width": 78.8,
+              "height": 19.3,
+              "fontSize": 11
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "",
+              "text": "New development ",
+              "width": 94,
+              "height": 19.3,
+              "fontSize": 11
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "",
+              "text": "Area guide ",
+              "width": 57.6,
+              "height": 19.3,
+              "fontSize": 11
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "",
+              "text": "Buyer'  guide ",
+              "width": 70.3,
+              "height": 19.3,
+              "fontSize": 11
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "",
+              "text": "About u ",
+              "width": 43.7,
+              "height": 19.3,
+              "fontSize": 11
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "",
+              "text": "Sell a property",
+              "width": 73,
+              "height": 19.3,
+              "fontSize": 11
+            }
+          ],
+          "tinyTextCount": 115,
+          "visibleElementCount": 259,
+          "tinyTextSamples": [
+            {
+              "tag": "span",
+              "id": null,
+              "className": "",
+              "text": "FOR SALE",
+              "width": 149.2,
+              "height": 16.7,
+              "fontSize": 7
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "",
+              "text": "LOCATION",
+              "width": 144,
+              "height": 13.5,
+              "fontSize": 9
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "",
+              "text": "PROPERTY TYPE",
+              "width": 145,
+              "height": 13.5,
+              "fontSize": 9
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "",
+              "text": "PRICE FROM",
+              "width": 144,
+              "height": 13.5,
+              "fontSize": 9
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "",
+              "text": "PRICE TO",
+              "width": 145,
+              "height": 13.5,
+              "fontSize": 9
+            },
+            {
+              "tag": "button",
+              "id": null,
+              "className": "",
+              "text": "SEARCH PROPERTIES",
+              "width": 354,
+              "height": 66,
+              "fontSize": 10
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "",
+              "text": "SEARCH PROPERTIES",
+              "width": 115.7,
+              "height": 15,
+              "fontSize": 10
+            },
+            {
+              "tag": "svg",
+              "id": null,
+              "className": null,
+              "text": "",
+              "width": 22,
+              "height": 22,
+              "fontSize": 10
+            },
+            {
+              "tag": "circle",
+              "id": null,
+              "className": null,
+              "text": "",
+              "width": 11,
+              "height": 11,
+              "fontSize": 10
+            },
+            {
+              "tag": "path",
+              "id": null,
+              "className": null,
+              "text": "",
+              "width": 3.7,
+              "height": 3.7,
+              "fontSize": 10
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "",
+              "text": "MARBELLA · COSTA DEL SOL",
+              "width": 134.4,
+              "height": 12,
+              "fontSize": 8
+            },
+            {
+              "tag": "p",
+              "id": null,
+              "className": "eyebrow",
+              "text": "A CONSIDERED COLLECTION",
+              "width": 354,
+              "height": 11,
+              "fontSize": 11
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "",
+              "text": "INDEPENDENT ADVICE\nLOCAL PERSPECTIVE",
+              "width": 118.3,
+              "height": 30.6,
+              "fontSize": 9
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "text-link",
+              "text": "OUR APPROACH",
+              "width": 144.7,
+              "height": 31,
+              "fontSize": 11
+            },
+            {
+              "tag": "svg",
+              "id": null,
+              "className": null,
+              "text": "",
+              "width": 22,
+              "height": 22,
+              "fontSize": 11
+            },
+            {
+              "tag": "path",
+              "id": null,
+              "className": null,
+              "text": "",
+              "width": 12.8,
+              "height": 11,
+              "fontSize": 11
+            }
+          ]
+        }
       },
-      "reviewedAt": "2026-08-14T07:26:01.951Z",
-      "durationMs": 5370
+      "reviewedAt": "2026-08-14T07:29:24.015Z",
+      "durationMs": 4595
     },
     {
       "id": "la-bocana",
@@ -968,17 +2035,17 @@
       "market": "Puerto Banús / Marbella",
       "primaryGoal": "Reservation",
       "status": "ok",
-      "score": 95.2,
-      "rawScore": 95.2,
+      "score": 94.8,
+      "rawScore": 94.8,
       "cap": 100,
-      "tier": "Reference Quality",
-      "delta": 11.2,
+      "tier": "Exceptional",
+      "delta": -0.4,
       "categoryScores": {
-        "businessFit": 93.4,
-        "visualDesign": 91.2,
+        "businessFit": 93.3,
+        "visualDesign": 89.7,
         "ux": 95,
-        "conversion": 93.5,
-        "mobile": 93.1,
+        "conversion": 93.2,
+        "mobile": 91.7,
         "performance": 100,
         "seoGeo": 97.5,
         "content": 91.7,
@@ -993,12 +2060,12 @@
           "category": "mobile",
           "severity": "medium",
           "title": "Interactive targets are too small on mobile",
-          "detail": "15% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
+          "detail": "17% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
           "impact": 76,
           "effort": "s",
-          "evidence": "Affected ratio: 15%.",
+          "evidence": "Affected ratio: 17%. Examples: [object Object] · [object Object] · [object Object] · [object Object].",
           "recommendation": "Increase the hit area of the listed controls using padding/min-size without necessarily making the visual icon itself larger.",
-          "observed": "15%",
+          "observed": "17%",
           "expected": "≤ 5% below 44×44 px",
           "location": "https://labocana.vercel.app/",
           "priority": 79
@@ -1008,12 +2075,12 @@
           "category": "visualDesign",
           "severity": "medium",
           "title": "Text is too small to read comfortably",
-          "detail": "5% of visible sampled elements render below 12 px.",
+          "detail": "6% of visible sampled elements render below 12 px.",
           "impact": 62,
           "effort": "s",
-          "evidence": "Affected ratio: 5%.",
+          "evidence": "Affected ratio: 6%. Examples: [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object] · [object Object].",
           "recommendation": "Raise the smallest typography tokens and verify metadata/helper text on mobile and desktop.",
-          "observed": "5%",
+          "observed": "6%",
           "expected": "≤ 2% of visible text below 12 px",
           "location": "https://labocana.vercel.app/",
           "priority": 64
@@ -1024,12 +2091,12 @@
         "category": "mobile",
         "severity": "medium",
         "title": "Interactive targets are too small on mobile",
-        "detail": "15% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
+        "detail": "17% of detected links/buttons are smaller than the 44×44 px touch target used by the benchmark.",
         "impact": 76,
         "effort": "s",
-        "evidence": "Affected ratio: 15%.",
+        "evidence": "Affected ratio: 17%. Examples: [object Object] · [object Object] · [object Object] · [object Object].",
         "recommendation": "Increase the hit area of the listed controls using padding/min-size without necessarily making the visual icon itself larger.",
-        "observed": "15%",
+        "observed": "17%",
         "expected": "≤ 5% below 44×44 px",
         "location": "https://labocana.vercel.app/",
         "priority": 79
@@ -1044,13 +2111,13 @@
         "usage": null
       },
       "metrics": {
-        "lcpMs": 608,
-        "mobileLcpMs": 644,
+        "lcpMs": 308,
+        "mobileLcpMs": 344,
         "cls": 0,
-        "ttfbMs": 25,
-        "totalBlockingMs": 31,
-        "transferKb": 422,
-        "resourceCount": 27
+        "ttfbMs": 5,
+        "totalBlockingMs": 10,
+        "transferKb": 433,
+        "resourceCount": 36
       },
       "checks": {
         "httpOk": true,
@@ -1068,10 +2135,137 @@
       },
       "scanDiagnostics": {
         "browserErrors": [],
-        "screenshotErrors": []
+        "screenshotErrors": [],
+        "mobileProbe": {
+          "tinyTapTargetCount": 4,
+          "interactiveTargetCount": 23,
+          "tinyTapTargetSamples": [
+            {
+              "tag": "a",
+              "id": null,
+              "className": "skip-link",
+              "text": "Saltar al contenido principal",
+              "width": 196.7,
+              "height": 42,
+              "fontSize": 12
+            },
+            {
+              "tag": "button",
+              "id": null,
+              "className": "cookie-primary",
+              "text": "ENTENDIDO",
+              "width": 161.5,
+              "height": 42,
+              "fontSize": 9
+            },
+            {
+              "tag": "button",
+              "id": null,
+              "className": "cookie-secondary",
+              "text": "VER DETALLE",
+              "width": 161.5,
+              "height": 42,
+              "fontSize": 9
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "",
+              "text": "POLÍTICA DE COOKIES",
+              "width": 112.7,
+              "height": 26,
+              "fontSize": 9
+            }
+          ],
+          "tinyTextCount": 9,
+          "visibleElementCount": 152,
+          "tinyTextSamples": [
+            {
+              "tag": "strong",
+              "id": null,
+              "className": "",
+              "text": "BEST OF THE BEST 2025",
+              "width": 120.7,
+              "height": 8,
+              "fontSize": 8
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "reserve-main",
+              "text": "RESERVAR MESA",
+              "width": 350,
+              "height": 52,
+              "fontSize": 10
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "reserve-secondary",
+              "text": "CÓMO LLEGAR",
+              "width": 350,
+              "height": 52,
+              "fontSize": 10
+            },
+            {
+              "tag": "span",
+              "id": null,
+              "className": "",
+              "text": "PRIVACIDAD",
+              "width": 72.4,
+              "height": 10,
+              "fontSize": 9
+            },
+            {
+              "tag": "button",
+              "id": null,
+              "className": "",
+              "text": "CERRAR",
+              "width": 56.2,
+              "height": 44,
+              "fontSize": 10
+            },
+            {
+              "tag": "p",
+              "id": null,
+              "className": "",
+              "text": "U amo  cookie  técnica  para la  re erva , el acce o privado y recordar e te avi o. Sin an",
+              "width": 332,
+              "height": 34.1,
+              "fontSize": 11
+            },
+            {
+              "tag": "button",
+              "id": null,
+              "className": "cookie-primary",
+              "text": "ENTENDIDO",
+              "width": 161.5,
+              "height": 42,
+              "fontSize": 9
+            },
+            {
+              "tag": "button",
+              "id": null,
+              "className": "cookie-secondary",
+              "text": "VER DETALLE",
+              "width": 161.5,
+              "height": 42,
+              "fontSize": 9
+            },
+            {
+              "tag": "a",
+              "id": null,
+              "className": "",
+              "text": "POLÍTICA DE COOKIES",
+              "width": 112.7,
+              "height": 26,
+              "fontSize": 9
+            }
+          ]
+        }
       },
-      "reviewedAt": "2026-08-14T07:26:08.231Z",
-      "durationMs": 6280
+      "reviewedAt": "2026-08-14T07:29:29.020Z",
+      "durationMs": 5005
     },
     {
       "id": "noguera",
@@ -1089,7 +2283,7 @@
       "rawScore": 85.2,
       "cap": 100,
       "tier": "Premium",
-      "delta": 1.2,
+      "delta": 0,
       "categoryScores": {
         "businessFit": 68,
         "visualDesign": 97.5,
@@ -1222,9 +2416,9 @@
       },
       "metrics": {
         "lcpMs": 0,
-        "mobileLcpMs": 0,
-        "cls": 0,
-        "ttfbMs": 25,
+        "mobileLcpMs": 232,
+        "cls": 0.0012,
+        "ttfbMs": 5,
         "totalBlockingMs": 0,
         "transferKb": 115,
         "resourceCount": 16
@@ -1245,10 +2439,18 @@
       },
       "scanDiagnostics": {
         "browserErrors": [],
-        "screenshotErrors": []
+        "screenshotErrors": [],
+        "mobileProbe": {
+          "tinyTapTargetCount": 0,
+          "interactiveTargetCount": 1,
+          "tinyTapTargetSamples": [],
+          "tinyTextCount": 0,
+          "visibleElementCount": 7,
+          "tinyTextSamples": []
+        }
       },
-      "reviewedAt": "2026-08-14T07:26:12.468Z",
-      "durationMs": 4237
+      "reviewedAt": "2026-08-14T07:29:34.541Z",
+      "durationMs": 5521
     }
   ]
 }
