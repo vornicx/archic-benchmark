@@ -1,0 +1,65 @@
+name: Marbella For Sale Terra Review
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/marbellaforsale-benchmark.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: marbella-for-sale-terra-review
+  cancel-in-progress: true
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Detect Chrome
+        shell: bash
+        run: |
+          CHROME_PATH="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser || true)"
+          test -n "$CHROME_PATH"
+          echo "CHROME_PATH=$CHROME_PATH" >> "$GITHUB_ENV"
+      - name: Review Marbella For Sale with Terra
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ARCHIC_AI_PROVIDER: openai
+          ARCHIC_OPENAI_BASE_URL: https://api.synterolink.com
+          ARCHIC_OPENAI_MODEL: gpt-5.6-terra
+          ARCHIC_OPENAI_IMAGE_DETAIL: high
+          ARCHIC_OPENAI_MAX_OUTPUT_TOKENS: 3500
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs/promises';
+          import path from 'node:path';
+          import { readJson } from './src/storage.mjs';
+          import { analyzeProject } from './src/benchmark/analyze.mjs';
+          const root=process.cwd();
+          const config=await readJson(path.join(root,'config/projects.json'),{projects:[]});
+          const benchmarks=await readJson(path.join(root,'config/benchmarks.json'));
+          const gates=await readJson(path.join(root,'config/gates.json'),{gates:[]});
+          const previous=await readJson(path.join(root,'data/latest.json'),{projects:[]});
+          const project=config.projects.find(project=>project.id==='marbella-for-sale');
+          if(!project) throw new Error('Marbella For Sale benchmark profile not found.');
+          const profile=benchmarks.profiles[project.profile];
+          const report=await analyzeProject({project,profile,gates:gates.gates,rootDir:root,previous:previous.projects?.find(item=>item.id===project.id)||null});
+          await fs.writeFile('marbellaforsale-terra.json',JSON.stringify(report,null,2));
+          console.log(`Marbella For Sale · ${report.score}/100 · ${report.tier} · ${report.aiReview?.model||'no AI'} · ${report.aiReview?.error||'AI ok'}`);
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: marbellaforsale-terra
+          path: marbellaforsale-terra.json
+          retention-days: 3
