@@ -2,10 +2,10 @@
   "schemaVersion": 2,
   "mode": "live",
   "date": "2026-08-14",
-  "generatedAt": "2026-08-14T07:35:21.277Z",
+  "generatedAt": "2026-08-14T07:54:28.666Z",
   "portfolio": {
     "score": 86.6,
-    "delta": 0.4,
+    "delta": 0,
     "projectsScored": 6,
     "criticalProjects": 0,
     "scanFailures": 0,
@@ -362,15 +362,15 @@
         "summary": null,
         "strengths": [],
         "confidence": null,
-        "error": "OpenAI visual review failed: 401 · {\n  \"error\": {\n    \"message\": \"Incorrect API key provided: sk-8a67f*******************************************************6ca8. You can find your API key at https://platform.openai.com/account/api-keys.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"invalid_api_key\",\n    \"param\": null\n  },\n  \"status\": 401\n}",
+        "error": "OpenAI-compatible visual review failed: 401 · {\n  \"error\": {\n    \"message\": \"Incorrect API key provided: sk-8a67f*******************************************************6ca8. You can find your API key at https://platform.openai.com/account/api-keys.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"invalid_api_key\",\n    \"param\": null\n  },\n  \"status\": 401\n}",
         "usage": null
       },
       "metrics": {
-        "lcpMs": 912,
-        "mobileLcpMs": 892,
-        "cls": 0,
-        "ttfbMs": 25,
-        "totalBlockingMs": 212,
+        "lcpMs": 880,
+        "mobileLcpMs": 392,
+        "cls": 0.0001,
+        "ttfbMs": 8,
+        "totalBlockingMs": 284,
         "transferKb": 303,
         "resourceCount": 21
       },
@@ -654,8 +654,8 @@
           ]
         }
       },
-      "reviewedAt": "2026-08-14T07:34:56.032Z",
-      "durationMs": 5350
+      "reviewedAt": "2026-08-14T07:54:00.247Z",
+      "durationMs": 5315
     },
     {
       "id": "trenes-y-tranvias",
@@ -835,15 +835,15 @@
         "summary": null,
         "strengths": [],
         "confidence": null,
-        "error": "OpenAI visual review failed: 401 · {\n  \"error\": {\n    \"message\": \"Incorrect API key provided: sk-8a67f*******************************************************6ca8. You can find your API key at https://platform.openai.com/account/api-keys.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"invalid_api_key\",\n    \"param\": null\n  },\n  \"status\": 401\n}",
+        "error": "OpenAI-compatible visual review failed: 401 · {\n  \"error\": {\n    \"message\": \"Incorrect API key provided: sk-8a67f*******************************************************6ca8. You can find your API key at https://platform.openai.com/account/api-keys.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"invalid_api_key\",\n    \"param\": null\n  },\n  \"status\": 401\n}",
         "usage": null
       },
       "metrics": {
-        "lcpMs": 744,
-        "mobileLcpMs": 336,
-        "cls": 0.0006,
-        "ttfbMs": 26,
-        "totalBlockingMs": 130,
+        "lcpMs": 572,
+        "mobileLcpMs": 392,
+        "cls": 0.0005,
+        "ttfbMs": 12,
+        "totalBlockingMs": 18,
         "transferKb": 163,
         "resourceCount": 6
       },
@@ -1127,8 +1127,8 @@
           ]
         }
       },
-      "reviewedAt": "2026-08-14T07:35:01.030Z",
-      "durationMs": 4998
+      "reviewedAt": "2026-08-14T07:54:05.444Z",
+      "durationMs": 5197
     },
     {
       "id": "marbella-boat-charter",
@@ -1274,15 +1274,15 @@
         "summary": null,
         "strengths": [],
         "confidence": null,
-        "error": "OpenAI visual review failed: 401 · {\n  \"error\": {\n    \"message\": \"Incorrect API key provided: sk-8a67f*******************************************************6ca8. You can find your API key at https://platform.openai.com/account/api-keys.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"invalid_api_key\",\n    \"param\": null\n  },\n  \"status\": 401\n}",
+        "error": "OpenAI-compatible visual review failed: 401 · {\n  \"error\": {\n    \"message\": \"Incorrect API key provided: sk-8a67f*******************************************************6ca8. You can find your API key at https://platform.openai.com/account/api-keys.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"invalid_api_key\",\n    \"param\": null\n  },\n  \"status\": 401\n}",
         "usage": null
       },
       "metrics": {
-        "lcpMs": 512,
-        "mobileLcpMs": 540,
-        "cls": 0.0166,
-        "ttfbMs": 25,
-        "totalBlockingMs": 71,
+        "lcpMs": 1016,
+        "mobileLcpMs": 968,
+        "cls": 0,
+        "ttfbMs": 12,
+        "totalBlockingMs": 117,
         "transferKb": 2139,
         "resourceCount": 15
       },
@@ -1566,8 +1566,8 @@
           ]
         }
       },
-      "reviewedAt": "2026-08-14T07:35:06.644Z",
-      "durationMs": 5614
+      "reviewedAt": "2026-08-14T07:54:10.773Z",
+      "durationMs": 5329
     },
     {
       "id": "marbella-for-sale",
@@ -1728,17 +1728,17 @@
         "summary": null,
         "strengths": [],
         "confidence": null,
-        "error": "OpenAI visual review failed: 401 · {\n  \"error\": {\n    \"message\": \"Incorrect API key provided: sk-8a67f*******************************************************6ca8. You can find your API key at https://platform.openai.com/account/api-keys.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"invalid_api_key\",\n    \"param\": null\n  },\n  \"status\": 401\n}",
+        "error": "OpenAI-compatible visual review failed: 401 · {\n  \"error\": {\n    \"message\": \"Incorrect API key provided: sk-8a67f*******************************************************6ca8. You can find your API key at https://platform.openai.com/account/api-keys.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"invalid_api_key\",\n    \"param\": null\n  },\n  \"status\": 401\n}",
         "usage": null
       },
       "metrics": {
-        "lcpMs": 684,
+        "lcpMs": 576,
         "mobileLcpMs": 0,
         "cls": 0,
-        "ttfbMs": 29,
-        "totalBlockingMs": 146,
-        "transferKb": 1905,
-        "resourceCount": 40
+        "ttfbMs": 9,
+        "totalBlockingMs": 77,
+        "transferKb": 1914,
+        "resourceCount": 48
       },
       "checks": {
         "httpOk": true,
@@ -2020,8 +2020,8 @@
           ]
         }
       },
-      "reviewedAt": "2026-08-14T07:35:11.554Z",
-      "durationMs": 4910
+      "reviewedAt": "2026-08-14T07:54:16.702Z",
+      "durationMs": 5929
     },
     {
       "id": "la-bocana",
@@ -2039,7 +2039,7 @@
       "rawScore": 97.1,
       "cap": 100,
       "tier": "Reference Quality",
-      "delta": 2.3,
+      "delta": 0,
       "categoryScores": {
         "businessFit": 94,
         "visualDesign": 97.5,
@@ -2062,17 +2062,17 @@
         "summary": null,
         "strengths": [],
         "confidence": null,
-        "error": "OpenAI visual review failed: 401 · {\n  \"error\": {\n    \"message\": \"Incorrect API key provided: sk-8a67f*******************************************************6ca8. You can find your API key at https://platform.openai.com/account/api-keys.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"invalid_api_key\",\n    \"param\": null\n  },\n  \"status\": 401\n}",
+        "error": "OpenAI-compatible visual review failed: 401 · {\n  \"error\": {\n    \"message\": \"Incorrect API key provided: sk-8a67f*******************************************************6ca8. You can find your API key at https://platform.openai.com/account/api-keys.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"invalid_api_key\",\n    \"param\": null\n  },\n  \"status\": 401\n}",
         "usage": null
       },
       "metrics": {
-        "lcpMs": 564,
-        "mobileLcpMs": 500,
+        "lcpMs": 432,
+        "mobileLcpMs": 532,
         "cls": 0,
-        "ttfbMs": 27,
-        "totalBlockingMs": 44,
-        "transferKb": 432,
-        "resourceCount": 35
+        "ttfbMs": 7,
+        "totalBlockingMs": 82,
+        "transferKb": 421,
+        "resourceCount": 23
       },
       "checks": {
         "httpOk": true,
@@ -2100,8 +2100,8 @@
           "tinyTextSamples": []
         }
       },
-      "reviewedAt": "2026-08-14T07:35:16.990Z",
-      "durationMs": 5436
+      "reviewedAt": "2026-08-14T07:54:24.488Z",
+      "durationMs": 7786
     },
     {
       "id": "noguera",
@@ -2247,17 +2247,17 @@
         "summary": null,
         "strengths": [],
         "confidence": null,
-        "error": "OpenAI visual review failed: 401 · {\n  \"error\": {\n    \"message\": \"Incorrect API key provided: sk-8a67f*******************************************************6ca8. You can find your API key at https://platform.openai.com/account/api-keys.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"invalid_api_key\",\n    \"param\": null\n  },\n  \"status\": 401\n}",
+        "error": "OpenAI-compatible visual review failed: 401 · {\n  \"error\": {\n    \"message\": \"Incorrect API key provided: sk-8a67f*******************************************************6ca8. You can find your API key at https://platform.openai.com/account/api-keys.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"invalid_api_key\",\n    \"param\": null\n  },\n  \"status\": 401\n}",
         "usage": null
       },
       "metrics": {
-        "lcpMs": 332,
-        "mobileLcpMs": 264,
-        "cls": 0.0012,
-        "ttfbMs": 25,
+        "lcpMs": 0,
+        "mobileLcpMs": 0,
+        "cls": 0,
+        "ttfbMs": 11,
         "totalBlockingMs": 0,
-        "transferKb": 115,
-        "resourceCount": 16
+        "transferKb": 114,
+        "resourceCount": 15
       },
       "checks": {
         "httpOk": true,
@@ -2285,8 +2285,8 @@
           "tinyTextSamples": []
         }
       },
-      "reviewedAt": "2026-08-14T07:35:21.248Z",
-      "durationMs": 4258
+      "reviewedAt": "2026-08-14T07:54:28.637Z",
+      "durationMs": 4149
     }
   ]
 }
