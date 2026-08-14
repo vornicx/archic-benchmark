@@ -29,7 +29,7 @@ for(const project of config.projects){
 }
 const scored=reports.filter(p=>Number.isFinite(p.score));
 const score=scored.length?Number((scored.reduce((sum,p)=>sum+p.score,0)/scored.length).toFixed(1)):null;
-const aiReviews=reports.filter(p=>p.aiReview?.provider==='openai');
+const aiReviews=reports.filter(p=>String(p.aiReview?.provider||'').startsWith('openai'));
 const aiUsage=aiReviews.reduce((acc,p)=>{
   const usage=p.aiReview?.usage||{};
   acc.inputTokens+=(usage.inputTokens||0);
@@ -38,9 +38,9 @@ const aiUsage=aiReviews.reduce((acc,p)=>{
   if(p.aiReview?.error)acc.errors+=1;
   else if(p.aiReview?.summary)acc.completed+=1;
   return acc;
-},{provider:'openai',completed:0,errors:0,inputTokens:0,outputTokens:0,totalTokens:0});
+},{provider:'openai-compatible',completed:0,errors:0,inputTokens:0,outputTokens:0,totalTokens:0});
 const report={schemaVersion:2,mode:'live',date:madridDate(),generatedAt:new Date().toISOString(),portfolio:{score,delta:Number.isFinite(previous.portfolio?.score)&&Number.isFinite(score)?Number((score-previous.portfolio.score).toFixed(1)):null,projectsScored:scored.length,criticalProjects:scored.filter(p=>p.status==='critical').length,scanFailures:reports.filter(p=>p.status==='scan-failed').length,activeGates:scored.reduce((n,p)=>n+(p.gates?.length||0),0),aiUsage},dailyQueue:portfolioQueue(scored,8),projects:reports};
 await writeJson(path.join(root,'data/latest.json'),report);
 await writeJson(path.join(root,'public/api/latest.json'),report);
 await appendHistory(root,report);
-console.log(`Archic Benchmark ${report.date} · ${score??'—'}/100 · ${report.portfolio.scanFailures} scan failures · OpenAI ${aiUsage.completed} reviews · ${aiUsage.totalTokens} tokens`);
+console.log(`Archic Benchmark ${report.date} · ${score??'—'}/100 · ${report.portfolio.scanFailures} scan failures · AI ${aiUsage.completed} reviews · ${aiUsage.totalTokens} tokens`);
