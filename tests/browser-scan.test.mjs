@@ -24,7 +24,7 @@ test('Chromium CDP boots and evaluates a document', { timeout: 30000 }, async ()
   assert.equal(value, 'Benchmark');
 });
 
-test('scanViewport keeps DOM signals and safely caps tall screenshots', { timeout: 30000 }, async () => {
+test('scanViewport keeps DOM signals and screenshots stable on extremely tall pages', { timeout: 30000 }, async () => {
   const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'archic-scan-test-'));
   const screenshotPath = path.join(dir, 'tall.jpg');
   const html = '<!doctype html><html lang="es"><head><title>La Bocana test</title><meta name="viewport" content="width=device-width, initial-scale=1"></head><body style="margin:0;height:50000px"><h1>Benchmark</h1><a href="/reservar">Reservar mesa</a></body></html>';

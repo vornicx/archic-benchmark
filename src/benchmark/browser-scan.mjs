@@ -10,56 +10,34 @@ function waitForPageLoad(client, timeoutMs = 10000) {
   return new Promise(resolve => {
     let settled = false;
     let off = null;
+    let timer = null;
     const finish = reason => {
       if (settled) return;
       settled = true;
-      clearTimeout(timer);
+      if (timer) clearTimeout(timer);
       off?.();
       resolve(reason);
     };
     off = client.on('Page.loadEventFired', () => finish('load'));
-    const timer = setTimeout(() => finish('timeout'), timeoutMs);
+    timer = setTimeout(() => finish('timeout'), timeoutMs);
     timer.unref?.();
   });
 }
 
-async function captureScreenshotSafe(client, screenshotPath, { width, height }) {
+async function captureScreenshotSafe(client, screenshotPath) {
   if (!screenshotPath) return { captured: false, error: null };
-  let firstError = null;
-  try {
-    const layout = await client.send('Page.getLayoutMetrics');
-    const content = layout.cssContentSize || layout.contentSize || {};
-    const clipWidth = Math.max(1, Math.min(Math.ceil(content.width || width), width));
-    const clipHeight = Math.max(1, Math.min(Math.ceil(content.height || height), 12000));
-    const shot = await client.send('Page.captureScreenshot', {
-      format: 'jpeg',
-      quality: 72,
-      fromSurface: true,
-      captureBeyondViewport: true,
-      clip: { x: 0, y: 0, width: clipWidth, height: clipHeight, scale: 1 }
-    });
-    await fs.mkdir(path.dirname(screenshotPath), { recursive: true });
-    await fs.writeFile(screenshotPath, Buffer.from(shot.data, 'base64'));
-    return { captured: true, error: null };
-  } catch (error) {
-    firstError = error;
-  }
-
   try {
     const shot = await client.send('Page.captureScreenshot', {
       format: 'jpeg',
-      quality: 72,
+      quality: 76,
       fromSurface: true,
       captureBeyondViewport: false
     });
     await fs.mkdir(path.dirname(screenshotPath), { recursive: true });
     await fs.writeFile(screenshotPath, Buffer.from(shot.data, 'base64'));
-    return { captured: true, error: `Full-page capture failed; viewport fallback used: ${firstError?.message || firstError}` };
-  } catch (fallbackError) {
-    return {
-      captured: false,
-      error: `Screenshot failed: ${firstError?.message || firstError}; fallback failed: ${fallbackError?.message || fallbackError}`
-    };
+    return { captured: true, error: null };
+  } catch (error) {
+    return { captured: false, error: `Viewport screenshot failed: ${error?.message || error}` };
   }
 }
 
@@ -106,7 +84,7 @@ export async function scanViewport(url,{width,height,mobile=false,screenshotPath
     const perf=await client.send('Runtime.evaluate',{expression:METRICS_SCRIPT,returnByValue:true});
     const dom={...(result.result?.value||{}),...(mobileProbe.result?.value||{})};
     const metrics=perf.result?.value||{};
-    const screenshot=await captureScreenshotSafe(client,screenshotPath,{width,height});
+    const screenshot=await captureScreenshotSafe(client,screenshotPath);
     return {dom,metrics,console:{errorCount:errors.length,errors:errors.slice(0,12)},network:{failedRequestCount:failures.length,failures:failures.slice(0,12)},screenshotCaptured:screenshot.captured,screenshotError:screenshot.error};
   });
 }
