@@ -9,6 +9,13 @@
       "businessRequirements": ["reservation prominence", "menu discoverability", "location clarity", "opening hours", "mobile-first reservation", "trust signals"],
       "criticalJourney": "reservation"
     },
+    "premium-cafe": {
+      "label": "Premium Café / Pâtisserie",
+      "weights": {"businessFit":14,"visualDesign":14,"ux":10,"conversion":10,"mobile":11,"performance":8,"seoGeo":9,"content":8,"accessibility":4,"securityTrust":6,"robustness":6},
+      "visualIntent": ["premium", "editorial", "appetite", "distinctive", "welcoming", "product-led"],
+      "businessRequirements": ["menu or selection discovery", "high-quality product photography", "high-quality venue photography", "location clarity", "opening hours", "visit or contact path", "brand story", "trust signals", "mobile usability"],
+      "criticalJourney": "visit / contact"
+    },
     "luxury-car-rental": {
       "label": "Luxury Car Rental",
       "weights": {"businessFit":13,"visualDesign":15,"ux":9,"conversion":13,"mobile":11,"performance":8,"seoGeo":8,"content":5,"accessibility":3,"securityTrust":7,"robustness":8},

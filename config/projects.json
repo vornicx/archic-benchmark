@@ -15,6 +15,20 @@
       "enabled": true
     },
     {
+      "id": "zusto-cafe",
+      "name": "Zùsto Café",
+      "url": "https://zustocafe.vercel.app",
+      "repository": "vornicx/zusto-cafe-v2-final",
+      "startingRef": "main",
+      "profile": "premium-cafe",
+      "positioning": "Premium sugar-free pâtisserie and café",
+      "market": "Puerto Banús / Marbella",
+      "primaryGoal": "Visit / contact",
+      "secondaryGoal": "Menu and concept discovery",
+      "criticalPaths": ["/", "/carta", "/visita", "/contacto"],
+      "enabled": true
+    },
+    {
       "id": "trenes-y-tranvias",
       "name": "Trenes y Tranvías",
       "url": "https://trenesytranvias.vercel.app",
