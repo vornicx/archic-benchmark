@@ -2,10 +2,10 @@
   "schemaVersion": 2,
   "mode": "live",
   "date": "2026-08-15",
-  "generatedAt": "2026-08-15T12:19:36.002Z",
+  "generatedAt": "2026-08-15T12:23:20.300Z",
   "portfolio": {
     "score": 89.7,
-    "delta": 4.8,
+    "delta": 0,
     "projectsScored": 7,
     "criticalProjects": 0,
     "scanFailures": 0,
@@ -170,7 +170,7 @@
       "rawScore": 97.2,
       "cap": 100,
       "tier": "Reference Quality",
-      "delta": 3.4,
+      "delta": 0,
       "categoryScores": {
         "businessFit": 94,
         "visualDesign": 97.5,
@@ -197,13 +197,13 @@
         "usage": null
       },
       "metrics": {
-        "lcpMs": 712,
-        "mobileLcpMs": 968,
-        "cls": 0.0448,
-        "ttfbMs": 8,
-        "totalBlockingMs": 170,
+        "lcpMs": 724,
+        "mobileLcpMs": 572,
+        "cls": 0.0174,
+        "ttfbMs": 5,
+        "totalBlockingMs": 206,
         "transferKb": 80,
-        "resourceCount": 19
+        "resourceCount": 16
       },
       "checks": {
         "httpOk": true,
@@ -231,8 +231,8 @@
           "tinyTextSamples": []
         }
       },
-      "reviewedAt": "2026-08-15T12:18:50.716Z",
-      "durationMs": 9820
+      "reviewedAt": "2026-08-15T12:22:41.086Z",
+      "durationMs": 7127
     },
     {
       "id": "zusto-cafe",
@@ -250,7 +250,7 @@
       "rawScore": 86.6,
       "cap": 84,
       "tier": "Premium",
-      "delta": null,
+      "delta": 0,
       "categoryScores": {
         "businessFit": 89.6,
         "visualDesign": 57.5,
@@ -352,11 +352,11 @@
         "usage": null
       },
       "metrics": {
-        "lcpMs": 352,
-        "mobileLcpMs": 376,
+        "lcpMs": 624,
+        "mobileLcpMs": 408,
         "cls": 0.0001,
-        "ttfbMs": 4,
-        "totalBlockingMs": 0,
+        "ttfbMs": 5,
+        "totalBlockingMs": 40,
         "transferKb": 17,
         "resourceCount": 7
       },
@@ -640,8 +640,8 @@
           ]
         }
       },
-      "reviewedAt": "2026-08-15T12:18:56.481Z",
-      "durationMs": 5764
+      "reviewedAt": "2026-08-15T12:22:46.767Z",
+      "durationMs": 5680
     },
     {
       "id": "trenes-y-tranvias",
@@ -825,11 +825,11 @@
         "usage": null
       },
       "metrics": {
-        "lcpMs": 644,
-        "mobileLcpMs": 496,
+        "lcpMs": 660,
+        "mobileLcpMs": 456,
         "cls": 0.0004,
-        "ttfbMs": 8,
-        "totalBlockingMs": 107,
+        "ttfbMs": 5,
+        "totalBlockingMs": 89,
         "transferKb": 163,
         "resourceCount": 6
       },
@@ -1113,8 +1113,8 @@
           ]
         }
       },
-      "reviewedAt": "2026-08-15T12:19:03.465Z",
-      "durationMs": 6984
+      "reviewedAt": "2026-08-15T12:22:52.541Z",
+      "durationMs": 5773
     },
     {
       "id": "marbella-boat-charter",
@@ -1234,13 +1234,13 @@
         "usage": null
       },
       "metrics": {
-        "lcpMs": 600,
-        "mobileLcpMs": 604,
+        "lcpMs": 680,
+        "mobileLcpMs": 652,
         "cls": 0.7103,
-        "ttfbMs": 3,
+        "ttfbMs": 11,
         "totalBlockingMs": 0,
         "transferKb": 2146,
-        "resourceCount": 20
+        "resourceCount": 18
       },
       "checks": {
         "httpOk": true,
@@ -1387,8 +1387,8 @@
           ]
         }
       },
-      "reviewedAt": "2026-08-15T12:19:10.073Z",
-      "durationMs": 6608
+      "reviewedAt": "2026-08-15T12:22:58.577Z",
+      "durationMs": 6036
     },
     {
       "id": "marbella-for-sale",
@@ -1406,7 +1406,7 @@
       "rawScore": 96.7,
       "cap": 100,
       "tier": "Reference Quality",
-      "delta": 5.8,
+      "delta": 0,
       "categoryScores": {
         "businessFit": 94,
         "visualDesign": 97.5,
@@ -1463,13 +1463,13 @@
         "usage": null
       },
       "metrics": {
-        "lcpMs": 508,
-        "mobileLcpMs": 428,
+        "lcpMs": 596,
+        "mobileLcpMs": 384,
         "cls": 0,
-        "ttfbMs": 23,
-        "totalBlockingMs": 64,
-        "transferKb": 812,
-        "resourceCount": 44
+        "ttfbMs": 4,
+        "totalBlockingMs": 60,
+        "transferKb": 793,
+        "resourceCount": 26
       },
       "checks": {
         "httpOk": true,
@@ -1489,19 +1489,9 @@
         "browserErrors": [],
         "screenshotErrors": [],
         "mobileProbe": {
-          "tinyTapTargetCount": 1,
+          "tinyTapTargetCount": 0,
           "interactiveTargetCount": 36,
-          "tinyTapTargetSamples": [
-            {
-              "tag": "button",
-              "id": null,
-              "className": "save-button ",
-              "text": "",
-              "width": 44,
-              "height": 44,
-              "fontSize": 16
-            }
-          ],
+          "tinyTapTargetSamples": [],
           "tinyTextCount": 4,
           "visibleElementCount": 289,
           "tinyTextSamples": [
@@ -1544,8 +1534,8 @@
           ]
         }
       },
-      "reviewedAt": "2026-08-15T12:19:15.791Z",
-      "durationMs": 5718
+      "reviewedAt": "2026-08-15T12:23:04.727Z",
+      "durationMs": 6149
     },
     {
       "id": "la-bocana",
@@ -1563,7 +1553,7 @@
       "rawScore": 97.1,
       "cap": 100,
       "tier": "Reference Quality",
-      "delta": 3,
+      "delta": 0,
       "categoryScores": {
         "businessFit": 94,
         "visualDesign": 97.5,
@@ -1590,13 +1580,13 @@
         "usage": null
       },
       "metrics": {
-        "lcpMs": 504,
-        "mobileLcpMs": 412,
+        "lcpMs": 600,
+        "mobileLcpMs": 544,
         "cls": 0,
-        "ttfbMs": 10,
-        "totalBlockingMs": 39,
-        "transferKb": 430,
-        "resourceCount": 32
+        "ttfbMs": 4,
+        "totalBlockingMs": 21,
+        "transferKb": 431,
+        "resourceCount": 33
       },
       "checks": {
         "httpOk": true,
@@ -1652,8 +1642,8 @@
           ]
         }
       },
-      "reviewedAt": "2026-08-15T12:19:26.403Z",
-      "durationMs": 10612
+      "reviewedAt": "2026-08-15T12:23:13.178Z",
+      "durationMs": 8451
     },
     {
       "id": "noguera",
@@ -1671,7 +1661,7 @@
       "rawScore": 85.2,
       "cap": 100,
       "tier": "Premium",
-      "delta": 22.4,
+      "delta": 0,
       "categoryScores": {
         "businessFit": 68,
         "visualDesign": 97.5,
@@ -1803,13 +1793,13 @@
         "usage": null
       },
       "metrics": {
-        "lcpMs": 0,
-        "mobileLcpMs": 0,
-        "cls": 0,
-        "ttfbMs": 7,
+        "lcpMs": 268,
+        "mobileLcpMs": 308,
+        "cls": 0.0012,
+        "ttfbMs": 12,
         "totalBlockingMs": 0,
-        "transferKb": 114,
-        "resourceCount": 15
+        "transferKb": 115,
+        "resourceCount": 16
       },
       "checks": {
         "httpOk": true,
@@ -1837,8 +1827,8 @@
           "tinyTextSamples": []
         }
       },
-      "reviewedAt": "2026-08-15T12:19:35.678Z",
-      "durationMs": 9275
+      "reviewedAt": "2026-08-15T12:23:19.911Z",
+      "durationMs": 6733
     }
   ]
 }
