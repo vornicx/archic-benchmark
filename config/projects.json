@@ -25,7 +25,7 @@
       "market": "Puerto Banús / Marbella",
       "primaryGoal": "Visit / contact",
       "secondaryGoal": "Menu and concept discovery",
-      "criticalPaths": ["/", "/carta", "/visita", "/contacto"],
+      "criticalPaths": ["/", "/concepto", "/carta", "/eric", "/visita", "/contacto"],
       "enabled": true
     },
     {
