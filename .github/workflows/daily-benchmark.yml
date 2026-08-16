@@ -95,3 +95,22 @@ jobs:
 
           echo "Could not persist benchmark output after 3 attempts." >&2
           exit 1
+      - name: Hand report to Archic Control
+        env:
+          ARCHIC_CONTROL_URL: ${{ vars.ARCHIC_CONTROL_URL }}
+          CONTROL_INTEGRATION_SECRET: ${{ secrets.CONTROL_INTEGRATION_SECRET }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -z "${ARCHIC_CONTROL_URL:-}" ] || [ -z "${CONTROL_INTEGRATION_SECRET:-}" ]; then
+            echo "Archic Control handoff is not configured; scheduled Control sync remains the fallback."
+            exit 0
+          fi
+
+          endpoint="${ARCHIC_CONTROL_URL%/}/api/integrations/benchmark"
+          curl --silent --show-error --fail-with-body \
+            --retry 3 --retry-all-errors --connect-timeout 10 --max-time 45 \
+            -X POST "$endpoint" \
+            -H "Authorization: Bearer ${CONTROL_INTEGRATION_SECRET}" \
+            -H "Content-Type: application/json" \
+            --data-binary @data/latest.json
