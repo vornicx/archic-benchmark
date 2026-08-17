@@ -60,7 +60,21 @@ export async function scanViewport(url,{width,height,mobile=false,screenshotPath
     if(navigationError&&navigationError!=='net::ERR_ABORTED') throw new Error(`Navigation failed for ${url}: ${navigationError}`);
     const ready=await waitForDocumentReady(client);
     await wait(500);
-    const result=await client.send('Runtime.evaluate',{expression:`(() => ({
+    const result=await client.send('Runtime.evaluate',{expression:`(() => {
+      const anchors=[...document.querySelectorAll('a[href]')];
+      const contactLinks=anchors.filter(el=>{
+        const href=(el.getAttribute('href')||'').trim();
+        const text=(el.textContent||'').trim();
+        if (/^(tel:|mailto:)/i.test(href)) return true;
+        if (!/(contact|contacto|enquir|consulta|presupuesto|cotiza|quote)/i.test(text+' '+href)) return false;
+        try {
+          const target=new URL(el.href,location.href);
+          return target.origin===location.origin;
+        } catch {
+          return false;
+        }
+      });
+      return {
       documentUrl:location.href,
       titleLength:(document.title||'').trim().length,
       metaDescriptionLength:(document.querySelector('meta[name="description"]')?.content||'').trim().length,
@@ -77,14 +91,15 @@ export async function scanViewport(url,{width,height,mobile=false,screenshotPath
       navLinkCount:document.querySelectorAll('nav a[href],header a[href]').length,
       formCount:document.forms.length,
       primaryCtaCount:[...document.querySelectorAll('a,button')].filter(el=>/(book|reserve|reservar|contact|enquire|consulta|buy|comprar)/i.test(el.textContent||'')).length,
-      bookingSignalCount:[...document.querySelectorAll('a')].filter(el=>/(book|reserve|reservar|disponibilidad)/i.test((el.textContent||'')+' '+el.href)).length,
-      contactSignalCount:document.querySelectorAll('a[href^="tel:"],a[href^="mailto:"]').length,
-      hasPrivacyLink:[...document.querySelectorAll('a')].some(a=>/(privacy|privacidad)/i.test((a.textContent||'')+' '+a.href)),
-      hasLegalLink:[...document.querySelectorAll('a')].some(a=>/(legal|terms|cookies)/i.test((a.textContent||'')+' '+a.href)),
+      bookingSignalCount:anchors.filter(el=>/(book|reserve|reservar|disponibilidad)/i.test((el.textContent||'')+' '+el.href)).length,
+      contactSignalCount:contactLinks.length,
+      contactSignalSamples:contactLinks.slice(0,5).map(el=>({text:(el.textContent||'').trim().replace(/\\s+/g,' ').slice(0,80),href:el.href})),
+      hasPrivacyLink:anchors.some(a=>/(privacy|privacidad)/i.test((a.textContent||'')+' '+a.href)),
+      hasLegalLink:anchors.some(a=>/(legal|terms|cookies)/i.test((a.textContent||'')+' '+a.href)),
       horizontalOverflow:Math.max(document.body?.scrollWidth||0,document.documentElement.scrollWidth||0)>innerWidth+3,
       fontFamilyCount:2,colorCount:8,inconsistentButtonRatio:0,maxHeadingJump:0,documentOutlineOk:document.querySelectorAll('h1').length===1,uniqueHeadingRatio:1,trustSignalCount:0,
-      internalLinks:[...new Set([...document.querySelectorAll('a[href]')].map(a=>a.href).filter(h=>{try{return new URL(h).origin===location.origin}catch{return false}}))].slice(0,24)
-    }))()`,returnByValue:true});
+      internalLinks:[...new Set(anchors.map(a=>a.href).filter(h=>{try{return new URL(h).origin===location.origin}catch{return false}}))].slice(0,24)
+    }})()`,returnByValue:true});
     const mobileProbe=await client.send('Runtime.evaluate',{expression:MOBILE_PROBE,returnByValue:true});
     const perf=await client.send('Runtime.evaluate',{expression:METRICS_SCRIPT,returnByValue:true});
     const dom={...(result.result?.value||{}),...(mobileProbe.result?.value||{})};

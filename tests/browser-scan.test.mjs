@@ -52,3 +52,24 @@ test('scanViewport keeps DOM signals and screenshots stable on extremely tall HT
     await fs.rm(dir, { recursive: true, force: true });
   }
 });
+
+test('scanViewport treats a visible same-origin contact journey as a contact signal', { timeout: 30000 }, async () => {
+  const html = '<!doctype html><html lang="es"><head><title>Contact path</title><meta name="viewport" content="width=device-width, initial-scale=1"></head><body><h1>Proyecto</h1><a href="/contacto.html">Solicitar presupuesto</a></body></html>';
+  const server = http.createServer((req,res) => {
+    res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });
+    res.end(html);
+  });
+  await new Promise((resolve,reject) => {
+    server.once('error', reject);
+    server.listen(0, '127.0.0.1', resolve);
+  });
+  const address = server.address();
+  try {
+    const scan = await scanViewport(`http://127.0.0.1:${address.port}/`, { width: 390, height: 844, mobile: true });
+    assert.equal(scan.dom.contactSignalCount, 1);
+    assert.equal(scan.dom.contactSignalSamples[0].text, 'Solicitar presupuesto');
+    assert.match(scan.dom.contactSignalSamples[0].href, /\/contacto\.html$/);
+  } finally {
+    await new Promise(resolve => server.close(resolve));
+  }
+});
