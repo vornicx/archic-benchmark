@@ -22,6 +22,26 @@ async function waitForDocumentReady(client, timeoutMs = 10000) {
   throw new Error(`Navigation did not become ready within ${timeoutMs} ms (href=${last.href}, readyState=${last.readyState})`);
 }
 
+async function waitForMeaningfulDom(client, timeoutMs = 5000) {
+  const deadline = Date.now() + timeoutMs;
+  let last = { bodyTextLength: 0, interactiveCount: 0, h1Count: 0 };
+  while (Date.now() < deadline) {
+    const result = await client.send('Runtime.evaluate', {
+      expression: `(() => {
+        const bodyTextLength=(document.body?.innerText||'').trim().length;
+        const interactiveCount=document.querySelectorAll('a[href],button,form,input,select,textarea').length;
+        const h1Count=document.querySelectorAll('h1').length;
+        return {bodyTextLength,interactiveCount,h1Count};
+      })()`,
+      returnByValue: true
+    });
+    last = result.result?.value || last;
+    if (last.bodyTextLength >= 120 && last.interactiveCount >= 2 && last.h1Count >= 1) return last;
+    await wait(100);
+  }
+  return last;
+}
+
 async function captureScreenshotSafe(client, screenshotPath) {
   if (!screenshotPath) return { captured: false, error: null };
   try {
@@ -59,7 +79,7 @@ export async function scanViewport(url,{width,height,mobile=false,screenshotPath
     const navigationError=navigation?.errorText||null;
     if(navigationError&&navigationError!=='net::ERR_ABORTED') throw new Error(`Navigation failed for ${url}: ${navigationError}`);
     const ready=await waitForDocumentReady(client);
-    await wait(500);
+    await waitForMeaningfulDom(client);
     const result=await client.send('Runtime.evaluate',{expression:`(() => {
       const anchors=[...document.querySelectorAll('a[href]')];
       const contactLinks=anchors.filter(el=>{
