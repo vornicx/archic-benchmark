@@ -1,6 +1,6 @@
 export const MOBILE_PROBE = `(() => {
   const visible=el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el);return r.width>0&&r.height>0&&s.display!=='none'&&s.visibility!=='hidden'&&s.opacity!=='0'};
-  const describe=el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el);const tag=el.tagName.toLowerCase();const id=el.id?`#${el.id}`:'';const className=typeof el.className==='string'&&el.className.trim()?'.'+el.className.trim().split(/\s+/).slice(0,3).join('.'):'';const text=(el.innerText||el.textContent||'').trim().replace(/\s+/g,' ').slice(0,60);const label=text?` “${text}”`:'';return `${tag}${id}${className}${label} — ${Number(r.width.toFixed(1))}×${Number(r.height.toFixed(1))} px · ${Number((parseFloat(s.fontSize||'0')).toFixed(1))} px text`};
+  const describe=el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el);const tag=el.tagName.toLowerCase();const id=el.id?'#'+el.id:'';const className=typeof el.className==='string'&&el.className.trim()?'.'+el.className.trim().split(/\s+/).slice(0,3).join('.'):'';const text=(el.innerText||el.textContent||'').trim().replace(/\s+/g,' ').slice(0,60);const label=text?' “'+text+'”':'';return tag+id+className+label+' — '+Number(r.width.toFixed(1))+'×'+Number(r.height.toFixed(1))+' px · '+Number((parseFloat(s.fontSize||'0')).toFixed(1))+' px text'};
   const textOf=el=>(el?.innerText||el?.textContent||'').trim().replace(/\s+/g,' ');
   const accessibleName=el=>{
     const aria=(el.getAttribute('aria-label')||'').trim();
