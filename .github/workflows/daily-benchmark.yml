@@ -55,9 +55,10 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           ARCHIC_AI_PROVIDER: openai
-          # Daily qualitative reviewer: GPT-5.6 Terra via SynteroLink.
-          ARCHIC_OPENAI_BASE_URL: https://api.synterolink.com
-          ARCHIC_OPENAI_MODEL: gpt-5.6-terra
+          # Default to the official OpenAI endpoint/model. Both remain overridable
+          # through repository variables for any compatible provider we explicitly choose.
+          ARCHIC_OPENAI_BASE_URL: ${{ vars.ARCHIC_OPENAI_BASE_URL || 'https://api.openai.com' }}
+          ARCHIC_OPENAI_MODEL: ${{ vars.ARCHIC_OPENAI_MODEL || 'gpt-5-mini' }}
           ARCHIC_OPENAI_IMAGE_DETAIL: ${{ vars.ARCHIC_OPENAI_IMAGE_DETAIL }}
           ARCHIC_OPENAI_MAX_OUTPUT_TOKENS: ${{ vars.ARCHIC_OPENAI_MAX_OUTPUT_TOKENS }}
           ARCHIC_REVIEW_MODEL: ${{ vars.ARCHIC_REVIEW_MODEL }}
