@@ -12,7 +12,9 @@ on:
       - 'package.json'
       - '.github/workflows/daily-benchmark.yml'
   push:
-    branches: [main]
+    branches:
+      - main
+      - 'agent/**'
     paths:
       - 'src/benchmark/**'
       - 'scripts/**'
@@ -61,7 +63,7 @@ jobs:
       - name: Test benchmark engine
         run: npm test
       - name: Run benchmark
-        if: github.event_name != 'pull_request'
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           ARCHIC_AI_PROVIDER: openai
@@ -74,7 +76,7 @@ jobs:
           ARCHIC_REVIEW_MODEL: ${{ vars.ARCHIC_REVIEW_MODEL }}
         run: npm run benchmark
       - name: Persist benchmark report safely
-        if: github.event_name != 'pull_request'
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         shell: bash
         run: |
           set -euo pipefail
@@ -108,7 +110,7 @@ jobs:
           echo "Could not persist benchmark output after 3 attempts." >&2
           exit 1
       - name: Hand report to Archic Control
-        if: github.event_name != 'pull_request'
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         env:
           ARCHIC_CONTROL_URL: ${{ vars.ARCHIC_CONTROL_URL }}
           CONTROL_INTEGRATION_SECRET: ${{ secrets.CONTROL_INTEGRATION_SECRET }}
