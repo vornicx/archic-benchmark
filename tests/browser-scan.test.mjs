@@ -73,3 +73,27 @@ test('scanViewport treats a visible same-origin contact journey as a contact sig
     await new Promise(resolve => server.close(resolve));
   }
 });
+
+test('mobile finding samples are readable evidence instead of object coercions', { timeout: 30000 }, async () => {
+  const html = '<!doctype html><html lang="es"><head><title>Mobile evidence</title><meta name="viewport" content="width=device-width, initial-scale=1"></head><body><h1>Proyecto</h1><a href="/contacto" style="display:inline-block;font-size:11px;line-height:20px;padding:0 4px">Pedir precio</a></body></html>';
+  const server = http.createServer((req,res) => {
+    res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });
+    res.end(html);
+  });
+  await new Promise((resolve,reject) => {
+    server.once('error', reject);
+    server.listen(0, '127.0.0.1', resolve);
+  });
+  const address = server.address();
+  try {
+    const scan = await scanViewport(`http://127.0.0.1:${address.port}/`, { width: 390, height: 844, mobile: true });
+    assert.ok(scan.dom.tinyTapTargetSamples.length >= 1);
+    assert.equal(typeof scan.dom.tinyTapTargetSamples[0], 'string');
+    assert.match(scan.dom.tinyTapTargetSamples[0], /Pedir precio/);
+    assert.match(scan.dom.tinyTapTargetSamples[0], /px · 11 px text/);
+    assert.ok(scan.dom.tinyTextSamples.some(sample => sample.includes('Pedir precio')));
+    assert.ok(!scan.dom.tinyTapTargetSamples.some(sample => sample.includes('[object Object]')));
+  } finally {
+    await new Promise(resolve => server.close(resolve));
+  }
+});
